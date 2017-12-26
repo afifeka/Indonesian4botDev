@@ -105,7 +105,7 @@ bot.on('message', async message => {
     // PING
     if (msg === prefix + 'PING') {
         message.react("✅")
-        let newMes = await message.channel.send('Pinging... **Mohon Tunggu / Checking Discord Heartbeat**');
+        let newMes = await message.channel.send('Pinging...');
         newMes.edit(new Date().getTime() - message.createdTimestamp + " ms.");
     }
 
@@ -291,4 +291,4 @@ bot.on("ready", () => {
     bot.user.setPresence({ activity: { name: `${bot.guilds.size} servers | ]update`, type: 0 } });
 });
 
-bot.login(process.env.BOT_TOKEN);
+bot.login('MzgzMTgzODY2OTI1Njc4NjA0.DRD2Fg.EOP8ocuRQh4qA8pEDUgR5t3DgR0');
