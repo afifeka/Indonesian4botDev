@@ -1,0 +1,30 @@
+{
+  "name": "indonesia",
+  "version": "1.0.0",
+  "description": "Indonesia Bot. Bot Terkeren. BotSquad.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ray#2221",
+  "license": "ISC",
+  "dependencies": {
+    "bufferutil": "^3.0.3",
+    "cat": "^0.2.0",
+    "discord.js": "github:hydrabolt/discord.js",
+    "ffmpeg-binaries": "^3.2.2-3",
+    "fs": "0.0.1-security",
+    "get-youtube-id": "^1.0.0",
+    "meow": "^4.0.0",
+    "opusscript": "0.0.4",
+    "quick.db": "^3.0.3",
+    "random-cat": "^1.0.1",
+    "request": "^2.83.0",
+    "sqlite3": "^3.1.13",
+    "superagent": "^3.8.2",
+    "weather-js": "^2.0.0",
+    "youtube-info": "^1.1.2",
+    "youtube-search": "^1.0.10",
+    "ytdl-core": "^0.18.5"
+  }
+}
