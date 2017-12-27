@@ -5,10 +5,6 @@ const fs = require("fs");
 const talkedRecently = new Set();
 const ms = require("ms");
 
-// MUSIC SYSTEM PACKAGE
-const google = require('googleapis');
-const service = google.youtube('v3');
-
 // Pengaturan Global
 const prefix = ']';
 
@@ -306,4 +302,4 @@ bot.on("ready", () => {
     bot.user.setPresence({ activity: { name: `${bot.guilds.size} servers | ]update`, type: 0 } });
 });
 
-bot.login(process_env.bot.token)
+bot.login(process.env.BOT_TOKEN)
