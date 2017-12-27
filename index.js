@@ -306,4 +306,4 @@ bot.on("ready", () => {
     bot.user.setPresence({ activity: { name: `${bot.guilds.size} servers | ]update`, type: 0 } });
 });
 
-bot.login('MzgzMTgzODY2OTI1Njc4NjA0.DRD2Fg.EOP8ocuRQh4qA8pEDUgR5t3DgR0');
+bot.login(process_env.bot.token)
