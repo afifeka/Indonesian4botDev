@@ -498,4 +498,4 @@ bot.on("ready", () => {
     bot.user.setPresence({ activity: { name: `${bot.guilds.size} servers | ]help`, type: 0 } });
 });
 
-bot.login('process.env.BOT_TOKEN');
+bot.login(process.env.BOT_TOKEN);
