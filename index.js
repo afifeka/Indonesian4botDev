@@ -4,10 +4,6 @@ const bot = new Discord.Client();
 const fs = require("fs");
 const ms = require("ms");
 
-// MUSIC SYSTEM PACKAGE
-const google = require('googleapis');
-const service = google.youtube('v3');
-
 // Pengaturan Global
 const prefix = ']';
 
@@ -159,7 +155,6 @@ bot.on('message', async message => {
     // MUSIC AUDIO PLAYER
     // PLAY MUSIC COMMAND
     const yt = require('ytdl-core');
-    const ffmpeg = require('ffmpeg-binaries')
 
     var voice_connection = null;
     var voice_handler = null;
