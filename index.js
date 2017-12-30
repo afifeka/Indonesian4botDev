@@ -75,11 +75,7 @@ bot.on('message', async message => {
 
     if (msg === prefix + 'CAT') {
         message.react("✅");
-        return message.channel.send({embed: {
-            title: ":cat: Random Cat:",
-            color: 0xff2f2f,
-            description: `${throwCat}`
-        }});
+        message.channel.send(`:cat: Random cat. \n${throwCat}`)
     }
 
     // ANJING RANDOM
@@ -88,11 +84,7 @@ bot.on('message', async message => {
 
     if (msg === prefix + 'DOG') {
         message.react("✅");
-        return message.channel.send({embed: {
-            title: ":dog: Random Dog.",
-            color: 0xff2f2f,
-            description: `${throwDog}`
-        }});
+        message.channel.send(`:dog: Random cat \n${throwDog}`)
     }
 
     // INVITE
@@ -115,7 +107,7 @@ bot.on('message', async message => {
 
     // UPDATE
     if (msg === prefix + 'UPDATE') {
-        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- Alts not supported in this bot again. \n- Ban Kick Mute diubah, & diperbaiki');
+        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- Belum ada update untuk saat ini.');
     }
 
     // AVATAR
@@ -149,7 +141,7 @@ bot.on('message', async message => {
     // HELP (SEDERHANA)
     if (msg.startsWith(prefix + 'HELP')) {
         message.react("✅")
-        message.channel.send('**SELAMAT DATANG DI INDONESIA DISCORD BOT GUILD!** \n*Bot ini mempunyai sistem Kick/Ban, Fun, dan Game!* \n*Bot ini juga tersedia ALTS MINECRAFT RANDOM dan terdapat akun MC SFA dan NFA!* \nBuruan Invite Bot Ini Ke Server Kalian! \n\n**PREFIX SAAT INI:** ' + prefix + '\n\nNormal: `help`, `avatar`, `info`, `ping`, `update`, `invite`, `hook` \nFun: `cat`, `dog`, `alts` \nModerator: `kick`, `ban`, `unmute`, `mute` \nMusic: `play`, `stop`')
+        message.channel.send('**SELAMAT DATANG DI INDONESIA DISCORD BOT GUILD!** \n*Bot ini mempunyai sistem Kick/Ban, Fun, dan Game!* \nBuruan Invite Bot Indonesia Ke Server Kalian! \n\n**PREFIX SAAT INI:** ' + prefix + '\n\nNormal: `help`, `avatar`, `info`, `ping`, `update`, `invite`, `hook` \nFun: `cat`, `dog`, `alts` \nModerator: `kick`, `ban`, `unmute`, `mute` \nMusic: `play`, `stop`')
     }
 
     // MUSIC AUDIO PLAYER
