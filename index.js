@@ -80,8 +80,8 @@ bot.on('message', async message => {
     }
 
     // USERINFO
-    if (msg.startsWith(prefix + 'USERINFO')) {
-        return message.channel.send(`**Username:** ${user.username} ${user.discriminator} \n**Joined Discord:** ${user.createdTimestamp} \n**Message sent counted:** ${user.lastMessageID}`)
+    if (msg === prefix + 'USERINFO) {
+        message.channel.send(`**Username:** ${user.username} \n**Joined Discord:** ${user.createdTimestamp} \n**Message sent counted:** ${user.lastMessageID}`)
     }
 
     // ANJING RANDOM
