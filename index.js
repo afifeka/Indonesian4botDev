@@ -81,11 +81,6 @@ bot.on('message', async message => {
 
     // USERINFO
     if (msg.startsWith(prefix + 'USERINFO')) {
-        if (msg === prefix + 'USERINFO') {
-            let member = message.mentions.members.first();
-            if (!member)
-                return message.channel.send('Mohon mention member terlebih dahulu!')
-        }
         return message.channel.send(`**Username:** ${user.username} ${user.discriminator} \n**Joined Discord:** ${user.createdTimestamp} \n**Message sent counted:** ${user.lastMessageID}`)
     }
 
