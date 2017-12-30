@@ -80,7 +80,7 @@ bot.on('message', async message => {
     }
 
     // USERINFO
-    if (msg === prefix + 'USERINFO) {
+    if (msg === prefix + 'USERINFO') {
         message.channel.send(`**Username:** ${user.username} \n**Joined Discord:** ${user.createdTimestamp} \n**Message sent counted:** ${user.lastMessageID}`)
     }
 
