@@ -84,7 +84,7 @@ bot.on('message', async message => {
 
     if (msg === prefix + 'DOG') {
         message.react("✅");
-        message.channel.send(`:dog: Random cat \n${throwDog}`)
+        message.channel.send(`:dog: Random dog. \n${throwDog}`)
     }
 
     // INVITE
