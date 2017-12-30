@@ -59,6 +59,7 @@ function hook(channel, title, message, color, avatar) {
     
     }
 
+
 // Listener Event
 bot.on('message', async message => {
 
@@ -76,6 +77,16 @@ bot.on('message', async message => {
     if (msg === prefix + 'CAT') {
         message.react("✅");
         message.channel.send(`:cat: Random cat. \n${throwCat}`)
+    }
+
+    // USERINFO
+    if (msg.startsWith(prefix + 'USERINFO')) {
+        if (msg === prefix + 'USERINFO') {
+            let member = message.mentions.members.first();
+            if (!member)
+                return message.channel.send('Mohon mention member terlebih dahulu!')
+        }
+        return message.channel.send(`**Username:** ${user.username} ${user.discriminator} \n**Joined Discord:** ${user.createdTimestamp} \n**Message sent counted:** ${user.lastMessageID}`)
     }
 
     // ANJING RANDOM
@@ -99,7 +110,6 @@ bot.on('message', async message => {
         newMes.edit(new Date().getTime() - message.createdTimestamp + " ms.");
     }
 
-
     // INFO
     if (msg === prefix + 'INFO') {
         message.channel.send('**BOT OWNER**: Ray#2221 \n**HELPER**: ItzMeDwii#9748\n**LAUNCHED**: 12 December 2017 (reseted) \n**LIBRARY**: Discord.js \n**SOFTWARE**: Visual Studio Code, Git Bash & Node.js \n**OFFICIAL RELEASE**: January 2018 \n**THANK YOU FOR SUPPORT ME**: TrueXPixels, Jordie, Aeirety, Mortixx & BlackB1RD \n**FEATURES COMING**: Kick/Ban & Timed Mute ');
@@ -107,7 +117,7 @@ bot.on('message', async message => {
 
     // UPDATE
     if (msg === prefix + 'UPDATE') {
-        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- Belum ada update untuk saat ini.');
+        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- Alts not supported in this bot again. \n- Ban Kick Mute diubah, & diperbaiki');
     }
 
     // AVATAR
@@ -141,12 +151,13 @@ bot.on('message', async message => {
     // HELP (SEDERHANA)
     if (msg.startsWith(prefix + 'HELP')) {
         message.react("✅")
-        message.channel.send('**SELAMAT DATANG DI INDONESIA DISCORD BOT GUILD!** \n*Bot ini mempunyai sistem Kick/Ban, Fun, dan Game!* \nBuruan Invite Bot Indonesia Ke Server Kalian! \n\n**PREFIX SAAT INI:** ' + prefix + '\n\nNormal: `help`, `avatar`, `info`, `ping`, `update`, `invite`, `hook` \nFun: `cat`, `dog`, `alts` \nModerator: `kick`, `ban`, `unmute`, `mute` \nMusic: `play`, `stop`')
+        message.channel.send('**SELAMAT DATANG DI INDONESIA DISCORD BOT GUILD!** \n*Bot ini mempunyai sistem Kick/Ban, Fun, dan Game!* \n*Bot ini juga tersedia ALTS MINECRAFT RANDOM dan terdapat akun MC SFA dan NFA!* \nBuruan Invite Bot Ini Ke Server Kalian! \n\n**PREFIX SAAT INI:** ' + prefix + '\n\nNormal: `help`, `avatar`, `info`, `ping`, `update`, `invite`, `hook` \nFun: `cat`, `dog`, `alts` \nModerator: `kick`, `ban`, `unmute`, `mute` \nMusic: `play`, `stop`')
     }
 
     // MUSIC AUDIO PLAYER
     // PLAY MUSIC COMMAND
     const yt = require('ytdl-core');
+    const ffmpeg = require('ffmpeg-binaries')
 
     var voice_connection = null;
     var voice_handler = null;
