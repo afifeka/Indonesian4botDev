@@ -1,6 +1,6 @@
 // Mengaktifkan Package NPM.js
 const Discord = require('discord.js');
-const bot = new Discord.Client();
+const client = new Discord.Client();
 const fs = require("fs");
 const ms = require("ms");
 
@@ -61,7 +61,7 @@ function hook(channel, title, message, color, avatar) {
 
 
 // Listener Event
-bot.on('message', async message => {
+client.on('message', async message => {
 
     let msg = message.content.toUpperCase();
     let sender = message.author;
@@ -71,7 +71,7 @@ bot.on('message', async message => {
     // Perintah
 
     // KUCING RANDOM
-    var cats = ["http://gph.is/Q4BXP3", "http://gph.is/2d8adKP", "http://gph.is/12Si8vm", "http://gph.is/1U0wvs6", "http://gph.is/2vKVWeD", "http://gph.is/11lX02t", "http://gph.is/1OE03xm", "**Gotcha! Kamu gak dapat kucing, kasihan. :joy: **", "https://gph.is/Z0lius", "https://gph.is/28JB2i8", "https://gph.is/15HR0SL", "https://gph.is/2cDbxCu", "https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif", "https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif", "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif", "https://media.giphy.com/media/xJjs8eGVbjNYY/giphy.gif", "https://media.giphy.com/media/3o84U1k2yyjoCQydZm/giphy.gif", "https://media.giphy.com/media/26FPCXdkvDbKBbgOI/giphy.gif", "https://media.giphy.com/media/11fucLQCTOdvBS/giphy.gif", "https://media.giphy.com/media/10rW4Xw9eO0RmU/giphy.gif", "https://media.giphy.com/media/10dU7AN7xsi1I4/giphy.gif", "https://media.giphy.com/media/uTCAwWNtz7U2c/giphy.gif", "https://media.giphy.com/media/3oEduSbSGpGaRX2Vri/giphy.gif"]
+    var cats = ["https://media.giphy.com/media/xJjs8eGVbjNYY/giphy.gif","https://media.giphy.com/media/xTiTnGmnf7CxpduWxq/giphy.gif","https://media.giphy.com/media/3oEduSbSGpGaRX2Vri/giphy.gif","https://media.giphy.com/media/uTCAwWNtz7U2c/giphy.gif","https://media.giphy.com/media/12PA1eI8FBqEBa/giphy.gif","https://media.giphy.com/media/W3QKEujo8vztC/giphy.gif", "http://gph.is/Q4BXP3", "http://gph.is/2d8adKP", "http://gph.is/12Si8vm", "http://gph.is/1U0wvs6", "http://gph.is/2vKVWeD", "http://gph.is/11lX02t", "http://gph.is/1OE03xm", "**Gotcha! Kamu gak dapat kucing, kasihan. :joy: **", "https://gph.is/Z0lius", "https://gph.is/28JB2i8", "https://gph.is/15HR0SL", "https://gph.is/2cDbxCu", "https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif", "https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif", "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif", "https://media.giphy.com/media/xJjs8eGVbjNYY/giphy.gif", "https://media.giphy.com/media/3o84U1k2yyjoCQydZm/giphy.gif", "https://media.giphy.com/media/26FPCXdkvDbKBbgOI/giphy.gif", "https://media.giphy.com/media/11fucLQCTOdvBS/giphy.gif", "https://media.giphy.com/media/10rW4Xw9eO0RmU/giphy.gif", "https://media.giphy.com/media/10dU7AN7xsi1I4/giphy.gif", "https://media.giphy.com/media/uTCAwWNtz7U2c/giphy.gif", "https://media.giphy.com/media/3oEduSbSGpGaRX2Vri/giphy.gif"]
     var throwCat = cats[Math.floor(Math.random() * cats.length)];
 
     if (msg === prefix + 'CAT') {
@@ -79,13 +79,10 @@ bot.on('message', async message => {
         message.channel.send(`:cat: Random cat. \n${throwCat}`)
     }
 
-    // USERINFO
-    if (msg === prefix + 'USERINFO') {
-        message.channel.send(`**Username:** ${user.username} \n**Joined Discord:** ${user.createdTimestamp} \n**Message sent counted:** ${user.lastMessageID}`)
-    }
+    // JOKE RECEH
 
     // ANJING RANDOM
-    var dogs = ["https://media.giphy.com/media/l378p0VvTts3st2RG/giphy.gif", "https://media.giphy.com/media/DvyLQztQwmyAM/giphy.gif", "https://media.giphy.com/media/dTJd5ygpxkzWo/giphy.gif", "https://media.giphy.com/media/WZP3qaxYj10gU/giphy.gif", "https://media.giphy.com/media/2FhASosZtLUPe/giphy.gif", "**Gotcha! Kamu gak dapat anjing, kasihan. :joy: **", "https://media.giphy.com/media/RQSuZfuylVNAY/giphy.gif", "https://media.giphy.com/media/Pn1gZzAY38kbm/giphy.gif", "https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif", "https://media.giphy.com/media/IWon6VgzVwEnu/giphy.gif"]
+    var dogs = ["https://media.giphy.com/media/oDLDbBgf0dkis/giphy.gif", "https://media.giphy.com/media/3ohc17IuNgUpALSaIM/giphy.gif", "https://media.giphy.com/media/Yjc9l1Q6Al1DO/giphy.gif", "https://media.giphy.com/media/3o6fIPz4LThIf7SUA8/giphy.gif", "https://media.giphy.com/media/l378p0VvTts3st2RG/giphy.gif", "https://media.giphy.com/media/DvyLQztQwmyAM/giphy.gif", "https://media.giphy.com/media/dTJd5ygpxkzWo/giphy.gif", "https://media.giphy.com/media/WZP3qaxYj10gU/giphy.gif", "https://media.giphy.com/media/2FhASosZtLUPe/giphy.gif", "**Gotcha! Kamu gak dapat anjing, kasihan. :joy: **", "https://media.giphy.com/media/RQSuZfuylVNAY/giphy.gif", "https://media.giphy.com/media/Pn1gZzAY38kbm/giphy.gif", "https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif", "https://media.giphy.com/media/IWon6VgzVwEnu/giphy.gif"]
     var throwDog = dogs[Math.floor(Math.random() * dogs.length)];
 
     if (msg === prefix + 'DOG') {
@@ -102,7 +99,7 @@ bot.on('message', async message => {
     if (msg === prefix + 'PING') {
         message.react("✅")
         let newMes = await message.channel.send('Pinging...');
-        newMes.edit(new Date().getTime() - message.createdTimestamp + " ms.");
+        newMes.edit(new Date().getTime() - message.createdTimestamp + " ms. :ping_pong: Pong!");
     }
 
     // INFO
@@ -114,6 +111,7 @@ bot.on('message', async message => {
     if (msg === prefix + 'UPDATE') {
         message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- Alts not supported in this bot again. \n- Ban Kick Mute diubah, & diperbaiki');
     }
+    
 
     // AVATAR
     if (msg === prefix + 'AVATAR') {
@@ -146,13 +144,12 @@ bot.on('message', async message => {
     // HELP (SEDERHANA)
     if (msg.startsWith(prefix + 'HELP')) {
         message.react("✅")
-        message.channel.send('**SELAMAT DATANG DI INDONESIA DISCORD BOT GUILD!** \n*Bot ini mempunyai sistem Kick/Ban, Fun, dan Game!* \n*Bot ini juga tersedia ALTS MINECRAFT RANDOM dan terdapat akun MC SFA dan NFA!* \nBuruan Invite Bot Ini Ke Server Kalian! \n\n**PREFIX SAAT INI:** ' + prefix + '\n\nNormal: `help`, `avatar`, `info`, `ping`, `update`, `invite`, `hook` \nFun: `cat`, `dog`, `alts` \nModerator: `kick`, `ban`, `unmute`, `mute` \nMusic: `play`, `stop`')
+        message.channel.send('**SELAMAT DATANG DI INDONESIA DISCORD BOT GUILD!** \n*Bot ini mempunyai sistem Kick/Ban, Fun, dan Game!* \n*Bot ini juga tersedia ALTS MINECRAFT RANDOM dan terdapat akun MC SFA dan NFA!* \nBuruan Invite Bot Ini Ke Server Kalian! \n\n**PREFIX SAAT INI:** ' + prefix + '\n\nNormal: `help`, `avatar`, `info`, `ping`, `update`, `invite`, `hook` \nFun: `cat`, `dog`, `alts` \nModerator: `kick`, `ban`, `mute` \nMusic: `play`, `stop`')
     }
 
     // MUSIC AUDIO PLAYER
     // PLAY MUSIC COMMAND
     const yt = require('ytdl-core');
-    const ffmpeg = require('ffmpeg-binaries')
 
     var voice_connection = null;
     var voice_handler = null;
@@ -226,26 +223,6 @@ bot.on('message', async message => {
         }, ms(time));
     }
 
-    // UNMUTE
-    if (msg.startsWith(prefix + 'UNMUTE')) {
-        let member = message.mentions.members.first();
-        member.removeRole(muteRole.id)
-            return message.channel.send({embed: {
-                color: 0xff2f2f,
-                author: {
-                    icon_url: bot.user.avatarURL()
-                },
-                title: "Muted system.",
-                description: "Unmuted.",
-            timestamp: new Date(),
-            footer: {
-            icon_url: bot.user.avatarURL,
-            text: "© Indonesia | BETA RELEASE | discord.js"
-            }
-        }
-    });
-    }
-
     // KICK
     if (msg.startsWith(prefix + 'KICK')) {
 
@@ -253,7 +230,7 @@ bot.on('message', async message => {
             return message.channel.send({embed: {
                 color: 0xff2f2f,
                 author: {
-                    icon_url: bot.user.avatarURL()
+                    icon_url: client.user.avatarURL()
                 },
                 title: "Kick clarification.",
                 description: "Gagal untuk mengidentifikasi author.",
@@ -264,7 +241,7 @@ bot.on('message', async message => {
             ],
             timestamp: new Date(),
             footer: {
-              icon_url: bot.user.avatarURL,
+              icon_url: client.user.avatarURL,
               text: "© Indonesia | BETA RELEASE | discord.js"
             }
         }
@@ -275,7 +252,7 @@ bot.on('message', async message => {
             return message.channel.send({embed: {
                 color: 0xff2f2f,
                 author: {
-                    icon_url: bot.user.avatarURL()
+                    icon_url: client.user.avatarURL()
                 },
                 title: "Kick clarification.",
                 description: "Gagal untuk mengidentifikasi member.",
@@ -286,7 +263,7 @@ bot.on('message', async message => {
             ],
             timestamp: new Date(),
             footer: {
-            icon_url: bot.user.avatarURL(),
+            icon_url: client.user.avatarURL(),
             text: "© Indonesia | BETA RELEASE | discord.js"
             }
         }
@@ -295,7 +272,7 @@ bot.on('message', async message => {
             return message.channel.send({embed: {
                 color: 0xff2f2f,
                 author: {
-                    icon_url: bot.user.avatarURL()
+                    icon_url: client.user.avatarURL()
                 },
                 title: "Kick clarification.",
                 url: "https://support.discordapp.com/hc/en-us/articles/214836687-Role-Management-101",
@@ -307,7 +284,7 @@ bot.on('message', async message => {
             ],
             timestamp: new Date(),
             footer: {
-              icon_url: bot.user.avatarURL(),
+              icon_url: client.user.avatarURL(),
               text: "© Indonesia | BETA RELEASE | discord.js"
             }
         }
@@ -319,7 +296,7 @@ bot.on('message', async message => {
             return message.channel.send({embed: {
                 color: 0xff2f2f,
                 author: {
-                    icon_url: bot.user.avatarURL()
+                    icon_url: client.user.avatarURL()
                 },
                 title: "Kick clarification.",
                 description: "Aduh, tamatlah saya!",
@@ -330,7 +307,7 @@ bot.on('message', async message => {
             ],
             timestamp: new Date(),
             footer: {
-            icon_url: bot.user.avatarURL(),
+            icon_url: client.user.avatarURL(),
             text: "© Indonesia | BETA RELEASE | discord.js"
             }
         }
@@ -342,7 +319,7 @@ bot.on('message', async message => {
             message.channel.send({embed: {
                 color: 0xffa500,
                 author: {
-                    icon_url: bot.user.avatarURL()
+                    icon_url: client.user.avatarURL()
                 },
                 title: "Kick Clarification",
                 description: "Yah, balikin saya lagi dong...",
@@ -357,7 +334,7 @@ bot.on('message', async message => {
             ],
                 timestamp: new Date(),
                 footer: {
-                    icon_url: bot.user.avatarURL(),
+                    icon_url: client.user.avatarURL(),
                     text: "© Indonesia | BETA RELEASE | discord.js"
                 }
             }
@@ -372,7 +349,7 @@ bot.on('message', async message => {
             return message.channel.send({embed: {
                     color: 0xff2f2f,
                     author: {
-                        icon_url: bot.user.avatarURL()
+                        icon_url: client.user.avatarURL()
                     },
                     title: "Ban clarification.",
                     description: "Gagal untuk mengidentifikasi author.",
@@ -383,7 +360,7 @@ bot.on('message', async message => {
                 ],
                 timestamp: new Date(),
                 footer: {
-                  icon_url: bot.user.avatarURL,
+                  icon_url: client.user.avatarURL,
                   text: "© Indonesia | BETA RELEASE | discord.js"
                 }
             }
@@ -395,7 +372,7 @@ bot.on('message', async message => {
             return message.channel.send({embed: {
                 color: 0xff2f2f,
                 author: {
-                    icon_url: bot.user.avatarURL()
+                    icon_url: client.user.avatarURL()
                 },
                 title: "Ban clarification.",
                 description: "Gagal untuk mengidentifikasi member.",
@@ -406,7 +383,7 @@ bot.on('message', async message => {
             ],
             timestamp: new Date(),
             footer: {
-              icon_url: bot.user.avatarURL(),
+              icon_url: client.user.avatarURL(),
               text: "© Indonesia | BETA RELEASE | discord.js"
             }
         }
@@ -416,7 +393,7 @@ bot.on('message', async message => {
             return message.channel.send({embed: {
                 color: 0xff2f2f,
                 author: {
-                    icon_url: bot.user.avatarURL()
+                    icon_url: client.user.avatarURL()
                 },
                 title: "Ban clarification.",
                 url: "https://support.discordapp.com/hc/en-us/articles/214836687-Role-Management-101",
@@ -428,7 +405,7 @@ bot.on('message', async message => {
             ],
             timestamp: new Date(),
             footer: {
-              icon_url: bot.user.avatarURL(),
+              icon_url: client.user.avatarURL(),
               text: "© Indonesia | BETA RELEASE | discord.js"
             }
         }
@@ -439,7 +416,7 @@ bot.on('message', async message => {
             return message.channel.send({embed: {
                 color: 0xff2f2f,
                 author: {
-                    icon_url: bot.user.avatarURL()
+                    icon_url: client.user.avatarURL()
                 },
                 title: "Ban clarification.",
                 description: "Mengapa? Bagaimana?",
@@ -450,7 +427,7 @@ bot.on('message', async message => {
             ],
             timestamp: new Date(),
             footer: {
-              icon_url: bot.user.avatarURL(),
+              icon_url: client.user.avatarURL(),
               text: "© Indonesia | BETA RELEASE | discord.js"
             }
         }
@@ -461,7 +438,7 @@ bot.on('message', async message => {
             return message.channel.send({embed: {
                 color: 0xffa500,
                 author: {
-                    icon_url: bot.user.avatarURL()
+                    icon_url: client.user.avatarURL()
                 },
                 title: "Banned Clarification",
                 description: "Dia barusan kena banned?",
@@ -476,7 +453,7 @@ bot.on('message', async message => {
             ],
                 timestamp: new Date(),
                 footer: {
-                    icon_url: bot.user.avatarURL(),
+                    icon_url: client.user.avatarURL(),
                     text: "© Indonesia | BETA RELEASE | discord.js"
                 }
             }
@@ -486,9 +463,9 @@ bot.on('message', async message => {
 
 });
 
-bot.on("ready", () => {
+client.on("ready", () => {
     console.log('Bot Dimulai.');
-    bot.user.setPresence({ activity: { name: `${bot.guilds.size} servers | ]help`, type: 0 } });
+    client.user.setPresence({ activity: { name: `${client.guilds.size} servers | ]help`, type: 0 } });
 });
 
-bot.login(process.env.BOT_TOKEN);
+client.login(process.env.BOT_TOKEN);
