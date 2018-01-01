@@ -144,7 +144,7 @@ client.on('message', async message => {
     // HELP (SEDERHANA)
     if (msg.startsWith(prefix + 'HELP')) {
         message.react("✅")
-        message.channel.send('**SELAMAT DATANG DI INDONESIA DISCORD BOT GUILD!** \n*Bot ini mempunyai sistem Kick/Ban, Fun, dan Game!* \n*Bot ini juga tersedia ALTS MINECRAFT RANDOM dan terdapat akun MC SFA dan NFA!* \nBuruan Invite Bot Ini Ke Server Kalian! \n\n**PREFIX SAAT INI:** ' + prefix + '\n\nNormal: `help`, `avatar`, `info`, `ping`, `update`, `invite`, `hook` \nFun: `cat`, `dog`, `alts` \nModerator: `kick`, `ban`, `mute` \nMusic: `play`, `stop`')
+        message.channel.send('**SELAMAT DATANG DI INDONESIA DISCORD BOT GUILD!** \n*Bot ini mempunyai sistem Kick/Ban, Fun, dan Game!* \n*Bot ini juga tersedia ALTS MINECRAFT RANDOM dan terdapat akun MC SFA dan NFA!* \nBuruan Invite Bot Ini Ke Server Kalian! \n\n**PREFIX SAAT INI:** ' + prefix + '\n\nNormal: `help`, `avatar`, `info`, `ping`, `update`, `invite`, `hook` \nFun: `cat`, `dog` \nModerator: `kick`, `ban`, `mute` \nMusic: `play`, `stop`')
     }
 
     // MUSIC AUDIO PLAYER
