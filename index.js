@@ -2,6 +2,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require("fs");
+const db = require("quick.db")
 const ms = require("ms");
 
 // Pengaturan Global
@@ -84,7 +85,7 @@ client.on('message', async message => {
 		} catch (e) {
 			console.log(e);
 		}
-	}
+    }
 
     // INVITE
     if (msg === prefix + 'INVITE') {
@@ -105,7 +106,7 @@ client.on('message', async message => {
 
     // UPDATE
     if (msg === prefix + 'UPDATE') {
-        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- ]dog dihapus untuk sementara/due temporary. \n- System ]cat Unlimited photo. \n- Perbaikan Ban/Kick tidak memunculkan pesan saat ban/kick. \n- Perbaikan status Playing.');
+        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- ]dog dihapus untuk sementara/due temporary. \n- System ]cat Unlimited photo. \n- Perbaikan Ban/Kick tidak memunculkan pesan saat ban/kick. \n- Perbaikan status Playing. \n- ');
     }
     
 
@@ -222,7 +223,7 @@ client.on('message', async message => {
     // KICK
     if (msg.startsWith(prefix + 'KICK')) {
 
-        if (!message.member.roles.some(r=>["Bot Commander", "Chat Moderator", "Administrator", "Moderator", "Owner"].includes(r.name)) )
+        if (!message.member.hasPermission('KICK_MEMBERS'))
             return message.channel.send({embed: {
                 color: 0xff2f2f,
                 author: {
@@ -232,7 +233,7 @@ client.on('message', async message => {
                 description: "Gagal untuk mengidentifikasi author.",
                 fields: [{
                     name: "Anda tidak mempunyai akses untuk menggunakan perintah ini.",
-                    value: "Bot Commander, Chat Moderator, Moderator, Administrator, Owner"
+                    value: "Membutuhkan permissions: **Kick Members**"
                 }
             ],
             timestamp: new Date(),
@@ -318,7 +319,7 @@ client.on('message', async message => {
 
     // BAN
     if (msg.startsWith(prefix + 'BAN')) {
-        if (!message.member.roles.some(r=>["Bot Commander", "Chat Moderator", "Administrator", "Moderator", "Owner"].includes(r.name)) )
+        if (!message.member.hasPermission('BAN_MEMBERS'))
             return message.channel.send({embed: {
                     color: 0xff2f2f,
                     author: {
@@ -328,7 +329,7 @@ client.on('message', async message => {
                     description: "Gagal untuk mengidentifikasi author.",
                     fields: [{
                         name: "Anda tidak mempunyai akses untuk menggunakan perintah ini.",
-                        value: "Bot Commander, Chat Moderator, Moderator, Administrator, Owner"
+                        value: "Membutuhkan permissions: **Ban Members**"
                     }
                 ],
                 timestamp: new Date(),
@@ -421,6 +422,10 @@ client.on("ready", () => {
     
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: `${client.users.size} users | ]help`, type: 0 }})
+    }, 1 * 20000); 
+
+    var interval = setInterval (function () {
+        client.user.setPresence({ activity: { name: 'https://discord.gg/BZVEYuF | JOIN!', type: 0 }})
     }, 1 * 20000); 
 });
 
