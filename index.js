@@ -423,10 +423,6 @@ client.on("ready", () => {
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: `${client.users.size} users | ]help`, type: 0 }})
     }, 1 * 20000); 
-
-    var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: 'https://discord.gg/BZVEYuF | JOIN!', type: 0 }})
-    }, 1 * 20000); 
 });
 
 client.login(process.env.BOT_TOKEN);
