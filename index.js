@@ -71,24 +71,20 @@ client.on('message', async message => {
     // Perintah
 
     // KUCING RANDOM
-    var cats = ["https://media.giphy.com/media/xJjs8eGVbjNYY/giphy.gif","https://media.giphy.com/media/xTiTnGmnf7CxpduWxq/giphy.gif","https://media.giphy.com/media/3oEduSbSGpGaRX2Vri/giphy.gif","https://media.giphy.com/media/uTCAwWNtz7U2c/giphy.gif","https://media.giphy.com/media/12PA1eI8FBqEBa/giphy.gif","https://media.giphy.com/media/W3QKEujo8vztC/giphy.gif", "http://gph.is/Q4BXP3", "http://gph.is/2d8adKP", "http://gph.is/12Si8vm", "http://gph.is/1U0wvs6", "http://gph.is/2vKVWeD", "http://gph.is/11lX02t", "http://gph.is/1OE03xm", "**Gotcha! Kamu gak dapat kucing, kasihan. :joy: **", "https://gph.is/Z0lius", "https://gph.is/28JB2i8", "https://gph.is/15HR0SL", "https://gph.is/2cDbxCu", "https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif", "https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif", "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif", "https://media.giphy.com/media/xJjs8eGVbjNYY/giphy.gif", "https://media.giphy.com/media/3o84U1k2yyjoCQydZm/giphy.gif", "https://media.giphy.com/media/26FPCXdkvDbKBbgOI/giphy.gif", "https://media.giphy.com/media/11fucLQCTOdvBS/giphy.gif", "https://media.giphy.com/media/10rW4Xw9eO0RmU/giphy.gif", "https://media.giphy.com/media/10dU7AN7xsi1I4/giphy.gif", "https://media.giphy.com/media/uTCAwWNtz7U2c/giphy.gif", "https://media.giphy.com/media/3oEduSbSGpGaRX2Vri/giphy.gif"]
-    var throwCat = cats[Math.floor(Math.random() * cats.length)];
+    var cat = "http://random.cat/meow"
+    var request = require("request");
+    const {get} = require("snekfetch"); 
 
     if (msg === prefix + 'CAT') {
-        message.react("✅");
-        message.channel.send(`:cat: Random cat. \n${throwCat}`)
-    }
-
-    // JOKE RECEH
-
-    // ANJING RANDOM
-    var dogs = ["https://media.giphy.com/media/oDLDbBgf0dkis/giphy.gif", "https://media.giphy.com/media/3ohc17IuNgUpALSaIM/giphy.gif", "https://media.giphy.com/media/Yjc9l1Q6Al1DO/giphy.gif", "https://media.giphy.com/media/3o6fIPz4LThIf7SUA8/giphy.gif", "https://media.giphy.com/media/l378p0VvTts3st2RG/giphy.gif", "https://media.giphy.com/media/DvyLQztQwmyAM/giphy.gif", "https://media.giphy.com/media/dTJd5ygpxkzWo/giphy.gif", "https://media.giphy.com/media/WZP3qaxYj10gU/giphy.gif", "https://media.giphy.com/media/2FhASosZtLUPe/giphy.gif", "**Gotcha! Kamu gak dapat anjing, kasihan. :joy: **", "https://media.giphy.com/media/RQSuZfuylVNAY/giphy.gif", "https://media.giphy.com/media/Pn1gZzAY38kbm/giphy.gif", "https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif", "https://media.giphy.com/media/IWon6VgzVwEnu/giphy.gif"]
-    var throwDog = dogs[Math.floor(Math.random() * dogs.length)];
-
-    if (msg === prefix + 'DOG') {
-        message.react("✅");
-        message.channel.send(`:dog: Random dog. \n${throwDog}`)
-    }
+        message.react("✅")
+        try {
+			get('https://random.cat/meow').then(response => {
+				message.channel.send({files: [{attachment: response.body.file, name: `cat.${response.body.file.split('.')[2]}`}]});
+            })
+		} catch (e) {
+			console.log(e);
+		}
+	}
 
     // INVITE
     if (msg === prefix + 'INVITE') {
@@ -109,7 +105,7 @@ client.on('message', async message => {
 
     // UPDATE
     if (msg === prefix + 'UPDATE') {
-        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- Alts not supported in this bot again. \n- Ban Kick Mute diubah, & diperbaiki');
+        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- ]dog dihapus untuk sementara/due temporary. \n- System ]cat Unlimited photo. \n- Perbaikan Ban/Kick tidak memunculkan pesan saat ban/kick. \n- Perbaikan status Playing.');
     }
     
 
@@ -144,7 +140,7 @@ client.on('message', async message => {
     // HELP (SEDERHANA)
     if (msg.startsWith(prefix + 'HELP')) {
         message.react("✅")
-        message.channel.send('**SELAMAT DATANG DI INDONESIA DISCORD BOT GUILD!** \n*Bot ini mempunyai sistem Kick/Ban, Fun, dan Game!* \n*Bot ini juga tersedia ALTS MINECRAFT RANDOM dan terdapat akun MC SFA dan NFA!* \nBuruan Invite Bot Ini Ke Server Kalian! \n\n**PREFIX SAAT INI:** ' + prefix + '\n\nNormal: `help`, `avatar`, `info`, `ping`, `update`, `invite`, `hook` \nFun: `cat`, `dog` \nModerator: `kick`, `ban`, `mute` \nMusic: `play`, `stop`')
+        message.channel.send('**SELAMAT DATANG DI INDONESIA DISCORD BOT GUILD!** \n*Bot ini mempunyai sistem Kick/Ban, Fun, dan Game!* \n*Bot ini juga tersedia ALTS MINECRAFT RANDOM dan terdapat akun MC SFA dan NFA!* \nBuruan Invite Bot Ini Ke Server Kalian! \n\n**PREFIX SAAT INI:** ' + prefix + '\n\nNormal: `help`, `avatar`, `info`, `ping`, `update`, `invite`, `hook` \nFun: `cat` \nModerator: `kick`, `ban`, `mute` \nMusic: `play`, `stop`')
     }
 
     // MUSIC AUDIO PLAYER
@@ -316,30 +312,7 @@ client.on('message', async message => {
         // Now, time for a swift kick in the nuts!
         await member.kick(reason)
             .catch(error => message.reply(`Maaf ${message.author} Saya tidak bisa kick member ini: ${error}`));
-            message.channel.send({embed: {
-                color: 0xffa500,
-                author: {
-                    icon_url: client.user.avatarURL()
-                },
-                title: "Kick Clarification",
-                description: "Yah, balikin saya lagi dong...",
-                fields: [{
-                    name: "Info:",
-                    value: `${user.tag} dikick oleh ${message.author}`
-                },
-                {
-                    name: "Alasan:",
-                    value: `${reason}`
-                }
-            ],
-                timestamp: new Date(),
-                footer: {
-                    icon_url: client.user.avatarURL(),
-                    text: "© Indonesia | BETA RELEASE | discord.js"
-                }
-            }
-        });
-    
+            return message.channel.send(`${client.user.tag} telah dikick!`)
     }
 
 
@@ -435,37 +408,20 @@ client.on('message', async message => {
         
         await member.ban(reason)
             .catch(error => message.reply(`Maaf ${message.author} Saya tidak bisa Ban member ini: ${error}`));
-            return message.channel.send({embed: {
-                color: 0xffa500,
-                author: {
-                    icon_url: client.user.avatarURL()
-                },
-                title: "Banned Clarification",
-                description: "Dia barusan kena banned?",
-                fields: [{
-                    name: "Info:",
-                    value: `${user.tag} dibanned oleh ${message.author}`
-                },
-                {
-                    name: "Alasan:",
-                    value: `${reason}`
-                }
-            ],
-                timestamp: new Date(),
-                footer: {
-                    icon_url: client.user.avatarURL(),
-                    text: "© Indonesia | BETA RELEASE | discord.js"
-                }
-            }
-        });
-        await message.channel.send('https://giphy.com/gifs/H99r2HtnYs492')
+            return message.channel.send(`${client.user.tag} telah dibanned!`)
     }
 
 });
 
 client.on("ready", () => {
     console.log('Bot Dimulai.');
-    client.user.setPresence({ activity: { name: `${client.guilds.size} servers | ]help`, type: 0 } });
+    var interval = setInterval (function () {
+        client.user.setPresence({ activity: { name: `${client.guilds.size} guilds | ]help`, type: 0 }})
+    }, 1 * 20000);
+    
+    var interval = setInterval (function () {
+        client.user.setPresence({ activity: { name: `${client.users.size} users | ]help`, type: 0 }})
+    }, 1 * 20000); 
 });
 
 client.login(process.env.BOT_TOKEN);
