@@ -168,7 +168,7 @@ client.on('message', async message => {
     }
 
     // TANYA JAWAB
-    var tanyas = ['Ya.', 'Tidak.', 'Mungkin.', 'Gak juga sih.', 'Tidak pernah.', 'Ya, dia terlalu baik bagiku.', 'Aku tidak suka dia.', 'Dia pintar dan cute.', 'Ya, dia jelek.', 'Gak bakalan.', 'Kalau saya liat-liat sih, Ya.', 'Sepertinya jarang.', 'Saya tidak tahu.', 'Bagus.', 'Jelek sekali.']
+    var tanyas = ['Ya.', 'Tidak.', 'Mungkin.', 'Gak juga sih.', 'Tidak pernah.', 'Ya, dia terlalu baik bagiku.', 'Aku tidak suka dia.', 'Dia pintar dan cute.', 'Ya, dia jelek.', 'Gak bakalan.', 'Kalau saya liat-liat sih, Ya.', 'Sepertinya jarang.', 'Saya tidak tahu.', 'Bagus.', 'Jelek sekali.', 'Sepertinya, David Beckham.', 'Tidak, dia cringe.', 'Dia yang pemain tik-tok kan? Cringe sekaleh. :v', 'Ngawur.', 'Ya sih, tapi dia aja gak hiraukan kamu.', 'Gak ah.']
 
     if (msg.startsWith(prefix + 'TANYA')) {
         if (msg === prefix + 'TANYA') {
