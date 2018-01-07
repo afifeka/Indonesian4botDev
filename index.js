@@ -473,7 +473,7 @@ client.on("ready", () => {
     
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: `${client.users.size} users | ]update`, type: 3 }})
-    }, 1 * 14500); 
+    }, 1 * 20000); 
 
 });
 
