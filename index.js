@@ -5,6 +5,12 @@ const fs = require("fs");
 const db = require("quick.db")
 const ms = require("ms");
 
+// Searcher
+const cheerio = require('cheerio');
+const snekfetch = require('snekfetch');
+const querystring = require('querystring');
+
+
 // Pengaturan Global
 const prefix = ']';
 
@@ -89,7 +95,52 @@ client.on('message', async message => {
 
     // INVITE
     if (msg === prefix + 'INVITE') {
-        message.channel.send('https://discordapp.com/oauth2/authorize?client_id=383183866925678604&scope=bot&permissions=2146958591 \n\nhttps://discord.gg/jUHU2vu')
+        message.channel.send({embed: {
+            color: 0xff2f2f,
+            description: "Invite Informations",
+            fields: [{
+                name: "👤 Discord Server:",
+                value: 'Join [Discord Server](https://discord.gg/SFsMR2G)'
+            },
+            {
+                name: "📜 Invite Discord Bot:",
+                value: 'Invite [Indonesia Discord Bot](https://discordapp.com/oauth2/authorize?client_id=383183866925678604&scope=bot&permissions=2105015551) Into Your Server.'
+                },
+            ],
+            timestamp: new Date(),
+            footer: {
+                icon_url: client.user.avatarURL,
+                text: "© Indonesia | BETA RELEASE | discord.js"
+                }
+            }
+        });
+        }
+
+    // USERINFO
+    if (msg.startsWith(prefix + 'USERINFO')) {
+        message.channel.send({embed: {
+            color: 0xff2f2f,
+            description: "User Information",
+            fields: [{
+                name: "👤 Full Username:",
+                value: `${message.author.username}#${message.author.discriminator}`
+            },
+            {
+                name: "📜 ID:",
+                value: message.author.id
+            },
+            {
+                name: "📅 Created At",
+                value: message.author.createdAt
+                }
+            ],
+            timestamp: new Date(),
+            footer: {
+                icon_url: client.user.avatarURL,
+                text: "© Indonesia | BETA RELEASE | discord.js"
+                }
+            }
+        });
     }
 
     // PING
@@ -106,7 +157,7 @@ client.on('message', async message => {
 
     // UPDATE
     if (msg === prefix + 'UPDATE') {
-        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- ]dog dihapus untuk sementara/due temporary. \n- System ]cat Unlimited photo. \n- Perbaikan Ban/Kick tidak memunculkan pesan saat ban/kick. \n- Perbaikan status Playing. \n- ');
+        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- COMMAND USERINFO! \n- COMMAND INVITE dengan gaya baru! \n- STATUS PLAYING BARU (bukan music player) \n- 30 GUILDS! THX! \n- BAN/KICK membutuhkan PERMISSIONS, BUKAN ROLE!');
     }
     
 
@@ -187,7 +238,7 @@ client.on('message', async message => {
     // ------------------------- //
     // KATA KATA KOTOR (BANNED) //
 
-    const swearWords = ["ngentot", "kontol", "kntl", "kntI", "ngentod", "bangsad", "bangsat", "bgst", "bgsd", "pantek", "itil", "bego", "jancok", "babi", "entot", "sange", "sangek"]
+    const swearWords = ["ngentot", "kontol", "kntl", "kntI", "ngentod", "bangsad", "bangsat", "bgst", "bgsd", "pantek", "itil", "jancok", "babi", "entot", "sange", "sangek", "bangsaad", "bangsa-t"]
     if (swearWords.some(word => message.content.includes(word)) ) {
     message.delete();
     message.reply('**LANGUAGE!** :rage:')
@@ -313,7 +364,7 @@ client.on('message', async message => {
         // Now, time for a swift kick in the nuts!
         await member.kick(reason)
             .catch(error => message.reply(`Maaf ${message.author} Saya tidak bisa kick member ini: ${error}`));
-            return message.channel.send(`${client.user.tag} telah dikick!`)
+            return message.channel.send(`${member.user.tag} telah dikick!`)
     }
 
 
@@ -409,7 +460,7 @@ client.on('message', async message => {
         
         await member.ban(reason)
             .catch(error => message.reply(`Maaf ${message.author} Saya tidak bisa Ban member ini: ${error}`));
-            return message.channel.send(`${client.user.tag} telah dibanned!`)
+            return message.channel.send(`${member.user.tag} telah dibanned!`)
     }
 
 });
@@ -417,12 +468,13 @@ client.on('message', async message => {
 client.on("ready", () => {
     console.log('Bot Dimulai.');
     var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: `${client.guilds.size} guilds | ]help`, type: 0 }})
+        client.user.setPresence({ activity: { name: `${client.guilds.size} guilds | ]help`, type: 3 }})
     }, 1 * 20000);
     
     var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: `${client.users.size} users | ]help`, type: 0 }})
-    }, 1 * 20000); 
+        client.user.setPresence({ activity: { name: `${client.users.size} users | ]update`, type: 3 }})
+    }, 1 * 14500); 
+
 });
 
-client.login(process.env.BOT_TOKEN);
+client.login('MzgzMTgzODY2OTI1Njc4NjA0.DRD2Fg.EOP8ocuRQh4qA8pEDUgR5t3DgR0');
