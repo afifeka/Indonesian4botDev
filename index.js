@@ -132,7 +132,7 @@ client.on('message', async message => {
             {
                 name: "📅 Created At",
                 value: message.author.createdAt
-                }
+                },
             ],
             timestamp: new Date(),
             footer: {
@@ -157,7 +157,7 @@ client.on('message', async message => {
 
     // UPDATE
     if (msg === prefix + 'UPDATE') {
-        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- COMMAND USERINFO! \n- COMMAND INVITE dengan gaya baru! \n- STATUS PLAYING BARU (bukan music player) \n- 30 GUILDS! THX! \n- BAN/KICK membutuhkan PERMISSIONS, BUKAN ROLE!');
+        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- COMMAND USERINFO! \n- COMMAND TANYA! BARU! HAVE FUN!\n- COMMAND INVITE dengan gaya baru! \n- STATUS PLAYING BARU (bukan music player) \n- 30 GUILDS! THX! \n- BAN/KICK membutuhkan PERMISSIONS, BUKAN ROLE!');
     }
     
 
@@ -165,7 +165,18 @@ client.on('message', async message => {
     if (msg === prefix + 'AVATAR') {
         message.react("✅");
         message.reply(message.author.displayAvatarURL());
+    }
+
+    // TANYA JAWAB
+    var tanyas = ['Ya.', 'Tidak.', 'Mungkin.', 'Gak juga sih.', 'Tidak pernah.', 'Ya, dia terlalu baik bagiku.', 'Aku tidak suka dia.', 'Dia pintar dan cute.', 'Ya, dia jelek.', 'Gak bakalan.', 'Kalau saya liat-liat sih, Ya.', 'Sepertinya jarang.', 'Saya tidak tahu.', 'Bagus.', 'Jelek sekali.']
+
+    if (msg.startsWith(prefix + 'TANYA')) {
+        if (msg === prefix + 'TANYA') {
+            if (!args[0])
+            return message.reply(prefix + 'tanya <pertanyaan kamu>')
         }
+        if (args[1]) message.reply(tanyas[Math.floor(Math.random() * tanyas.length)]);
+    }
 
     // WEBHOOK
     if (msg.startsWith(prefix + 'HOOK')) {
@@ -192,7 +203,7 @@ client.on('message', async message => {
     // HELP (SEDERHANA)
     if (msg.startsWith(prefix + 'HELP')) {
         message.react("✅")
-        message.channel.send('**SELAMAT DATANG DI INDONESIA DISCORD BOT GUILD!** \n*Bot ini mempunyai sistem Kick/Ban, Fun, dan Game!* \n*Bot ini juga tersedia ALTS MINECRAFT RANDOM dan terdapat akun MC SFA dan NFA!* \nBuruan Invite Bot Ini Ke Server Kalian! \n\n**PREFIX SAAT INI:** ' + prefix + '\n\nNormal: `help`, `avatar`, `info`, `ping`, `update`, `invite`, `hook` \nFun: `cat` \nModerator: `kick`, `ban`, `mute` \nMusic: `play`, `stop`')
+        message.channel.send('**SELAMAT DATANG DI INDONESIA DISCORD BOT GUILD!** \n*Bot ini mempunyai sistem Kick/Ban, Fun, dan Game! \nBuruan Invite Bot Ini Ke Server Kalian! \n\n**PREFIX SAAT INI:** ' + prefix + '\n\nNormal: `help`, `avatar`, `info`, `ping`, `update`, `invite`, `userinfo`, `hook` \nFun: `cat`, `tanya` \nModerator: `kick`, `ban`, `mute` \nMusic: `play`, `stop`')
     }
 
     // MUSIC AUDIO PLAYER
@@ -473,8 +484,8 @@ client.on("ready", () => {
     
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: `${client.users.size} users | ]update`, type: 3 }})
-    }, 1 * 20000); 
+    }, 1 * 20500); 
 
 });
 
-client.login('MzgzMTgzODY2OTI1Njc4NjA0.DRD2Fg.EOP8ocuRQh4qA8pEDUgR5t3DgR0');
+client.login(process.env.BOT_TOKEN);
