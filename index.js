@@ -152,12 +152,12 @@ client.on('message', async message => {
 
     // INFO
     if (msg === prefix + 'INFO') {
-        message.channel.send('**BOT OWNER**: Ray#2221 \n**HELPER**: ItzMeDwii#9748\n**LAUNCHED**: 12 December 2017 (reseted) \n**LIBRARY**: Discord.js \n**SOFTWARE**: Visual Studio Code, Git Bash & Node.js \n**OFFICIAL RELEASE**: January 2018 \n**THANK YOU FOR SUPPORT ME**: TrueXPixels, Jordie, Aeirety, Mortixx & BlackB1RD \n**FEATURES COMING**: Kick/Ban & Timed Mute ');
+        message.channel.send('**BOT OWNER**: Ray#2221 \n**OWNER NEED HELP**: ItzMeDwii#9748\n**LAUNCHED**: 12 December 2017 (reseted) \n**LIBRARY**: Discord.js \n**SOFTWARE**: Visual Studio Code, Git Bash & Node.js \n**OFFICIAL RELEASE**: January 2018 (NOW) \n**THANK YOU FOR SUPPORT ME**: TrueXPixels, Jordie, Aeirety, Mortixx & BlackB1RD. ');
     }
 
     // UPDATE
     if (msg === prefix + 'UPDATE') {
-        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- COMMAND USERINFO! \n- COMMAND TANYA! BARU! HAVE FUN!\n- COMMAND INVITE dengan gaya baru! \n- STATUS PLAYING BARU (bukan music player) \n- 30 GUILDS! THX! \n- BAN/KICK membutuhkan PERMISSIONS, BUKAN ROLE!');
+        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- COMMAND CATFACT! \n- COMMAND QUICKPOLL! \n- COMMAND KATAKAN! \n- Menghapus 7 jawaban dari command Tanya. \n- PERBAIKAN EMBED SYSTEM. \n- COMING SOON! PREFIX CHANGER!');
     }
     
 
@@ -168,16 +168,49 @@ client.on('message', async message => {
     }
 
     // TANYA JAWAB
-    var tanyas = ['Ya.', 'Tidak.', 'Mungkin.', 'Gak juga sih.', 'Tidak pernah.', 'Ya, dia terlalu baik bagiku.', 'Aku tidak suka dia.', 'Dia pintar dan cute.', 'Ya, dia jelek.', 'Gak bakalan.', 'Kalau saya liat-liat sih, Ya.', 'Tergantung padamu.', 'Saya tidak tahu.', 'Bagus.', 'Jelek sekali.', 'Sepertinya, David Beckham.', 'Tidak, dia cringe.', 'Dia yang pemain tik-tok kan? Cringe sekaleh. :v', 'Ngawur.', 'Ya sih, tapi dia aja gak hiraukan kamu.', 'Gak ah.']
+    var tanyas = ['Ya.', 'Tidak.', 'Mungkin.', 'Pernah.', 'Tidak Pernah.']
 
     if (msg.startsWith(prefix + 'TANYA')) {
         if (msg === prefix + 'TANYA') {
-            if (!args[0])
             return message.reply(prefix + 'tanya <pertanyaan kamu>')
         }
-        if (args[1]) message.reply(tanyas[Math.floor(Math.random() * tanyas.length)]);
+            message.reply(tanyas[Math.floor(Math.random() * tanyas.length)]);
     }
 
+    // POLL SYSTEMIZATION
+    if (msg.startsWith(prefix + 'QUICKPOLL')) {
+
+        if (msg === prefix + 'QUICKPOLL') {
+            return message.reply(prefix + 'quickpoll <pertanyaan bentuk vote kamu>')
+        }
+        let pollself = args.slice(0).join(' ');
+            message.react('👍')
+            message.react('❓')
+            message.react('👎')
+            
+        return;
+    }
+
+    // SAY
+    if (msg.startsWith(prefix + 'KATAKAN')) {
+        if (msg === prefix + 'KATAKAN') {
+            return message.reply(prefix + 'katakan <kata-kata kamu>')
+        }
+        
+        let katakan = args.slice(0).join(' ');
+        
+        message.delete()
+
+        await message.channel.send(`${katakan}`);
+    }
+
+    // FAKTA KUCING
+    var kucing = ['Tahukah kamu? Bahwa Kucing disebut juga kucing domestik atau kucing rumah adalah sejenis mamalia karnivora dari keluarga Felidae.', 'Kucing disebut dalam bentuk ilmiah:  Felis Catus.', 'Kucing hanya bisa bertahun hidup selama 4 - 5 tahun di alam Bebas.', 'Kalian tahu gak? Kalau kucing mempunyai proses tidur dengan jangka waktu yang sangat lama. Yaitu 12 jam hingga 16 jam daripada jam tidur **Manusia**.', 'Tahukah kamu? Suhu tubuh kucing itu normalnya 38.8 derajat Celsius atau 102 derajat Fahrenheit.', 'Kucing dapat menarik nafasnya selama 20 - 40 kali per menit.', 'Tahukah kamu? Rata-rata kucing mempunyai umur minimal 15 hingga 16 tahun.', 'Tahukah kamu? Kucing pun memakan rumput untuk memperbaiki/membersihkan pencernaannya dan membantu mengeluarkan bulu-bulu yang tertelan dan menumpuk di Lambung.', 'Tahukah kamu? Kucing benci sekali mencium bau aroma Jeruk dan Lemon, sekaligus dia benci parfum lho.', 'Tahukah kamu? Cakupan pandangan kucing 185 derajat lho.', 'Tahukah kamu? Orang yang alergi terhadap kucing pada umumnya alergi terhadap air liur kucing.', "Kucing kampung dapat lari dengan kecepatan 31 mil per jam.", 'Kucing memiliki 230 tulang, yaitu 24 kali lebih banyak dari manusia.', 'Seekor kucing mengetahui perubahan dalam suasana hati kamu, dan kadang-kadang itu akan mempengaruhi kucing kamu lho.', 'Kucing dapat melompat ke ketinggian 5 kali tinggi badannya.', 'Tahukah kamu? Ada sekitar 9600 helai rambut tiap cm2 kulit bagian atas dan sekitar 19200 helai rambut tiap cm2 kulit bagian bawah.']
+
+    if (msg.startsWith(prefix + 'CATFACT')) {
+        message.reply(kucing[Math.floor(Math.random() * kucing.length)]);
+    }
+ 
     // WEBHOOK
     if (msg.startsWith(prefix + 'HOOK')) {
 
@@ -203,7 +236,7 @@ client.on('message', async message => {
     // HELP (SEDERHANA)
     if (msg.startsWith(prefix + 'HELP')) {
         message.react("✅")
-        message.channel.send('**SELAMAT DATANG DI INDONESIA DISCORD BOT GUILD!** \n*Bot ini mempunyai sistem Kick/Ban, Fun, dan Game! \nBuruan Invite Bot Ini Ke Server Kalian! \n\n**PREFIX SAAT INI:** ' + prefix + '\n\nNormal: `help`, `avatar`, `info`, `ping`, `update`, `invite`, `userinfo`, `hook` \nFun: `cat`, `tanya` \nModerator: `kick`, `ban`, `mute` \nMusic: `play`, `stop`')
+        message.channel.send('**SELAMAT DATANG DI INDONESIA DISCORD BOT GUILD!** \n*Bot ini mempunyai sistem Kick/Ban, Fun, dan Game! \nBuruan Invite Bot Ini Ke Server Kalian! \n\n**PREFIX SAAT INI:** ' + prefix + '\n\nNormal: `help`, `avatar`, `info`, `ping`, `update`, `invite`, `userinfo`, `hook`, `quickpoll` \nFun: `cat`, `tanya`, `catfact`, `katakan` \nModerator: `kick`, `ban`, `mute` \nMusic: `play`, `stop`')
     }
 
     // MUSIC AUDIO PLAYER
@@ -253,6 +286,10 @@ client.on('message', async message => {
     if (swearWords.some(word => message.content.includes(word)) ) {
     message.delete();
     message.reply('**LANGUAGE!** :rage:')
+    .then(msg => {
+        msg.delete(10000)
+    })
+      .catch();
     }
 
     // MUTE
@@ -484,7 +521,7 @@ client.on("ready", () => {
     
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: `${client.users.size} users | ]update`, type: 3 }})
-    }, 1 * 20500); 
+    }, 1 * 14500); 
 
 });
 
