@@ -286,11 +286,6 @@ client.on('message', async message => {
     if (swearWords.some(word => message.content.includes(word)) ) {
     message.delete();
     message.reply('**LANGUAGE!** :rage:')
-    .then(msg => {
-        msg.delete(10000)
-    })
-      .catch();
-    }
 
     // MUTE
     if (msg.startsWith(prefix + 'MUTE')) {
@@ -516,11 +511,11 @@ client.on('message', async message => {
 client.on("ready", () => {
     console.log('Bot Dimulai.');
     var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: `${client.guilds.size} guilds | ]help`, type: 3 }})
+        client.user.setPresence({ activity: { name: `${client.guilds.size} guilds | ]help`, type: 0 }})
     }, 1 * 20000);
     
     var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: `${client.users.size} users | ]update`, type: 3 }})
+        client.user.setPresence({ activity: { name: `${client.users.size} users | ]update`, type: 0 }})
     }, 1 * 14500); 
 
 });
