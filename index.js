@@ -286,6 +286,7 @@ client.on('message', async message => {
     if (swearWords.some(word => message.content.includes(word)) ) {
     message.delete();
     message.reply('**LANGUAGE!** :rage:')
+    }
 
     // MUTE
     if (msg.startsWith(prefix + 'MUTE')) {
