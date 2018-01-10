@@ -1,5 +1,4 @@
 // Mengaktifkan Package NPM.js
-// RESETED 1 TAKE
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require("fs");
@@ -11,6 +10,10 @@ const cheerio = require('cheerio');
 const snekfetch = require('snekfetch');
 const querystring = require('querystring');
 
+// Music Player
+const google = require('googleapis')
+const YTDL = require('ytdl-core');
+const ytapi = require('./youtubeapisv3.js');
 
 // Pengaturan Global
 const prefix = ']';
@@ -101,7 +104,7 @@ client.on('message', async message => {
             description: "Invite Informations",
             fields: [{
                 name: "👤 Discord Server:",
-                value: 'Join [Discord Server](https://discord.gg/SFsMR2G)'
+                value: 'Join [Discord Server](https://discord.gg/SFsMR2G).'
             },
             {
                 name: "📜 Invite Discord Bot:",
@@ -153,15 +156,13 @@ client.on('message', async message => {
 
     // INFO
     if (msg === prefix + 'INFO') {
-        message.channel.send('**BOT OWNER**: Ray#2221 \n**OWNER NEED HELP**: ItzMeDwii#9748\n**LAUNCHED**: 12 December 2017 (reseted) \n**LIBRARY**: Discord.js \n**SOFTWARE**: Visual Studio Code, Git Bash & Node.js \n**OFFICIAL RELEASE**: January 2018 (NOW) \n**THANK YOU FOR SUPPORT ME**: TrueXPixels, Jordie, Aeirety, Mortixx & BlackB1RD. ');
+        message.channel.send('**BOT OWNER**: Ray#2221 \n**TESTER**: ItzMeDwii#9748\n**LAUNCHED**: 12 December 2017 (reseted) \n**LIBRARY**: Discord.js with 1.12.1 / Master. \n**SOFTWARE**: Visual Studio Code, Git Bash & Node.js \n**OFFICIAL RELEASE**: January 2018 (NOW) \n**THANK YOU FOR SUPPORT ME**: TrueXPixels, Jordie, Aeirety, Mortixx, Crawl and LewdCario. ');
     }
 
     // UPDATE
     if (msg === prefix + 'UPDATE') {
-        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- COMMAND CATFACT! \n- COMMAND QUICKPOLL! \n- COMMAND KATAKAN! \n- Menghapus 7 jawaban dari command Tanya. \n- PERBAIKAN EMBED SYSTEM. \n- COMING SOON! PREFIX CHANGER!');
+        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- COMMAND CATFACT! \n- COMMAND QUICKPOLL! \n- COMMAND KATAKAN! \n- Menghapus 7 jawaban dari command Tanya. \n- PERBAIKAN EMBED SYSTEM. \n- COMING SOON! PREFIX CHANGER')
     }
-    
-
     // AVATAR
     if (msg === prefix + 'AVATAR') {
         message.react("✅");
@@ -184,6 +185,7 @@ client.on('message', async message => {
         if (msg === prefix + 'QUICKPOLL') {
             return message.reply(prefix + 'quickpoll <pertanyaan bentuk vote kamu>')
         }
+        
         let pollself = args.slice(0).join(' ');
             message.react('👍')
             message.react('❓')
@@ -239,11 +241,7 @@ client.on('message', async message => {
         message.react("✅")
         message.channel.send('**SELAMAT DATANG DI INDONESIA DISCORD BOT GUILD!** \n*Bot ini mempunyai sistem Kick/Ban, Fun, dan Game! \nBuruan Invite Bot Ini Ke Server Kalian! \n\n**PREFIX SAAT INI:** ' + prefix + '\n\nNormal: `help`, `avatar`, `info`, `ping`, `update`, `invite`, `userinfo`, `hook`, `quickpoll` \nFun: `cat`, `tanya`, `catfact`, `katakan` \nModerator: `kick`, `ban`, `mute` \nMusic: `play`, `stop`')
     }
-
-    // MUSIC AUDIO PLAYER
-    // PLAY MUSIC COMMAND
-    const yt = require('ytdl-core');
-
+    
     var voice_connection = null;
     var voice_handler = null;
     var text_channel = null;
@@ -255,6 +253,7 @@ client.on('message', async message => {
                 color: 0xff2f2f,
                 description: "Mohon masuk ke salah satu voice channel!"
             }});
+            
         }
         voiceChannel.join()
         .then(connection => {
@@ -263,7 +262,7 @@ client.on('message', async message => {
             yt.getInfo(args.join(" "), function(err, info) {
             const title = info.title
             message.channel.send({embed: {
-                    color: 0xff2f2f,
+                    color: 0x8f42f4,
                     description: `**Dimainkan sekarang:** ${title}`
                 }});
             const dispatcher = connection.playStream(stream);
@@ -275,18 +274,17 @@ client.on('message', async message => {
     if (msg.startsWith(prefix + 'STOP')) {
         message.member.voiceChannel.leave()
         return message.channel.send({embed: {
-            color: 0xff2f2f,
+            color: 0x8f42f4,
             description: "Musik dihentikan."
         }});
     }   
-                
+                 
     // ------------------------- //
     // KATA KATA KOTOR (BANNED) //
 
     const swearWords = ["ngentot", "kontol", "kntl", "kntI", "ngentod", "bangsad", "bangsat", "bgst", "bgsd", "pantek", "itil", "jancok", "babi", "entot", "sange", "sangek", "bangsaad", "bangsa-t"]
     if (swearWords.some(word => message.content.includes(word)) ) {
-    message.delete();
-    message.reply('**LANGUAGE!** :rage:')
+        message.delete(1000).then(msg => message.reply("**MOHON JAGA BAHASANYA KARENA BANYAK ANAK KECIL DISINI.**"))
     }
 
     // MUTE
@@ -513,13 +511,13 @@ client.on('message', async message => {
 client.on("ready", () => {
     console.log('Bot Dimulai.');
     var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: `${client.guilds.size} guilds | ]help`, type: 0 }})
+        client.user.setPresence({ activity: { name: `${client.guilds.size} guilds`, type: 0 }})
     }, 1 * 20000);
     
     var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: `${client.users.size} users | ]update`, type: 0 }})
-    }, 1 * 14500); 
+        client.user.setPresence({ activity: { name: `${client.users.size} users | ]help`, type: 0 }})
+    }, 1 * 20000); 
 
-});
+})
 
 client.login(process.env.BOT_TOKEN);
