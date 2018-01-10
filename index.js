@@ -11,9 +11,7 @@ const snekfetch = require('snekfetch');
 const querystring = require('querystring');
 
 // Music Player
-const google = require('googleapis')
 const YTDL = require('ytdl-core');
-const ytapi = require('./youtubeapisv3.js');
 
 // Pengaturan Global
 const prefix = ']';
