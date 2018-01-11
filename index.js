@@ -11,7 +11,6 @@ const snekfetch = require('snekfetch');
 const querystring = require('querystring');
 
 // Music Player
-const google = require('googleapis')
 const YTDL = require('ytdl-core');
 
 // Pengaturan Global
@@ -550,8 +549,8 @@ client.on("ready", () => {
     
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: `${client.users.size} users | ]update`, type: 0 }})
-    }, 1 * 14500); 
+    }, 1 * 20000) 
 
-})
+});
 
-client.login('MzgzMTgzODY2OTI1Njc4NjA0.DRD2Fg.EOP8ocuRQh4qA8pEDUgR5t3DgR0');
+client.login(process.env.BOT_TOKEN);
