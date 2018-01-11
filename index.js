@@ -549,9 +549,9 @@ client.on("ready", () => {
     }, 1 * 20000);
     
     var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: `${client.users.size} users`, type: 0 }})
-    }, 1 * 20000); 
+        client.user.setPresence({ activity: { name: `${client.users.size} users | ]update`, type: 0 }})
+    }, 1 * 14500); 
 
 })
 
-client.login(process.env.BOT_TOKEN);
+client.login('MzgzMTgzODY2OTI1Njc4NjA0.DRD2Fg.EOP8ocuRQh4qA8pEDUgR5t3DgR0');
