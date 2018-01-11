@@ -11,6 +11,7 @@ const snekfetch = require('snekfetch');
 const querystring = require('querystring');
 
 // Music Player
+const google = require('googleapis')
 const YTDL = require('ytdl-core');
 
 // Pengaturan Global
@@ -116,65 +117,100 @@ client.on('message', async message => {
                 }
             }
         });
-        }
+    }
 
     // USERINFO
     if (msg.startsWith(prefix + 'USERINFO')) {
-        message.channel.send({embed: {
-            color: 0xff2f2f,
-            description: "User Information",
-            fields: [{
-                name: "👤 Full Username:",
-                value: `${message.author.username}#${message.author.discriminator}`
-            },
-            {
-                name: "📜 ID:",
-                value: message.author.id
-            },
-            {
-                name: "📅 Created At",
-                value: message.author.createdAt
-                },
-            ],
-            timestamp: new Date(),
-            footer: {
-                icon_url: client.user.avatarURL,
-                text: "© Indonesia | BETA RELEASE | discord.js"
-                }
-            }
-        });
+        const embed = new Discord.MessageEmbed()
+
+        .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
+        .setDescription(`Displaying your current **information**`)
+        .setColor(0xc61145)
+        .setFooter("© Indonesia | BETA RELEASE | discord.js")
+        .setTimestamp()
+        .setThumbnail(message.author.displayAvatarURL())
+
+        .addField("Username:", `${message.author.username}#${message.author.discriminator}`)
+        .addField("Created At:", `${message.author.createdAt}`)
+        .addField("ID Member:", `${message.author.id}`)
+
+        message.channel.send({embed});
     }
 
     // PING
     if (msg === prefix + 'PING') {
+        var pingmsg = ["Discord itu tidak sama dengan facebook.", "Yey!!! Apakah saya hidup?", "Ini Discord ya?", "Be smart dan.. jangan spam.", "Peraturan perlu dibaca ya?", "Bot terpendidik sekaligus resources terbaik.", "Cara menjadi YouTuber gimana?", "Bot bahasanya indonesia ya?", "CINTA TANAH AIR DAN TUMPAH DARAHKU!", "Aggresif tapi Funky.", "Yeah boii...", "Air sumber kehidupan, air merebus kopi.", "Resource yang sangat terpendidik.", "Ping ehh bolanya lewat.", "Bot aggresif di tahun 2017, BANNED.", "Kick Ban adalah kata-kata yang sangat aggresif.", "Suka tema gelap atau terang?", "Discord lewat HP atau Laptop?", "A m  i  a l i v e  ?"]
+        var pingmsg_rand = (pingmsg[Math.floor(Math.random() * pingmsg.length)])
+        
         message.react("✅")
-        let newMes = await message.channel.send('Pinging...');
-        newMes.edit(new Date().getTime() - message.createdTimestamp + " ms. :ping_pong: Pong!");
+
+        const embed = new Discord.MessageEmbed()
+        .setTitle("System Informations")
+        .setDescription("Displaying ping - websocket.")
+        .setColor(0xefce28)
+        .setFooter("© Indonesia | BETA RELEASE | discord.js")
+        .setTimestamp()
+
+        .addField(":ping_pong: | Pong!", new Date().getTime() - message.createdTimestamp + ` ms. ${pingmsg_rand}`)
+
+        message.channel.send({embed});
     }
 
     // INFO
     if (msg === prefix + 'INFO') {
-        message.channel.send('**BOT OWNER**: Ray#2221 \n**TESTER**: ItzMeDwii#9748\n**LAUNCHED**: 12 December 2017 (reseted) \n**LIBRARY**: Discord.js with 1.12.1 / Master. \n**SOFTWARE**: Visual Studio Code, Git Bash & Node.js \n**OFFICIAL RELEASE**: January 2018 (NOW) \n**THANK YOU FOR SUPPORT ME**: TrueXPixels, Jordie, Aeirety, Mortixx, Crawl and LewdCario. ');
+        const embed = new Discord.MessageEmbed()
+
+        .setTitle("Bot Information")
+        .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
+        .setDescription(`Displaying bot information currently`)
+        .setColor(0x19fca1)
+        .setFooter("© Indonesia | BETA RELEASE | discord.js")
+        .setTimestamp()
+        
+        .addField("BOT OWNER BY:", "Ray#2221")
+        .addField("LAUNCHED AT:", "Samarinda, East Kalimantan / 12 December 2017")
+        .addField("TESTER BY:", "ItzMeDwii#9748")
+        .addField("SOFTWARE:", "Visual Studio / Node.js / Heroku (recently for online it)")
+        .addField("LIBRARY:", "Discord.js")
+        .addField("SUPPORTER:", "Aeirety, TrueXPixels, ItzMeDwii, The Clu Craft.")
+        .addField("UPVOTES", "COMING SOON!!!")
+
+        message.channel.send({embed});
     }
 
     // UPDATE
     if (msg === prefix + 'UPDATE') {
-        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- COMMAND CATFACT! \n- COMMAND QUICKPOLL! \n- COMMAND KATAKAN! \n- Menghapus 7 jawaban dari command Tanya. \n- PERBAIKAN EMBED SYSTEM. \n- COMING SOON! PREFIX CHANGER')
+        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\nDi bagian perintah Avatar, userinfo telah diperbarui (lebih dari itu) \nMemakai sistem Discord MessageEmbed \nUPVOTES. \n')
     }
     // AVATAR
     if (msg === prefix + 'AVATAR') {
         message.react("✅");
-        message.reply(message.author.displayAvatarURL());
+        const embed = new Discord.MessageEmbed()
+        .setTitle("User Informations")
+        .setDescription("Displaying your current avatar.")
+        .setColor(0xc61145)
+        .setFooter("© Indonesia | BETA RELEASE | discord.js")
+        .setTimestamp()
+        .setThumbnail(message.author.displayAvatarURL())
+
+        message.channel.send({embed});
     }
 
     // TANYA JAWAB
-    var tanyas = ['Ya.', 'Tidak.', 'Mungkin.', 'Pernah.', 'Tidak Pernah.']
+    var tanyas = ['Ya.', 'Tidak.', 'Mungkin.']
 
     if (msg.startsWith(prefix + 'TANYA')) {
         if (msg === prefix + 'TANYA') {
             return message.reply(prefix + 'tanya <pertanyaan kamu>')
         }
-            message.reply(tanyas[Math.floor(Math.random() * tanyas.length)]);
+
+        const embed = new Discord.MessageEmbed()
+        .setDescription(tanyas[Math.floor(Math.random() * tanyas.length)])
+        .setColor(0x4286f4)
+        .setFooter("© Indonesia | BETA RELEASE | discord.js")
+        .setTimestamp()
+
+        message.channel.send({embed});
     }
 
     // POLL SYSTEMIZATION
@@ -231,7 +267,7 @@ client.on('message', async message => {
     if (msg.startsWith(prefix + 'SUPPORT')) {
         message.react("✅")
         message.reply('**AKTIFKAN SISTEM IZIN MEMBER DIRECT MESSAGES!**')
-        message.author.send('SUPPORT OUR VIA PATREON \n**4Brother Discord Bot Guild**: http://patreon.com/4brother https://discord.gg/Aze8zTz \n\n**Indonesia Discord Bot Guild**: http://patreon.com/indonesian https://discord.gg/TjnmrMx \n+62 822 5337 9091 VIA PULSA TELKOMSEL & KARTU AS');
+        message.author.send('SUPPORT OUR VIA PATREON \n\n**Indonesia Discord Bot Guild**: http://patreon.com/indonesian https://discord.gg/TjnmrMx \n+62 822 5337 9091 VIA PULSA TELKOMSEL & KARTU AS');
     }
 
     // HELP (SEDERHANA)
@@ -509,11 +545,11 @@ client.on('message', async message => {
 client.on("ready", () => {
     console.log('Bot Dimulai.');
     var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: `${client.guilds.size} guilds`, type: 0 }})
+        client.user.setPresence({ activity: { name: `${client.guilds.size} guilds | ]help`, type: 0 }})
     }, 1 * 20000);
     
     var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: `${client.users.size} users | ]help`, type: 0 }})
+        client.user.setPresence({ activity: { name: `${client.users.size} users`, type: 0 }})
     }, 1 * 20000); 
 
 })
