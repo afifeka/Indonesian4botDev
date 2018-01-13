@@ -1,2 +1,2 @@
 # indonesian4bot
-Only Ray can see this.
+Only Ray and Dwii can see this.
