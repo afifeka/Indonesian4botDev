@@ -280,7 +280,7 @@ client.on('message', async message => {
         .setFooter("© Indonesia | BETA v1.91 | discord.js")
         .setTimestamp()
         
-        .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `update` `userinfo` `hook` ")
+        .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `update` `userinfo` `hook` `botinfo`")
         .addField("FUN & MOODBOOSTER:", "`cat` `tanya` `catfact` `katakan` `sayembed`")
         .addField("MODERATOR:", "`kick` `ban` `mute`")
         .addField("MUSIC:", "Kami tidak bisa melakukannya sendiri, klik **Support** untuk mengkontribusi dengan kami.")
@@ -522,13 +522,6 @@ client.on('message', async message => {
 
 client.on("ready", () => {
     console.log('Bot Dimulai.');
-    var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: `${client.guilds.size} guilds | ]help`, type: 0 }})
-    }, 1 * 20000);
-    
-    var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: `${client.users.size} users | ]update`, type: 0 }})
-    }, 1 * 20000); 
 
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: `Jadilah kontributor kami! | ]info`, type: 0 }})
@@ -536,11 +529,11 @@ client.on("ready", () => {
 
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: `Join server official kami! | ]help`, type: 0 }})
-    }, 1 * 30000);
+    }, 2 * 30000);
 	
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: `SOMEONE TOUCH MY SPAGHET!!! | ]update`, type: 0 }})
-    }, 1 * 20000); 
+    }, 1 * 30000); 
 
 })
 
