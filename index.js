@@ -180,6 +180,23 @@ client.on('message', async message => {
     if (msg === prefix + 'UPDATE') {
         message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- Di perbarui command Avatar. \n- Command music ditutup karena Ray#2221 tidak dapat melakukannya sendiri. \n- Butuh kontributor untuk translator dan music. \n- Command baru. **Sayembed** \n- Perbaikan command tanya. \n- Pembaruan di bagian command Info / Help. \n- Quickpoll dihapus.')
     }
+
+    // BOTINFO
+    if (msg === prefix + 'BOTINFO') {
+        const embed = new Discord.MessageEmbed()
+        .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
+        .setTitle("Bot Information")
+        .setDescription("Displaying bot information currently")
+        .setColor(0xc61145)
+        .setFooter("© Indonesia | BETA v1.91 | discord.js")
+        .setTimestamp()
+
+        .addField("Server Joined:", `**${client.guilds.size}** guilds/servers.`)
+        .addField("Total User in the Server Joined:", `**${client.users.size}** users total.`)
+
+        message.channel.send({embed});
+    }
+
     // AVATAR
     if (msg === prefix + 'AVATAR') {
         message.react("✅");
@@ -264,7 +281,7 @@ client.on('message', async message => {
         .setTimestamp()
         
         .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `update` `userinfo` `hook` ")
-        .addField("FUN & MOODBOOSTER:", "`cat` `tanya` `catfact` `katakan`")
+        .addField("FUN & MOODBOOSTER:", "`cat` `tanya` `catfact` `katakan` `sayembed`")
         .addField("MODERATOR:", "`kick` `ban` `mute`")
         .addField("MUSIC:", "Kami tidak bisa melakukannya sendiri, klik **Support** untuk mengkontribusi dengan kami.")
         .addBlankField(true)
@@ -519,7 +536,11 @@ client.on("ready", () => {
 
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: `Join server official kami! | ]help`, type: 0 }})
-    }, 1 * 30000); 
+    }, 1 * 30000);
+	
+    var interval = setInterval (function () {
+        client.user.setPresence({ activity: { name: `SOMEONE TOUCH MY SPAGHET!!! | ]update`, type: 0 }})
+    }, 1 * 20000); 
 
 })
 
