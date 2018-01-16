@@ -173,8 +173,8 @@ client.on('message', async message => {
     }
 
     // UPDATE
-    if (msg === prefix + 'UPDATE') {
-        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- Pembaruan Playing Status (promise)/(bukan musik) \n- Di perbarui command Avatar. \n- Command music ditutup karena Ray#2221 tidak dapat melakukannya sendiri. \n- Butuh kontributor untuk translator dan music. \n- Command baru. **Sayembed** \n- Perbaikan command tanya. \n- Pembaruan di bagian command Info / Help. \n- Quickpoll dihapus.')
+    if (msg === prefix + 'CHANGELOG') {
+        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- ]update diganti jadi ]changelog \n- Pembaruan Playing Status (promise)/(bukan musik) \n- Di perbarui command Avatar. \n- Command music ditutup karena Ray#2221 tidak dapat melakukannya sendiri. \n- Butuh kontributor untuk translator dan music. \n- Command baru. **Sayembed** \n- Perbaikan command tanya. \n- Pembaruan di bagian command Info / Help. \n- Quickpoll dihapus.')
     }
 
     // BOTINFO
@@ -277,7 +277,7 @@ client.on('message', async message => {
         .setFooter("© Indonesia | BETA v1.91 | discord.js")
         .setTimestamp()
         
-        .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `update` `userinfo` `hook` ")
+        .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `changelog` `userinfo` `hook` ")
         .addField("FUN & MOODBOOSTER:", "`cat` `tanya` `catfact` `katakan` `sayembed`")
         .addField("MODERATOR:", "`kick` `ban` `mute`")
         .addField("MUSIC:", "Kami tidak bisa melakukannya sendiri, klik **Support** untuk mengkontribusi dengan kami.")
@@ -519,15 +519,15 @@ client.on('message', async message => {
 
 client.on("ready", () => {
     console.log('Bot Dimulai.');
-    var statusPlaying = ["SOMEBODY TOUCH MY SPAGHETT!!! | ]help", "WAAAAAAAAAAAAAAAAAAH", "J U S T  M O N I K A", "JOIN INDONESIA OFFICIAL SERVER | ]help", "DA BEST BOT EVAHHHHHHH | ]help", "]", "DO YOU KNOW DA WEY?!", "Eta Terangkanlah", "OM TELOLET OMMM!!!", "KIDS JAMAN NOW GENERASI MICHIN", "1 + 1 = 6", "MODUS (MODAL KARDUS)", "BOT DENGAN RESOURCE TERPENDYDYCK", `${client.users.size} users / ${client.guilds.size} servers`, "ALAN SURYAAAAAAAJANA"]
+    var statusPlaying = ["Bejad + Micin = Kids Jaman Now", "Micin.", "SETENGAH SENDOK TAKAR NYAM-NYAM", "SOMEBODY TOUCH MY SPAGHETT!!! | ]help", "WAAAAAAAAAAAAAAAAAAH", "J U S T  M O N I K A", "JOIN INDONESIA OFFICIAL SERVER | ]help", "DA BEST BOT EVAHHHHHHH | ]help", "]", "DO YOU KNOW DA WEY?!", "Eta Terangkanlah", "OM TELOLET OMMM!!!", "KIDS JAMAN NOW GENERASI MICHIN", "1 + 1 = 6", "MODUS (MODAL KARDUS)", "BOT DENGAN RESOURCE TERPENDYDYCK", `${client.users.size} users / ${client.guilds.size} servers`, "ALAN SURYAAAAAAAJANA"]
 
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: statusPlaying[Math.floor(Math.random() * statusPlaying.length)], type: 0 }})
-    }, 1 * 20000);
+    }, 1 * 25000);
     
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: statusPlaying[Math.floor(Math.random() * statusPlaying.length)], type: 0 }})
-    }, 1 * 20000);
+    }, 1 * 25000);
 
 })
 
