@@ -520,18 +520,13 @@ client.on('message', async message => {
 client.on("ready", () => {
     console.log('Bot Dimulai.');
     var statusPlaying = ["SOMEBODY TOUCH MY SPAGHETT!!! | ]help", "WAAAAAAAAAAAAAAAAAAH", "J U S T  M O N I K A", "JOIN INDONESIA OFFICIAL SERVER | ]help", "DA BEST BOT EVAHHHHHHH | ]help", "]", "DO YOU KNOW DA WEY?!", "Eta Terangkanlah", "OM TELOLET OMMM!!!", "KIDS JAMAN NOW GENERASI MICHIN", "1 + 1 = 6", "MODUS (MODAL KARDUS)", "BOT DENGAN RESOURCE TERPENDYDYCK", `${client.users.size} users / ${client.guilds.size} servers`, "ALAN SURYAAAAAAAJANA"]
-    var throwPlay = statusPlaying[Math.floor(Math.random() * statusPlaying.length)]
 
     var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: `${throwPlay}`, type: 0 }})
+        client.user.setPresence({ activity: { name: statusPlaying[Math.floor(Math.random() * statusPlaying.length)], type: 0 }})
     }, 1 * 20000);
     
     var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: `${throwPlay}`, type: 0 }})
-    }, 1 * 20000);
-	
-    var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: `${throwPlay}`, type: 0 }})
+        client.user.setPresence({ activity: { name: statusPlaying[Math.floor(Math.random() * statusPlaying.length)], type: 0 }})
     }, 1 * 20000);
 
 })
