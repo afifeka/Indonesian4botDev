@@ -528,7 +528,11 @@ client.on("ready", () => {
     
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: `${throwPlay}`, type: 0 }})
-    }, 1 * 20000); 
+    }, 1 * 20000);
+	
+    var interval = setInterval (function () {
+        client.user.setPresence({ activity: { name: `${throwPlay}`, type: 0 }})
+    }, 1 * 20000);
 
 })
 
