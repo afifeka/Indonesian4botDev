@@ -138,19 +138,16 @@ client.on('message', async message => {
 
     // PING
     if (msg === prefix + 'PING') {
-        var pingmsg = ["Discord itu tidak sama dengan facebook.", "Yey!!! Apakah saya hidup?", "Ini Discord ya?", "Be smart dan.. jangan spam.", "Peraturan perlu dibaca ya?", "Bot terpendidik sekaligus resources terbaik.", "Cara menjadi YouTuber gimana?", "Bot bahasanya indonesia ya?", "CINTA TANAH AIR DAN TUMPAH DARAHKU!", "Aggresif tapi Funky.", "Yeah boii...", "Air sumber kehidupan, air merebus kopi.", "Resource yang sangat terpendidik.", "Ping ehh bolanya lewat.", "Bot aggresif di tahun 2017, BANNED.", "Kick Ban adalah kata-kata yang sangat aggresif.", "Suka tema gelap atau terang?", "Discord lewat HP atau Laptop?", "A m  i  a l i v e  ?"]
-        var pingmsg_rand = (pingmsg[Math.floor(Math.random() * pingmsg.length)])
-        
         message.react("✅")
 
         const embed = new Discord.MessageEmbed()
         .setTitle("System Informations")
-        .setDescription("Displaying ping - websocket.")
+        .setDescription("ip localhost")
         .setColor(0xefce28)
         .setFooter("© Indonesia | BETA v1.91 | discord.js")
         .setTimestamp()
 
-        .addField(":ping_pong: | Pong!", new Date().getTime() - message.createdTimestamp + ` ms. ${pingmsg_rand}`)
+        .addField(":ping_pong: | Pong!", new Date().getTime() - message.createdTimestamp + ` ms.`)
 
         message.channel.send({embed});
     }
@@ -159,7 +156,6 @@ client.on('message', async message => {
     if (msg === prefix + 'INFO') {
         const embed = new Discord.MessageEmbed()
 
-        .setTitle("Bot Information")
         .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
         .setDescription(`Displaying bot information currently`)
         .setColor(0x19fca1)
@@ -190,6 +186,7 @@ client.on('message', async message => {
         .setColor(0xc61145)
         .setFooter("© Indonesia | BETA v1.91 | discord.js")
         .setTimestamp()
+        .addBlankField(true)
 
         .addField("Server Joined:", `**${client.guilds.size}** guilds/servers.`)
         .addField("Total User in the Server Joined:", `**${client.users.size}** users total.`)
@@ -280,7 +277,7 @@ client.on('message', async message => {
         .setFooter("© Indonesia | BETA v1.91 | discord.js")
         .setTimestamp()
         
-        .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `update` `userinfo` `hook` `botinfo`")
+        .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `update` `userinfo` `hook` ")
         .addField("FUN & MOODBOOSTER:", "`cat` `tanya` `catfact` `katakan` `sayembed`")
         .addField("MODERATOR:", "`kick` `ban` `mute`")
         .addField("MUSIC:", "Kami tidak bisa melakukannya sendiri, klik **Support** untuk mengkontribusi dengan kami.")
@@ -296,7 +293,7 @@ client.on('message', async message => {
 
     const swearWords = ["ngentot", "kontol", "kntl", "kntI", "ngentod", "bangsad", "bangsat", "bgst", "bgsd", "pantek", "itil", "jancok", "babi", "entot", "sange", "sangek", "bangsaad", "bangsa-t"]
     if (swearWords.some(word => message.content.includes(word)) ) {
-        message.delete(1000).then(msg => message.reply("DELETED CAUSING: **INCLUDING BADWORDS.**"))
+        message.delete(1000).then(msg => message.reply("LANGUAGE! :rage:"))
     }
 
     // MUTE
@@ -522,18 +519,16 @@ client.on('message', async message => {
 
 client.on("ready", () => {
     console.log('Bot Dimulai.');
+    var statusPlaying = ["SOMEBODY TOUCH MY SPAGHETT!!! | ]help", "WAAAAAAAAAAAAAAAAAAH", "J U S T  M O N I K A", "JOIN INDONESIA OFFICIAL SERVER | ]help", "DA BEST BOT EVAHHHHHHH | ]help", "]", "DO YOU KNOW DA WEY?!", "Eta Terangkanlah", "OM TELOLET OMMM!!!", "KIDS JAMAN NOW GENERASI MICHIN", "1 + 1 = 6", "MODUS (MODAL KARDUS)", "BOT DENGAN RESOURCE TERPENDYDYCK", `${client.users.size} users / ${client.guilds.size} servers`, "ALAN SURYAAAAAAAJANA"]
+    var throwPlay = Math.floor(Math.random() * statusPlaying.length);
 
     var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: `Jadilah kontributor kami! | ]info`, type: 0 }})
-    }, 1 * 30000); 
-
+        client.user.setPresence({ activity: { name: `${throwPlay}`, type: 0 }})
+    }, 1 * 15000);
+    
     var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: `Join server official kami! | ]help`, type: 0 }})
-    }, 2 * 30000);
-	
-    var interval = setInterval (function () {
-        client.user.setPresence({ activity: { name: `SOMEONE TOUCH MY SPAGHET!!! | ]update`, type: 0 }})
-    }, 1 * 30000); 
+        client.user.setPresence({ activity: { name: `${throwPlay}`, type: 0 }})
+    }, 1 * 15000); 
 
 })
 
