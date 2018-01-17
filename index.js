@@ -11,8 +11,18 @@ const cheerio = require('cheerio');
 const snekfetch = require('snekfetch');
 const querystring = require('querystring');
 
-// Music Player
-// CONTRIBUTOR - ini adalah npm.
+// Cat Random
+var cat = "http://random.cat/meow"
+var request = require("request");
+const {get} = require("snekfetch");
+
+// Dog Random
+const animals = require("random-animal-pictures")
+const randomPuppy = require('random-puppy');
+const randomAnimal = require("random-animal");
+
+// Lewd Random
+var lewd = ["http://gph.is/1Q0g8Z9", "https://cdn.discordapp.com/attachments/382436905926524928/403143965898964992/lewd-S1EHap_w-..gif", "https://media.giphy.com/media/pHH0RsynZHGlG/giphy.gif", "https://media.giphy.com/media/DHT6OLrSGU8z6/giphy.gif", "https://media.giphy.com/media/SFMEPM1LHxdYY/giphy.gif", "https://media.giphy.com/media/MRWsOo2LEQYDu/giphy.gif", "https://media.giphy.com/media/YgthKEUJE7HYA/giphy.gif", "https://media.giphy.com/media/3HD1rvrRk0QhO/giphy.gif", "https://media.giphy.com/media/dIXp5H9gaiZy0/giphy.gif", "https://media.giphy.com/media/fzFoOkVjpJ7ws/giphy.gif", "https://media.giphy.com/media/CeBkcIgzcZBks/giphy.gif"]
 
 // Pengaturan Global
 const prefix = ']';
@@ -80,20 +90,28 @@ client.on('message', async message => {
         
     // Perintah
 
-    // KUCING RANDOM
-    var cat = "http://random.cat/meow"
-    var request = require("request");
-    const {get} = require("snekfetch"); 
-
+    // KUCING RANDOM 
     if (msg === prefix + 'CAT') {
         message.react("✅")
         try {
 			get('https://random.cat/meow').then(response => {
-                message.channel.send({files: [{attachment: response.body.file, name: `cat.${response.body.file.split('.')[2]}`}]});
+                message.channel.send(":cat: | Here is your random cat.", {files: [{attachment: response.body.file, name: `cat.${response.body.file.split('.')[2]}`}]});
             })
 		} catch (e) {
 			console.log(e);
 		}
+    }
+
+    if (msg === prefix + 'DOG') {
+        message.react("✅")
+        
+        message.channel.send(randomAnimal.dog().then(url => message.channel.send(url + "\n:dog: | Here is your random dog.")).catch(err => message.channel.send(err.message)));
+    }
+
+    if (msg === prefix + 'LEWD') {
+        message.react("✅")
+
+        message.channel.send(":sweat_smile: | NANI DESUKA?!! \n" + (lewd[Math.floor(Math.random() * lewd.length)]))
     }
 
     // USERINFO
@@ -174,7 +192,7 @@ client.on('message', async message => {
 
     // UPDATE
     if (msg === prefix + 'CHANGELOG') {
-        message.channel.send('**PENGEMBANGAN/PERBAIKAN/UPDATE-NOW-TOPIC** \n\n- ]update diganti jadi ]changelog \n- Pembaruan Playing Status (promise)/(bukan musik) \n- Di perbarui command Avatar. \n- Command music ditutup karena Ray#2221 tidak dapat melakukannya sendiri. \n- Butuh kontributor untuk translator dan music. \n- Command baru. **Sayembed** \n- Perbaikan command tanya. \n- Pembaruan di bagian command Info / Help. \n- Quickpoll dihapus.')
+        message.channel.send(":information_source: Update **[17th January 2018]** \n\n:white_check_mark: | **Fitur baru:** \n\n• `Lewd` ditambahkan dalam bentuk GIF. ~~haha anime~~ \n• `Dog` ditambahkan seperti semula. \n• `sayembed` ditambahkan. \n\n:no_entry: | **Fixed:** \n\n• `update` diganti menjadi `changelog` \n• `katakan` diganti menjadi `say` \n• `help` fixed. \n• bug on air heroku.")
     }
 
     // BOTINFO
@@ -224,9 +242,9 @@ client.on('message', async message => {
     }
 
     // SAY
-    if (msg.startsWith(prefix + 'KATAKAN')) {
-        if (msg === prefix + 'KATAKAN') {
-            return message.reply(prefix + 'katakan <kata-kata kamu>')
+    if (msg.startsWith(prefix + 'SAY')) {
+        if (msg === prefix + 'SAY') {
+            return message.reply(prefix + 'say <kata-kata kamu>')
         }
         
         let katakan = args.slice(0).join(' ');
@@ -277,11 +295,10 @@ client.on('message', async message => {
         .setFooter("© Indonesia | BETA v1.91 | discord.js")
         .setTimestamp()
         
-        .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `changelog` `userinfo` `hook` ")
-        .addField("FUN & MOODBOOSTER:", "`cat` `tanya` `catfact` `katakan` `sayembed`")
+        .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `changelog` `userinfo` `hook` `support` `botinfo`")
+        .addField("FUN & MOODBOOSTER:", "`cat` `dog` `lewd` `tanya` `catfact` `say` `sayembed`")
         .addField("MODERATOR:", "`kick` `ban` `mute`")
-        .addField("MUSIC:", "Kami tidak bisa melakukannya sendiri, klik **Support** untuk mengkontribusi dengan kami.")
-        .addBlankField(true)
+        .addField("MUSIC:", "Under Maintenance")
         .addField("Invite:", "[Click here to invite the bot into your server](https://discordapp.com/oauth2/authorize?client_id=383183866925678604&scope=bot&permissions=2105015551)")
         .addField("Support:", "[Click here to the Official Discord Server](https://discord.gg/TjnmrMx)")    
     
@@ -519,7 +536,7 @@ client.on('message', async message => {
 
 client.on("ready", () => {
     console.log('Bot Dimulai.');
-    var statusPlaying = ["Bejad + Micin = Kids Jaman Now", "Micin.", "SETENGAH SENDOK TAKAR NYAM-NYAM", "SOMEBODY TOUCH MY SPAGHETT!!! | ]help", "WAAAAAAAAAAAAAAAAAAH", "J U S T  M O N I K A", "JOIN INDONESIA OFFICIAL SERVER | ]help", "DA BEST BOT EVAHHHHHHH | ]help", "]", "DO YOU KNOW DA WEY?!", "Eta Terangkanlah", "OM TELOLET OMMM!!!", "KIDS JAMAN NOW GENERASI MICHIN", "1 + 1 = 6", "MODUS (MODAL KARDUS)", "BOT DENGAN RESOURCE TERPENDYDYCK", `${client.users.size} users / ${client.guilds.size} servers`, "ALAN SURYAAAAAAAJANA"]
+    var statusPlaying = ["LEWD vs TRIGGERED", "SOMEBODY TOUCH MY SPAGHETT!!! | ]help", "WAAAAAAAAAAAAAAAAAAH", "J U S T  M O N I K A", "JOIN INDONESIA OFFICIAL SERVER | ]help", "DA BEST BOT EVAHHHHHHH | ]help", "]", "DO YOU KNOW DA WEY?!", "Eta Terangkanlah", "OM TELOLET OMMM!!!", "KIDS JAMAN NOW GENERASI MICHIN", "1 + 1 = 6", "MODUS (MODAL KARDUS)", "BOT DENGAN RESOURCE TERPENDYDYCK", `${client.users.size} users / ${client.guilds.size} servers`, "ALAN SURYAAAAAAAJANA"]
 
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: statusPlaying[Math.floor(Math.random() * statusPlaying.length)], type: 0 }})
