@@ -17,8 +17,6 @@ var request = require("request");
 const {get} = require("snekfetch");
 
 // Dog Random
-const animals = require("random-animal-pictures")
-const randomPuppy = require('random-puppy');
 const randomAnimal = require("random-animal");
 
 // Lewd Random
