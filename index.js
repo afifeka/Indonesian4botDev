@@ -26,15 +26,36 @@ var lewd = ["http://gph.is/1Q0g8Z9", "https://cdn.discordapp.com/attachments/382
 const prefix = ']';
 
 // DBL API
-const snekfetch = require('snekfetch')
+const https = require('https');
 
-setInterval(() => {
-  snekfetch.post(`https://discordbots.org/api/bots/stats`)
-    .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4MzE4Mzg2NjkyNTY3ODYwNCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTE2MzQ0ODg1fQ.5gZpxOtNFuDBrLR3SZJRoxfgeeAC-YWVPUMzpZ4LFSw')
-    .send({ server_count: client.guilds.size })
-    .then(() => console.log('Updated discordbots.org stats.'))
-    .catch(err => console.error(`Whoops something went wrong: ${err.body}`));
-}, 3600000)
+const postData = JSON.stringify({
+    server_count: client.guilds.size
+});
+
+const options = {
+    hostname: 'https://discordbots.org',
+    path: `/api/bots/${client.user.id}/stats`,
+    method: 'POST',
+    headers: {
+        'User-Agent': 'DiscordBot (https://moustacheminer.com/) Discord Guild Counter',
+        'Content-Type': 'application/json',
+        'Content-Length': postData.length,
+        Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4MzE4Mzg2NjkyNTY3ODYwNCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTE2MzQ0ODg1fQ.5gZpxOtNFuDBrLR3SZJRoxfgeeAC-YWVPUMzpZ4LFSw'
+    }
+};
+
+const req = https.request(options, (res) => {
+    res.on('data', (data) => {
+        console.log(data.toString('utf8'));
+    });
+});
+
+req.on('error', (error) => {
+    console.error(error);
+});
+
+req.write(postData);
+req.end();
 
 // Fungsi Webhook
 function hook(channel, title, message, color, avatar) {
