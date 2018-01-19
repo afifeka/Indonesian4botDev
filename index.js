@@ -19,14 +19,29 @@ const {get} = require("snekfetch");
 // Dog Random
 const randomAnimal = require("random-animal");
 
-// Lewd Random
+// Other Funny Random
 var lewd = ["http://gph.is/1Q0g8Z9", "https://cdn.discordapp.com/attachments/382436905926524928/403143965898964992/lewd-S1EHap_w-..gif", "https://media.giphy.com/media/pHH0RsynZHGlG/giphy.gif", "https://media.giphy.com/media/DHT6OLrSGU8z6/giphy.gif", "https://media.giphy.com/media/SFMEPM1LHxdYY/giphy.gif", "https://media.giphy.com/media/MRWsOo2LEQYDu/giphy.gif", "https://media.giphy.com/media/YgthKEUJE7HYA/giphy.gif", "https://media.giphy.com/media/3HD1rvrRk0QhO/giphy.gif", "https://media.giphy.com/media/dIXp5H9gaiZy0/giphy.gif", "https://media.giphy.com/media/fzFoOkVjpJ7ws/giphy.gif", "https://media.giphy.com/media/CeBkcIgzcZBks/giphy.gif"]
+var hug = ["https://media.giphy.com/media/mx2EIGDZX5XH2/giphy.gif", "https://media.giphy.com/media/13YrHUvPzUUmkM/giphy.gif", "https://media.giphy.com/media/SZBS27PkBCKmk/giphy.gif", "https://media.giphy.com/media/f6y4qvdxwEDx6/giphy.gif", "https://media.giphy.com/media/5yp8MlXQLLna0/giphy.gif", "https://media.giphy.com/media/wbrgtEbP1GPNS/giphy.gif", "https://media.giphy.com/media/DtJw1cqMCHSvu/giphy.gif", "https://media.giphy.com/media/trJ68zLtt85QA/giphy.gif", "https://media.giphy.com/media/HaC1WdpkL3W00/giphy.gif", "https://media.giphy.com/media/yziFo5qYAOgY8/giphy.gif", "https://media.giphy.com/media/du8yT5dStTeMg/giphy.gif", "https://media.giphy.com/media/NimEavznszKtW/giphy.gif"]
+var meow = ["https://media.giphy.com/media/FRg1FUARsn96/giphy.gif", "https://media.giphy.com/media/D0qSdg3fckqDC/giphy.gif", "https://media.giphy.com/media/WVhM2B5Kqqaxa/giphy.gif", "https://media.giphy.com/media/TjPotDPmEKiK4/giphy.gif", "https://media.giphy.com/media/3Ev8JMnsNqUM/giphy.gif", "https://media.giphy.com/media/guGXANpTSTJjG/giphy.gif", "https://media.giphy.com/media/xTiN0m4Q3VbqSJsTcc/giphy.gif", "https://media.giphy.com/media/109TWWxRddcIEg/giphy.gif", "https://media.giphy.com/media/FrEnONcaBGJ0c/giphy.gif", "https://media.giphy.com/media/3ohhwgj45R4n4CL0fS/giphy.gif", "https://media.giphy.com/media/Mc3yOYQDoXCj6/giphy.gif", "https://media.giphy.com/media/uNi7TY86W2kVi/giphy.gif", "https://media.giphy.com/media/13lWraa7dfb7G0/giphy.gif", "https://media.giphy.com/media/kBuMyaqdTIofe/giphy.gif", "https://media.giphy.com/media/nNp3ZSywRFyNi/giphy.gif"]
 
 // Pengaturan Global
 const prefix = ']';
 
 // DBL
-  // Under Heavy Development
+const dbl = require(`discord-bot-list`)
+ 
+const clientdbl = new dbl({
+    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4MzE4Mzg2NjkyNTY3ODYwNCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTE2MzQ0ODg1fQ.5gZpxOtNFuDBrLR3SZJRoxfgeeAC-YWVPUMzpZ4LFSw",
+    id: "383183866925678604"
+})
+
+client.postStats("49", (err, res) => {
+    if(err) {
+        console.error(err)
+    } else {
+        console.log(res)
+    }
+})
 
 // Fungsi Webhook
 function hook(channel, title, message, color, avatar) {
@@ -112,7 +127,39 @@ client.on('message', async message => {
     if (msg === prefix + 'LEWD') {
         message.react("✅")
 
-        message.channel.send(":sweat_smile: | NANI DESUKA?!! \n" + (lewd[Math.floor(Math.random() * lewd.length)]))
+        const embed = new Discord.MessageEmbed()
+
+        .setDescription(":sweat_smile: | **NANI DESUKA?!!!**")
+        .setColor(0xff4444)
+        .setImage(lewd[Math.floor(Math.random() * lewd.length)])
+
+        message.channel.send({embed})
+    }
+
+    if (msg.startsWith(prefix + 'HUG')) {
+        let member = message.mentions.members.first()
+
+        if (!member) {
+            return message.channel.send("Tag temenmu dong! :pensive: Akan terasa sepi kalau tidak ada temen. \nhttps://media.giphy.com/media/2GnS81AihShS8/giphy.gif")
+        }
+
+        const embed = new Discord.MessageEmbed()
+
+        .setDescription(":hugging: | **Ahh... You hugging with** " + member.user.tag)
+        .setColor(0xc61145)
+        .setImage(hug[Math.floor(Math.random() * hug.length)])
+
+        message.channel.send({embed})
+    }
+
+    if (msg === prefix + 'MEOW') {
+        const embed = new Discord.MessageEmbed()
+
+        .setDescription(":cat: | **Oh... so cute.**")
+        .setColor(0xff4444)
+        .setImage(meow[Math.floor(Math.random() * meow.length)])
+
+        message.channel.send({embed})
     }
 
     // USERINFO
@@ -122,7 +169,7 @@ client.on('message', async message => {
         .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
         .setDescription(`Displaying your current **information**`)
         .setColor(0xc61145)
-        .setFooter("© Indonesia | BETA v1.91 | discord.js")
+        .setFooter("© Indonesia | BETA v2.05 | discord.js")
         .setTimestamp()
         .setThumbnail(message.author.displayAvatarURL())
 
@@ -134,11 +181,11 @@ client.on('message', async message => {
     }
 
     // SAYEMBED
-    if (msg.startsWith(prefix + 'SAYEMBED')) {
-        if (msg === prefix + 'SAYEMBED') {
+    if (msg.startsWith(prefix + 'EMBED')) {
+        if (msg === prefix + 'EMBED') {
             const embed = new Discord.MessageEmbed()
 
-            .setDescription(`${prefix}sayembed <teks>`)
+            .setDescription(`${prefix}embed <teks>`)
 
             return message.channel.send({embed})
         }
@@ -161,9 +208,9 @@ client.on('message', async message => {
 
         const embed = new Discord.MessageEmbed()
         .setTitle("System Informations")
-        .setDescription("ip localhost")
+        .setDescription("default: localhost")
         .setColor(0xefce28)
-        .setFooter("© Indonesia | BETA v1.91 | discord.js")
+        .setFooter("© Indonesia | BETA v2.05 | discord.js")
         .setTimestamp()
 
         .addField(":ping_pong: | Pong!", new Date().getTime() - message.createdTimestamp + ` ms.`)
@@ -178,22 +225,23 @@ client.on('message', async message => {
         .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
         .setDescription(`Displaying bot information currently`)
         .setColor(0x19fca1)
-        .setFooter("© Indonesia | BETA v1.91 | discord.js")
+        .setFooter("© Indonesia | BETA v2.05 | discord.js")
         .setTimestamp()
         
-        .addField("BOT OWNER BY:", "Ray#2221")
-        .addField("LAUNCHED AT:", "Samarinda, East Kalimantan / 12 December 2017")
-        .addField("TESTER BY:", "ItzMeDwii#9748 / The Clu Craft#1063")
-        .addField("SOFTWARE:", "Visual Studio / Node.js / Heroku (recently for online it)")
-        .addField("LIBRARY:", "Discord.js")
-        .addField("VERSION BOT", "BETA v1.91")
+        .addField("Bot Owner:", "Ray#2221")
+        .addField("Launched At:", "Samarinda, East Kalimantan / 12 December 2017")
+        .addField("Tester By:", "ItzMeDwii#9748 / The Clu Craft#1063")
+        .addField("Maintenance Technician:", "ItzMeDwii#9748")
+        .addField("Software:", "Visual Studio / Node.js / Heroku (recently for online it)")
+        .addField("Library:", "Discord.js")
+        .addField("Version:", "BETA v2.05")
 
         message.channel.send({embed});
     }
 
     // UPDATE
     if (msg === prefix + 'CHANGELOG') {
-        message.channel.send(":information_source: Update **[17th January 2018]** \n\n:white_check_mark: | **Fitur baru:** \n\n• `Lewd` ditambahkan dalam bentuk GIF. ~~haha anime~~ \n• `Dog` ditambahkan seperti semula. \n• `sayembed` ditambahkan. \n\n:no_entry: | **Fixed:** \n\n• `update` diganti menjadi `changelog` \n• `katakan` diganti menjadi `say` \n• `help` fixed. \n• bug on air heroku.")
+        message.channel.send(":information_source: Update **[19th January 2018]** \n\n:white_check_mark: | **Fitur baru:** \n\n• `meow` ditambahkan. \n• `hug` ditambahkan. \n\n:no_entry: | **Fixed:** \n\n• `katakan` menjadi `say` \n• `sayembed` menjadi `embed` karena ada kesamaan. \n• bug on air heroku. \n• Bot dipromosikan lewat DBL, ketik ]help untuk info lainnya. \n• `info` diganti. \n• `versi bot` diganti menjadi **v2.05**")
     }
 
     // BOTINFO
@@ -203,7 +251,7 @@ client.on('message', async message => {
         .setTitle("Bot Information")
         .setDescription("Displaying bot information currently")
         .setColor(0xc61145)
-        .setFooter("© Indonesia | BETA v1.91 | discord.js")
+        .setFooter("© Indonesia | BETA v2.05 | discord.js")
         .setTimestamp()
         .addBlankField(true)
 
@@ -220,7 +268,7 @@ client.on('message', async message => {
         .setTitle("User Informations")
         .setDescription("Displaying your current avatar.")
         .setColor(0xc61145)
-        .setFooter("© Indonesia | BETA v1.91 | discord.js")
+        .setFooter("© Indonesia | BETA v2.05 | discord.js")
         .setTimestamp()
         .setImage(message.author.displayAvatarURL())
 
@@ -293,15 +341,16 @@ client.on('message', async message => {
         .setTitle("Bot Informations")
         .setDescription(`Displaying all commands in this bot.`)
         .setColor(0x19fca1)
-        .setFooter("© Indonesia | BETA v1.91 | discord.js")
+        .setFooter("© Indonesia | BETA v2.05 | discord.js")
         .setTimestamp()
         
         .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `changelog` `userinfo` `hook` `support` `botinfo`")
-        .addField("FUN & MOODBOOSTER:", "`cat` `dog` `lewd` `tanya` `catfact` `say` `sayembed`")
+        .addField("FUN & MOODBOOSTER:", "`cat` `dog` `lewd` `hug` `meow` `tanya` `catfact` `say` `embed`")
         .addField("MODERATOR:", "`kick` `ban` `mute`")
         .addField("MUSIC:", "Under Maintenance")
-        .addField("Invite:", "[Click here to invite the bot into your server](https://discordapp.com/oauth2/authorize?client_id=383183866925678604&scope=bot&permissions=2105015551)")
-        .addField("Support:", "[Click here to the Official Discord Server](https://discord.gg/TjnmrMx)")    
+        .addBlankField(true)
+        .addField("Invite & UPVOTES:", "[Click here to invite the bot into your server](https://discordbots.org/bot/383183866925678604)")
+        .addField("Support:", "[Click here to the Official Discord Server](https://discord.gg/754HKBP)")    
     
         message.channel.send({embed});
     }   
@@ -309,7 +358,7 @@ client.on('message', async message => {
     // ------------------------- //
     // KATA KATA KOTOR (BANNED) //
 
-    const swearWords = ["ngentot", "kontol", "kntl", "kntI", "ngentod", "bangsad", "bangsat", "bgst", "bgsd", "pantek", "itil", "jancok", "babi", "entot", "sange", "sangek", "bangsaad", "bangsa-t"]
+    const swearWords = ["nigga", "faggot", "ngentot", "kontol", "kntl", "kntI", "ngentod", "bangsad", "bangsat", "bgst", "bgsd", "pantek", "itil", "jancok", "babi", "entot", "sange", "sangek", "bangsaad", "bangsa-t"]
     if (swearWords.some(word => message.content.includes(word)) ) {
         message.delete(1000).then(msg => message.reply("LANGUAGE! :rage:"))
     }
@@ -360,7 +409,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
               icon_url: client.user.avatarURL,
-              text: "© Indonesia | BETA v1.91 | discord.js"
+              text: "© Indonesia | BETA v2.05 | discord.js"
             }
         }
     });
@@ -382,7 +431,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
             icon_url: client.user.avatarURL(),
-            text: "© Indonesia | BETA v1.91 | discord.js"
+            text: "© Indonesia | BETA v2.05 | discord.js"
             }
         }
     });
@@ -403,7 +452,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
               icon_url: client.user.avatarURL(),
-              text: "© Indonesia | BETA v1.91 | discord.js"
+              text: "© Indonesia | BETA v2.05 | discord.js"
             }
         }
     });
@@ -426,7 +475,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
             icon_url: client.user.avatarURL(),
-            text: "© Indonesia | BETA v1.91 | discord.js"
+            text: "© Indonesia | BETA v2.05 | discord.js"
             }
         }
     });
@@ -456,7 +505,7 @@ client.on('message', async message => {
                 timestamp: new Date(),
                 footer: {
                   icon_url: client.user.avatarURL,
-                  text: "© Indonesia | BETA v1.91 | discord.js"
+                  text: "© Indonesia | BETA v2.05 | discord.js"
                 }
             }
         });
@@ -479,7 +528,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
               icon_url: client.user.avatarURL(),
-              text: "© Indonesia | BETA v1.91 | discord.js"
+              text: "© Indonesia | BETA v2.05 | discord.js"
             }
         }
     });
@@ -501,7 +550,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
               icon_url: client.user.avatarURL(),
-              text: "© Indonesia | BETA v1.91 | discord.js"
+              text: "© Indonesia | BETA v2.05 | discord.js"
             }
         }
     });
@@ -523,7 +572,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
               icon_url: client.user.avatarURL(),
-              text: "© Indonesia | BETA v1.91 | discord.js"
+              text: "© Indonesia | BETA v2.05 | discord.js"
             }
         }
     });
@@ -537,7 +586,7 @@ client.on('message', async message => {
 
 client.on("ready", () => {
     console.log('Bot Dimulai.');
-    var statusPlaying = ["LEWD", "SOMEBODY TOUCH MY SPAGHETT!!! | ]help", "WAAAAAAAAAAAAAAAAAAH", "J U S T  M O N I K A", "JOIN INDONESIA OFFICIAL SERVER | ]help", "DA BEST BOT EVAHHHHHHH | ]help", "]", "DO YOU KNOW DA WEY?!", "Eta Terangkanlah", "OM TELOLET OMMM!!!", "KIDS JAMAN NOW GENERASI MICHIN", "1 + 1 = 6", "MODUS (MODAL KARDUS)", "BOT DENGAN RESOURCE TERPENDYDYCK", `${client.users.size} users / ${client.guilds.size} servers`, "ALAN SURYAAAAAAAJANA"]
+    var statusPlaying = ["GG! 50 GUILDS!", "The thing goes skraaaaaa", "Grahhhh pap pap pap", "Kangen kamuh.", "discordbots.org boi", "Ewing Squad.", "SOMEBODY TOUCH MY SPAGHETT!!! | ]help", "WAAAAAAAAAAAAAAAAAAH", "J U S T  M O N I K A", "JOIN INDONESIA OFFICIAL SERVER | ]help", "DA BEST BOT EVAHHHHHHH | ]help", "]", "DO YOU KNOW DA WEY?!", "Eta Terangkanlah", "OM TELOLET OMMM!!!", "KIDS JAMAN NOW GENERASI MICHIN", "1 + 1 = 6", "MODUS (MODAL KARDUS)", "BOT DENGAN RESOURCE TERPENDYDYCK", `${client.users.size} users / ${client.guilds.size} servers`, "ALAN SURYAAAAAAAJANA"]
 
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: statusPlaying[Math.floor(Math.random() * statusPlaying.length)], type: 0 }})
@@ -549,4 +598,4 @@ client.on("ready", () => {
 
 })
 
-client.login(process.env.BOT_TOKEN);
+client.login(process.env.BOT_TOKEN); // We don't want people see my token. >:)
