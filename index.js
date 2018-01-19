@@ -27,7 +27,7 @@ const prefix = ']';
 
 // DBL API
 {
-  "server_count":`${client.guilds.size}`
+  "server_count": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4MzE4Mzg2NjkyNTY3ODYwNCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTE2MzMxNDc2fQ.B5--HsOorB1ODgX6hXjpXDXFLx9q9L0FSEZ-7RmKsaE"
 }
 
 // Fungsi Webhook
