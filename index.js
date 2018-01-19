@@ -25,6 +25,11 @@ var lewd = ["http://gph.is/1Q0g8Z9", "https://cdn.discordapp.com/attachments/382
 // Pengaturan Global
 const prefix = ']';
 
+// DBL API
+{
+  "server_count":`${client.guilds.size}`
+}
+
 // Fungsi Webhook
 function hook(channel, title, message, color, avatar) {
     
