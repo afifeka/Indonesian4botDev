@@ -26,20 +26,7 @@ var lewd = ["http://gph.is/1Q0g8Z9", "https://cdn.discordapp.com/attachments/382
 const prefix = ']';
 
 // DBL
-const dbl = require(`discord-bot-list`)
- 
-const clientdbl = new dbl({
-    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4MzE4Mzg2NjkyNTY3ODYwNCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTE2MzQ0ODg1fQ.5gZpxOtNFuDBrLR3SZJRoxfgeeAC-YWVPUMzpZ4LFSw",
-    id: "383183866925678604"
-})
-
-clientdbl.postStats("49", (err, res) => {
-    if(err) {
-        console.error(err)
-    } else {
-        console.log(res)
-    }
-})
+  // Under Heavy Development
 
 // Fungsi Webhook
 function hook(channel, title, message, color, avatar) {
