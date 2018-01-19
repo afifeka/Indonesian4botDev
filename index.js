@@ -26,12 +26,15 @@ var lewd = ["http://gph.is/1Q0g8Z9", "https://cdn.discordapp.com/attachments/382
 const prefix = ']';
 
 // DBL API
-const { DiscordBotsList } = require('discordbots-api');
-const DiscordBots = new DiscordBotsList('token');
+const snekfetch = require('snekfetch')
 
-const servercount = '44'; // Replace '' with your guild count.
- 
-DiscordBots.postStats(servercount);
+setInterval(() => {
+  snekfetch.post(`https://discordbots.org/api/bots/stats`)
+    .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4MzE4Mzg2NjkyNTY3ODYwNCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTE2MzQ0ODg1fQ.5gZpxOtNFuDBrLR3SZJRoxfgeeAC-YWVPUMzpZ4LFSw')
+    .send({ server_count: client.guilds.size })
+    .then(() => console.log('Updated discordbots.org stats.'))
+    .catch(err => console.error(`Whoops something went wrong: ${err.body}`));
+}, 3600000)
 
 // Fungsi Webhook
 function hook(channel, title, message, color, avatar) {
