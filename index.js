@@ -237,8 +237,8 @@ client.on('message', async message => {
         
         .addField("Bot Owner:", "Ray#2221")
         .addField("Launched At:", "Samarinda, East Kalimantan / 12 December 2017")
-        .addField("Tester By:", "ItzMeDwii#9748 / The Clu Craft#1063")
-        .addField("Maintenance Technician:", "ItzMeDwii#9748")
+        .addField("Community Manager/Maintenance Technician:", "ItzMeDwii#9748")
+        .addField("Tester By:", "The Clu Craft#1063 / Hazim_Tito#9307")
         .addField("Software:", "Visual Studio / Node.js / Heroku (recently for online it)")
         .addField("Library:", "Discord.js")
         .addField("Version:", "BETA v2.05")
