@@ -2,6 +2,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require("fs");
+
 const db = require("quick.db")
 const ms = require("ms");
 
@@ -21,7 +22,9 @@ const randomAnimal = require("random-animal");
 // Other Funny Random
 var lewd = ["http://gph.is/1Q0g8Z9", "https://cdn.discordapp.com/attachments/382436905926524928/403143965898964992/lewd-S1EHap_w-..gif", "https://media.giphy.com/media/pHH0RsynZHGlG/giphy.gif", "https://media.giphy.com/media/DHT6OLrSGU8z6/giphy.gif", "https://media.giphy.com/media/SFMEPM1LHxdYY/giphy.gif", "https://media.giphy.com/media/MRWsOo2LEQYDu/giphy.gif", "https://media.giphy.com/media/YgthKEUJE7HYA/giphy.gif", "https://media.giphy.com/media/3HD1rvrRk0QhO/giphy.gif", "https://media.giphy.com/media/dIXp5H9gaiZy0/giphy.gif", "https://media.giphy.com/media/fzFoOkVjpJ7ws/giphy.gif", "https://media.giphy.com/media/CeBkcIgzcZBks/giphy.gif"]
 var hug = ["https://media.giphy.com/media/mx2EIGDZX5XH2/giphy.gif", "https://media.giphy.com/media/13YrHUvPzUUmkM/giphy.gif", "https://media.giphy.com/media/SZBS27PkBCKmk/giphy.gif", "https://media.giphy.com/media/f6y4qvdxwEDx6/giphy.gif", "https://media.giphy.com/media/5yp8MlXQLLna0/giphy.gif", "https://media.giphy.com/media/wbrgtEbP1GPNS/giphy.gif", "https://media.giphy.com/media/DtJw1cqMCHSvu/giphy.gif", "https://media.giphy.com/media/trJ68zLtt85QA/giphy.gif", "https://media.giphy.com/media/HaC1WdpkL3W00/giphy.gif", "https://media.giphy.com/media/yziFo5qYAOgY8/giphy.gif", "https://media.giphy.com/media/du8yT5dStTeMg/giphy.gif", "https://media.giphy.com/media/NimEavznszKtW/giphy.gif"]
-var meow = ["https://media.giphy.com/media/FRg1FUARsn96/giphy.gif", "https://media.giphy.com/media/D0qSdg3fckqDC/giphy.gif", "https://media.giphy.com/media/WVhM2B5Kqqaxa/giphy.gif", "https://media.giphy.com/media/TjPotDPmEKiK4/giphy.gif", "https://media.giphy.com/media/3Ev8JMnsNqUM/giphy.gif", "https://media.giphy.com/media/guGXANpTSTJjG/giphy.gif", "https://media.giphy.com/media/xTiN0m4Q3VbqSJsTcc/giphy.gif", "https://media.giphy.com/media/109TWWxRddcIEg/giphy.gif", "https://media.giphy.com/media/FrEnONcaBGJ0c/giphy.gif", "https://media.giphy.com/media/3ohhwgj45R4n4CL0fS/giphy.gif", "https://media.giphy.com/media/Mc3yOYQDoXCj6/giphy.gif", "https://media.giphy.com/media/uNi7TY86W2kVi/giphy.gif", "https://media.giphy.com/media/13lWraa7dfb7G0/giphy.gif", "https://media.giphy.com/media/kBuMyaqdTIofe/giphy.gif", "https://media.giphy.com/media/nNp3ZSywRFyNi/giphy.gif"]
+var meow = ["https://media.giphy.com/media/FRg1FUARsn96/giphy.gif", "https://media.giphy.com/media/D0qSdg3fckqDC/giphy.gif", "https://media.giphy.com/media/WVhM2B5Kqqaxa/giphy.gif", "https://media.giphy.com/media/TjPotDPmEKiK4/giphy.gif", "https://media.giphy.com/media/3Ev8JMnsNqUM/giphy.gif", "https://media.giphy.com/media/guGXANpTSTJjG/giphy.gif", "https://media.giphy.com/media/xTiN0m4Q3VbqSJsTcc/giphy.gif", "https://media.giphy.com/media/109TWWxRddcIEg/giphy.gif", "https://media.giphy.com/media/FrEnONcaBGJ0c/giphy.gif", "https://media.giphy.com/media/3ohhwgj45R4n4CL0fS/giphy.gif", "https://media.giphy.com/media/Mc3yOYQDoXCj6/giphy.gif", "https://media.giphy.com/media/uNi7TY86W2kVi/giphy.gif", "https://media.giphy.com/media/13lWraa7dfb7G0/giphy.gif", "https://media.giphy.com/media/kBuMyaqdTIofe/giphy.gif", "https://media.giphy.com/media/nNp3ZSywRFyNi/giphy.gif","https://media.giphy.com/media/13lWraa7dfb7G0/giphy.gif","https://media.giphy.com/media/Fc7LvGqKt3C8/giphy.gif","https://media.giphy.com/media/Mn8aGoNewJl2o/giphy.gif","https://media.giphy.com/media/yFQ0ywscgobJK/giphy.gif","https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif","https://media.giphy.com/media/nNxT5qXR02FOM/giphy.gif","https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif","https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif","https://media.giphy.com/media/W3QKEujo8vztC/giphy.gif", "https://media.giphy.com/media/3oEduSbSGpGaRX2Vri/giphy.gif","https://media.giphy.com/media/v6aOjy0Qo1fIA/giphy.gif"]
+var cry = ["https://images-ext-2.discordapp.net/external/zH4GTVkeWu7SR_K3uKaLeVZ5QN286zvuYGf0Tz8rJnU/https/cdn.weeb.sh/images/SJRW7U7DZ.gif", "https://images-ext-2.discordapp.net/external/AiYvQZ2ZLMm2rAdkidD0Tm3hIDYo1I6mllbdeVga5Us/https/cdn.weeb.sh/images/Sy1EUa-Zz.gif?format=png&width=400&height=224", "https://images-ext-1.discordapp.net/external/pjwDmf4CIM4FxyfV8XULrc4nyqVGyYuv--3WTr8Upbo/https/cdn.weeb.sh/images/rJUujgJ5Z.gif?width=400&height=225", "https://media.giphy.com/media/4NuAILyDbmD16/giphy.gif", "https://media.giphy.com/media/eHekyNso61EqY/giphy.gif", "https://media.giphy.com/media/eHekyNso61EqY/giphy.gif", "https://media.giphy.com/media/XmPrx6vcB0X6g/giphy.gif","https://media.giphy.com/media/CpoZsKS27cK40/giphy.gif","https://media.giphy.com/media/ROF8OQvDmxytW/giphy.gif", "https://media.giphy.com/media/3fmRTfVIKMRiM/giphy.gif", "https://media.giphy.com/media/Y4z9olnoVl5QI/giphy.gif", "https://media.giphy.com/media/3wy72XTPLo1kk/giphy.gif", "https://media.giphy.com/media/kUYWowJqB78jK/giphy.gif", "https://media.giphy.com/media/l2Sq6JtUsY650LqKc/giphy.gif", "https://media.giphy.com/media/z18p1Aw2R4qnm/giphy.gif","https://media.giphy.com/media/PSBKGtaSBV98A/giphy.gif","https://media.giphy.com/media/D46ikuEng1x1C/giphy.gif","https://media.giphy.com/media/Pok6284jGzyGA/giphy.gif","https://media.giphy.com/media/yGesXBuMnMSdi/giphy.gif"]
+var blush = [""]
 
 // Pengaturan Global
 const prefix = ']';
@@ -41,14 +44,6 @@ clientdbl.postStats("49", (err, res) => {
         console.log(res)
     }
 })
-
-setInterval(() => {
-  snekfetch.post(`https://discordbots.org/api/bots/stats`)
-    .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4MzE4Mzg2NjkyNTY3ODYwNCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTE2MzQ0ODg1fQ.5gZpxOtNFuDBrLR3SZJRoxfgeeAC-YWVPUMzpZ4LFSw')
-    .send({ server_count: client.guilds.size })
-    .then(() => console.log('Updated discordbots.org stats...'))
-    .catch(err => console.error(`Whoops something went wrong: ${err.body}`));
-}, 3600000)
 
 // Fungsi Webhook
 function hook(channel, title, message, color, avatar) {
@@ -169,6 +164,16 @@ client.on('message', async message => {
         message.channel.send({embed})
     }
 
+    if (msg === prefix + 'CRY') {
+        const embed = new Discord.MessageEmbed()
+
+        .setDescription(`${message.author.username} sedang menangis. | :cry:`)
+        .setColor(0x474747)
+        .setImage(cry[Math.floor(Math.random() * cry.length)])
+
+        message.channel.send({embed})
+    }
+
     // USERINFO
     if (msg.startsWith(prefix + 'USERINFO')) {
         const embed = new Discord.MessageEmbed()
@@ -229,8 +234,6 @@ client.on('message', async message => {
     if (msg === prefix + 'INFO') {
         const embed = new Discord.MessageEmbed()
 
-        .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
-        .setDescription(`Displaying bot information currently`)
         .setColor(0x19fca1)
         .setFooter("© Indonesia | BETA v2.05 | discord.js")
         .setTimestamp()
@@ -238,7 +241,7 @@ client.on('message', async message => {
         .addField("Bot Owner:", "Ray#2221")
         .addField("Launched At:", "Samarinda, East Kalimantan / 12 December 2017")
         .addField("Community Manager/Maintenance Technician:", "ItzMeDwii#9748")
-        .addField("Tested By:", "The Clu Craft#1063 / Hazim_Tito#9307")
+        .addField("Tester By:", "The Clu Craft#1063 / Hazim_Tito#9307")
         .addField("Software:", "Visual Studio / Node.js / Heroku (recently for online it)")
         .addField("Library:", "Discord.js")
         .addField("Version:", "BETA v2.05")
@@ -252,18 +255,31 @@ client.on('message', async message => {
     }
 
     // BOTINFO
-    if (msg === prefix + 'BOTINFO') {
+    String.prototype.toHHMMSS = function () {
+        var sec_num = parseInt(this, 10); // don't forget the second param
+        var hours   = Math.floor(sec_num / 3600);
+        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+        var seconds = sec_num - (hours * 3600) - (minutes * 60);
+    
+        if (hours   < 10) {hours   = "0"+hours;}
+        if (minutes < 10) {minutes = "0"+minutes;}
+        if (seconds < 10) {seconds = "0"+seconds;}
+        var time    = hours+':'+minutes+':'+seconds;
+        return time;
+    }
+
+    var time = process.uptime();
+    var uptime = (time + "").toHHMMSS();
+
+    if (msg === prefix + 'STATS') {
         const embed = new Discord.MessageEmbed()
-        .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
-        .setTitle("Bot Information")
-        .setDescription("Displaying bot information currently")
-        .setColor(0xc61145)
+        .setColor(0x474747)
         .setFooter("© Indonesia | BETA v2.05 | discord.js")
         .setTimestamp()
-        .addBlankField(true)
 
         .addField("Server Joined:", `**${client.guilds.size}** guilds/servers.`)
         .addField("Total User in the Server Joined:", `**${client.users.size}** users total.`)
+        .addField("Uptime:", uptime)
 
         message.channel.send({embed});
     }
@@ -345,14 +361,12 @@ client.on('message', async message => {
 
         const embed = new Discord.MessageEmbed()
 
-        .setTitle("Bot Informations")
-        .setDescription(`Displaying all commands in this bot.`)
         .setColor(0x19fca1)
         .setFooter("© Indonesia | BETA v2.05 | discord.js")
         .setTimestamp()
         
-        .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `changelog` `userinfo` `hook` `support` `botinfo`")
-        .addField("FUN & MOODBOOSTER:", "`cat` `dog` `lewd` `hug` `meow` `tanya` `catfact` `say` `embed`")
+        .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `changelog` `userinfo` `hook` `support` `stats`")
+        .addField("FUN & MOODBOOSTER:", "`cat` `dog` `lewd` `hug` `cry` `meow` `tanya` `catfact` `say` `embed`")
         .addField("MODERATOR:", "`kick` `ban` `mute`")
         .addField("MUSIC:", "Under Maintenance")
         .addBlankField(true)
@@ -593,7 +607,7 @@ client.on('message', async message => {
 
 client.on("ready", () => {
     console.log('Bot Dimulai.');
-    var statusPlaying = ["GG! 50 GUILDS!", "The thing goes skraaaaaa", "Grahhhh pap pap pap", "Kangen kamuh.", "discordbots.org boi", "Ewing Squad.", "SOMEBODY TOUCH MY SPAGHETT!!! | ]help", "WAAAAAAAAAAAAAAAAAAH", "J U S T  M O N I K A", "JOIN INDONESIA OFFICIAL SERVER | ]help", "DA BEST BOT EVAHHHHHHH | ]help", "]", "DO YOU KNOW DA WEY?!", "Eta Terangkanlah", "OM TELOLET OMMM!!!", "KIDS JAMAN NOW GENERASI MICHIN", "1 + 1 = 6", "MODUS (MODAL KARDUS)", "BOT DENGAN RESOURCE TERPENDYDYCK", `${client.users.size} users / ${client.guilds.size} servers`, "ALAN SURYAAAAAAAJANA"]
+    var statusPlaying = ["Lil Qorygore - Alan Suryajana OUT NOW!", "BBC (Beres Bucat Cabut)", "Cannot read a property '69' of undefined.", "hm....", "Kangen kamuh.", "discordbots.org boi", "Ewing Squad.", "SOMEBODY TOUCH MY SPAGHETT!!! | ]help", "WAAAAAAAAAAAAAAAAAAH", "J U S T  M O N I K A", "JOIN INDONESIA OFFICIAL SERVER | ]help", "DA BEST BOT EVAHHHHHHH | ]help", "]", "DO YOU KNOW DA WEY?!", "Eta Terangkanlah", "OM TELOLET OMMM!!!", "KIDS JAMAN NOW GENERASI MICHIN", "1 + 1 = 6", "MODUS (MODAL KARDUS)", "BOT DENGAN RESOURCE TERPENDYDYCK", `${client.users.size} users / ${client.guilds.size} servers`, "ALAN SURYAAAAAAAJANA"]
 
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: statusPlaying[Math.floor(Math.random() * statusPlaying.length)], type: 0 }})
@@ -605,4 +619,4 @@ client.on("ready", () => {
 
 })
 
-client.login(process.env.BOT_TOKEN); // We don't want people see my token. >:)
+client.login(process.env.BOT_TOKEN);
