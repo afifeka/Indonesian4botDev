@@ -108,7 +108,7 @@ client.on('message', async message => {
     let command = args.shift().toLowerCase();
 	
 	    if (talkedRecently.has(message.author.id)) {
-        return msg.channel.send("Mohon tunggu dalam **6 detik!**")
+        return message.channel.send("Mohon tunggu dalam **6 detik!**")
     }
 
     talkedRecently.add(message.author.id);
