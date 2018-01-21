@@ -2,7 +2,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require("fs");
-
 const db = require("quick.db")
 const ms = require("ms");
 
@@ -24,7 +23,6 @@ var lewd = ["http://gph.is/1Q0g8Z9", "https://cdn.discordapp.com/attachments/382
 var hug = ["https://media.giphy.com/media/mx2EIGDZX5XH2/giphy.gif", "https://media.giphy.com/media/13YrHUvPzUUmkM/giphy.gif", "https://media.giphy.com/media/SZBS27PkBCKmk/giphy.gif", "https://media.giphy.com/media/f6y4qvdxwEDx6/giphy.gif", "https://media.giphy.com/media/5yp8MlXQLLna0/giphy.gif", "https://media.giphy.com/media/wbrgtEbP1GPNS/giphy.gif", "https://media.giphy.com/media/DtJw1cqMCHSvu/giphy.gif", "https://media.giphy.com/media/trJ68zLtt85QA/giphy.gif", "https://media.giphy.com/media/HaC1WdpkL3W00/giphy.gif", "https://media.giphy.com/media/yziFo5qYAOgY8/giphy.gif", "https://media.giphy.com/media/du8yT5dStTeMg/giphy.gif", "https://media.giphy.com/media/NimEavznszKtW/giphy.gif"]
 var meow = ["https://media.giphy.com/media/FRg1FUARsn96/giphy.gif", "https://media.giphy.com/media/D0qSdg3fckqDC/giphy.gif", "https://media.giphy.com/media/WVhM2B5Kqqaxa/giphy.gif", "https://media.giphy.com/media/TjPotDPmEKiK4/giphy.gif", "https://media.giphy.com/media/3Ev8JMnsNqUM/giphy.gif", "https://media.giphy.com/media/guGXANpTSTJjG/giphy.gif", "https://media.giphy.com/media/xTiN0m4Q3VbqSJsTcc/giphy.gif", "https://media.giphy.com/media/109TWWxRddcIEg/giphy.gif", "https://media.giphy.com/media/FrEnONcaBGJ0c/giphy.gif", "https://media.giphy.com/media/3ohhwgj45R4n4CL0fS/giphy.gif", "https://media.giphy.com/media/Mc3yOYQDoXCj6/giphy.gif", "https://media.giphy.com/media/uNi7TY86W2kVi/giphy.gif", "https://media.giphy.com/media/13lWraa7dfb7G0/giphy.gif", "https://media.giphy.com/media/kBuMyaqdTIofe/giphy.gif", "https://media.giphy.com/media/nNp3ZSywRFyNi/giphy.gif","https://media.giphy.com/media/13lWraa7dfb7G0/giphy.gif","https://media.giphy.com/media/Fc7LvGqKt3C8/giphy.gif","https://media.giphy.com/media/Mn8aGoNewJl2o/giphy.gif","https://media.giphy.com/media/yFQ0ywscgobJK/giphy.gif","https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif","https://media.giphy.com/media/nNxT5qXR02FOM/giphy.gif","https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif","https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif","https://media.giphy.com/media/W3QKEujo8vztC/giphy.gif", "https://media.giphy.com/media/3oEduSbSGpGaRX2Vri/giphy.gif","https://media.giphy.com/media/v6aOjy0Qo1fIA/giphy.gif"]
 var cry = ["https://images-ext-2.discordapp.net/external/zH4GTVkeWu7SR_K3uKaLeVZ5QN286zvuYGf0Tz8rJnU/https/cdn.weeb.sh/images/SJRW7U7DZ.gif", "https://images-ext-2.discordapp.net/external/AiYvQZ2ZLMm2rAdkidD0Tm3hIDYo1I6mllbdeVga5Us/https/cdn.weeb.sh/images/Sy1EUa-Zz.gif?format=png&width=400&height=224", "https://images-ext-1.discordapp.net/external/pjwDmf4CIM4FxyfV8XULrc4nyqVGyYuv--3WTr8Upbo/https/cdn.weeb.sh/images/rJUujgJ5Z.gif?width=400&height=225", "https://media.giphy.com/media/4NuAILyDbmD16/giphy.gif", "https://media.giphy.com/media/eHekyNso61EqY/giphy.gif", "https://media.giphy.com/media/eHekyNso61EqY/giphy.gif", "https://media.giphy.com/media/XmPrx6vcB0X6g/giphy.gif","https://media.giphy.com/media/CpoZsKS27cK40/giphy.gif","https://media.giphy.com/media/ROF8OQvDmxytW/giphy.gif", "https://media.giphy.com/media/3fmRTfVIKMRiM/giphy.gif", "https://media.giphy.com/media/Y4z9olnoVl5QI/giphy.gif", "https://media.giphy.com/media/3wy72XTPLo1kk/giphy.gif", "https://media.giphy.com/media/kUYWowJqB78jK/giphy.gif", "https://media.giphy.com/media/l2Sq6JtUsY650LqKc/giphy.gif", "https://media.giphy.com/media/z18p1Aw2R4qnm/giphy.gif","https://media.giphy.com/media/PSBKGtaSBV98A/giphy.gif","https://media.giphy.com/media/D46ikuEng1x1C/giphy.gif","https://media.giphy.com/media/Pok6284jGzyGA/giphy.gif","https://media.giphy.com/media/yGesXBuMnMSdi/giphy.gif"]
-var blush = [""]
 
 // Pengaturan Global
 const prefix = ']';
@@ -37,7 +35,7 @@ const clientdbl = new dbl({
     id: "383183866925678604"
 })
 
-clientdbl.postStats("49", (err, res) => {
+clientdblpostStats("55", (err, res) => {
     if(err) {
         console.error(err)
     } else {
@@ -176,20 +174,61 @@ client.on('message', async message => {
 
     // USERINFO
     if (msg.startsWith(prefix + 'USERINFO')) {
+
+        let member = message.mentions.members.first();
+        
+        if (!member) {
+            const embed = new Discord.MessageEmbed()
+
+            .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
+            .setDescription(`Displaying your current **information**`)
+            .setColor(0xc61145)
+            .setFooter("© Indonesia | BETA v2.06 | discord.js")
+            .setTimestamp()
+            .setThumbnail(message.author.displayAvatarURL())
+
+            .addField("Username:", `${message.author.username}#${message.author.discriminator}`)
+            .addField("Created At:", `${message.author.createdAt}`)
+            .addField("ID Member:", `${message.author.id}`)
+
+            return message.channel.send({embed});
+        }
+
         const embed = new Discord.MessageEmbed()
 
-        .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
+        .setAuthor(`${member.user.username}`, member.user.displayAvatarURL())
         .setDescription(`Displaying your current **information**`)
         .setColor(0xc61145)
-        .setFooter("© Indonesia | BETA v2.05 | discord.js")
+        .setFooter("© Indonesia | BETA v2.06 | discord.js")
         .setTimestamp()
-        .setThumbnail(message.author.displayAvatarURL())
+        .setThumbnail(member.user.displayAvatarURL())
 
-        .addField("Username:", `${message.author.username}#${message.author.discriminator}`)
-        .addField("Created At:", `${message.author.createdAt}`)
-        .addField("ID Member:", `${message.author.id}`)
+        .addField("Username:", `${member.user.username}#${member.user.discriminator}`)
+        .addField("Created At:", `${member.user.createdAt}`)
+        .addField("ID Member:", `${member.user.id}`)
 
-        message.channel.send({embed});
+        message.channel.send({embed})
+    }
+
+    // SERVERINFO
+    if (msg === prefix + 'SERVERINFO') {
+        const embed = new Discord.MessageEmbed()
+
+        .setColor(0x474747)
+        .setTitle(`Owner by ${message.guild.owner.user.tag} / ${message.guild.ownerID}`)
+        .setDescription(`Server info untuk: ${message.guild}`)
+        .setFooter("© Indonesia | BETA v2.06 | discord.js")
+        .setThumbnail(message.guild.iconURL())
+        .setTimestamp()
+
+        .addField("Channels:", `${message.guild.channels.size}`, true)
+        .addField("Members:", `**[${message.guild.members.size}]**`, true)
+        .addField("Roles:", `${message.guild.roles.size}`, true)
+        .addField("Region:", `${message.guild.region}`, true)
+        .addField("ID:", `${message.guild.id}`, true)
+        .addField("Created At:", message.guild.createdAt)
+
+        message.channel.send({embed})
     }
 
     // SAYEMBED
@@ -222,7 +261,7 @@ client.on('message', async message => {
         .setTitle("System Informations")
         .setDescription("default: localhost")
         .setColor(0xefce28)
-        .setFooter("© Indonesia | BETA v2.05 | discord.js")
+        .setFooter("© Indonesia | BETA v2.06 | discord.js")
         .setTimestamp()
 
         .addField(":ping_pong: | Pong!", new Date().getTime() - message.createdTimestamp + ` ms.`)
@@ -235,7 +274,7 @@ client.on('message', async message => {
         const embed = new Discord.MessageEmbed()
 
         .setColor(0x19fca1)
-        .setFooter("© Indonesia | BETA v2.05 | discord.js")
+        .setFooter("© Indonesia | BETA v2.06 | discord.js")
         .setTimestamp()
         
         .addField("Bot Owner:", "Ray#2221")
@@ -244,14 +283,14 @@ client.on('message', async message => {
         .addField("Tester By:", "The Clu Craft#1063 / Hazim_Tito#9307")
         .addField("Software:", "Visual Studio / Node.js / Heroku (recently for online it)")
         .addField("Library:", "Discord.js")
-        .addField("Version:", "BETA v2.05")
+        .addField("Version:", "BETA v2.06")
 
         message.channel.send({embed});
     }
 
     // UPDATE
     if (msg === prefix + 'CHANGELOG') {
-        message.channel.send(":information_source: Update **[19th January 2018]** \n\n:white_check_mark: | **Fitur baru:** \n\n• `meow` ditambahkan. \n• `hug` ditambahkan. \n\n:no_entry: | **Fixed:** \n\n• `katakan` menjadi `say` \n• `sayembed` menjadi `embed` karena ada kesamaan. \n• bug on air heroku. \n• Bot dipromosikan lewat DBL, ketik ]help untuk info lainnya. \n• `info` diganti. \n• `versi bot` diganti menjadi **v2.05**")
+        message.channel.send(":information_source: Update **[21th January 2018]** \n\n:white_check_mark: | **Fitur baru:** \n\n• `cry` ditambahkan. \n• `serverinfo` ditambahkan. \n• tag userinfo & avatar available. \n\n:no_entry: | **Fixed:** \n\n• bug on air heroku. \n• uptime di `stats` command. \n• `versi bot` diganti menjadi v2.06")
     }
 
     // BOTINFO
@@ -274,7 +313,7 @@ client.on('message', async message => {
     if (msg === prefix + 'STATS') {
         const embed = new Discord.MessageEmbed()
         .setColor(0x474747)
-        .setFooter("© Indonesia | BETA v2.05 | discord.js")
+        .setFooter("© Indonesia | BETA v2.06 | discord.js")
         .setTimestamp()
 
         .addField("Server Joined:", `**${client.guilds.size}** guilds/servers.`)
@@ -287,15 +326,28 @@ client.on('message', async message => {
     // AVATAR
     if (msg === prefix + 'AVATAR') {
         message.react("✅");
-        const embed = new Discord.MessageEmbed()
-        .setTitle("User Informations")
-        .setDescription("Displaying your current avatar.")
-        .setColor(0xc61145)
-        .setFooter("© Indonesia | BETA v2.05 | discord.js")
-        .setTimestamp()
-        .setImage(message.author.displayAvatarURL())
+        let member = message.mentions.members.first();
+        if (!member) {
+            const embed = new Discord.MessageEmbed()
+            .setTitle("User Informations")
+            .setDescription("Displaying your current avatar.")
+            .setColor(0xc61145)
+            .setFooter("© Indonesia | BETA v2.06 | discord.js")
+            .setTimestamp()
+            .setImage(message.author.displayAvatarURL())
 
-        message.channel.send({embed});
+            return message.channel.send({embed});
+        }
+
+        const embed = new Discord.MessageEmbed()
+            .setTitle("User Informations")
+            .setDescription("Displaying your current avatar.")
+            .setColor(0xc61145)
+            .setFooter("© Indonesia | BETA v2.06 | discord.js")
+            .setTimestamp()
+            .setImage(member.user.displayAvatarURL())
+
+            message.channel.send({embed});
     }
 
     // TANYA JAWAB
@@ -362,7 +414,7 @@ client.on('message', async message => {
         const embed = new Discord.MessageEmbed()
 
         .setColor(0x19fca1)
-        .setFooter("© Indonesia | BETA v2.05 | discord.js")
+        .setFooter("© Indonesia | BETA v2.06 | discord.js")
         .setTimestamp()
         
         .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `changelog` `userinfo` `hook` `support` `stats`")
@@ -430,7 +482,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
               icon_url: client.user.avatarURL,
-              text: "© Indonesia | BETA v2.05 | discord.js"
+              text: "© Indonesia | BETA v2.06 | discord.js"
             }
         }
     });
@@ -452,7 +504,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
             icon_url: client.user.avatarURL(),
-            text: "© Indonesia | BETA v2.05 | discord.js"
+            text: "© Indonesia | BETA v2.06 | discord.js"
             }
         }
     });
@@ -473,7 +525,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
               icon_url: client.user.avatarURL(),
-              text: "© Indonesia | BETA v2.05 | discord.js"
+              text: "© Indonesia | BETA v2.06 | discord.js"
             }
         }
     });
@@ -496,7 +548,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
             icon_url: client.user.avatarURL(),
-            text: "© Indonesia | BETA v2.05 | discord.js"
+            text: "© Indonesia | BETA v2.06 | discord.js"
             }
         }
     });
@@ -526,7 +578,7 @@ client.on('message', async message => {
                 timestamp: new Date(),
                 footer: {
                   icon_url: client.user.avatarURL,
-                  text: "© Indonesia | BETA v2.05 | discord.js"
+                  text: "© Indonesia | BETA v2.06 | discord.js"
                 }
             }
         });
@@ -549,7 +601,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
               icon_url: client.user.avatarURL(),
-              text: "© Indonesia | BETA v2.05 | discord.js"
+              text: "© Indonesia | BETA v2.06 | discord.js"
             }
         }
     });
@@ -571,7 +623,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
               icon_url: client.user.avatarURL(),
-              text: "© Indonesia | BETA v2.05 | discord.js"
+              text: "© Indonesia | BETA v2.06 | discord.js"
             }
         }
     });
@@ -593,7 +645,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
               icon_url: client.user.avatarURL(),
-              text: "© Indonesia | BETA v2.05 | discord.js"
+              text: "© Indonesia | BETA v2.06 | discord.js"
             }
         }
     });
@@ -607,7 +659,7 @@ client.on('message', async message => {
 
 client.on("ready", () => {
     console.log('Bot Dimulai.');
-    var statusPlaying = ["Lil Qorygore - Alan Suryajana OUT NOW!", "Bot tidak mendidik tapi asik.", "Cannot read a property '69' of undefined.", "hm....", "Kangen kamuh.", "discordbots.org boi", "Ewing Squad.", "SOMEBODY TOUCH MY SPAGHETT!!! | ]help", "WAAAAAAAAAAAAAAAAAAH", "J U S T  M O N I K A", "JOIN INDONESIA OFFICIAL SERVER | ]help", "DA BEST BOT EVAHHHHHHH | ]help", "]", "DO YOU KNOW DA WEY?!", "Eta Terangkanlah", "OM TELOLET OMMM!!!", "KIDS JAMAN NOW GENERASI MICHIN", "1 + 1 = 6", "MODUS (MODAL KARDUS)", "BOT DENGAN RESOURCE TERPENDYDYCK", `${client.users.size} users / ${client.guilds.size} servers`, "ALAN SURYAAAAAAAJANA"]
+    var statusPlaying = ["Yeah boi.", "ew.", "Cannot read a property '69' of undefined.", "hm....", "Kangen kamuh.", "discordbots.org boi", "Ewing Squad.", "SOMEBODY TOUCH MY SPAGHETT!!! | ]help", "WAAAAAAAAAAAAAAAAAAH", "J U S T  M O N I K A", "JOIN INDONESIA OFFICIAL SERVER | ]help", "DA BEST BOT EVAHHHHHHH | ]help", "]", "DO YOU KNOW DA WEY?!", "Eta Terangkanlah", "OM TELOLET OMMM!!!", "KIDS JAMAN NOW GENERASI MICHIN", "1 + 1 = 6", "MODUS (MODAL KARDUS)", "BOT DENGAN RESOURCE TERPENDYDYCK", `${client.users.size} users / ${client.guilds.size} servers`, "ALAN SURYAAAAAAAJANA"]
 
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: statusPlaying[Math.floor(Math.random() * statusPlaying.length)], type: 0 }})
