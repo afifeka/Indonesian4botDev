@@ -417,8 +417,8 @@ client.on('message', async message => {
         .setFooter("© Indonesia | BETA v2.06 | discord.js")
         .setTimestamp()
         
-        .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `changelog` `userinfo` `hook` `support` `stats`")
-        .addField("FUN & MOODBOOSTER:", "`cat` `dog` `lewd` `hug` `cry` `meow` `tanya` `catfact` `say` `embed`")
+        .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `changelog` `userinfo` `hook` `support` `stats` `serverinfo` `embed`")
+        .addField("FUN & MOODBOOSTER:", "`cat` `dog` `lewd` `hug` `cry` `meow` `say` `catfact`")
         .addField("MODERATOR:", "`kick` `ban` `mute`")
         .addField("MUSIC:", "Under Maintenance")
         .addBlankField(true)
