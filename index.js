@@ -5,6 +5,9 @@ const fs = require("fs");
 const db = require("quick.db")
 const ms = require("ms");
 
+// Cooldown
+const talkedRecently = new Set();
+
 // Searcher
 const cheerio = require('cheerio');
 const snekfetch = require('snekfetch');
@@ -103,6 +106,17 @@ client.on('message', async message => {
     let sender = message.author;
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let command = args.shift().toLowerCase();
+	
+	    if (talkedRecently.has(message.author.id)) {
+        return msg.channel.send("Mohon tunggu dalam **6 detik!**")
+    }
+
+    talkedRecently.add(message.author.id);
+    setTimeout(() => {
+
+        talkedRecently.delete(message.author.id);
+
+    }, 5500);
         
     // Perintah
 
