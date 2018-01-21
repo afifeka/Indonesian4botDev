@@ -5,9 +5,6 @@ const fs = require("fs");
 const db = require("quick.db")
 const ms = require("ms");
 
-// Cooldown
-const talkedRecently = new Set();
-
 // Searcher
 const cheerio = require('cheerio');
 const snekfetch = require('snekfetch');
@@ -106,17 +103,6 @@ client.on('message', async message => {
     let sender = message.author;
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let command = args.shift().toLowerCase();
-	
-	    if (talkedRecently.has(message.author.id)) {
-        return message.channel.send("Mohon tunggu dalam **6 detik!**")
-    }
-
-    talkedRecently.add(message.author.id);
-    setTimeout(() => {
-
-        talkedRecently.delete(message.author.id);
-
-    }, 5500);
         
     // Perintah
 
@@ -447,7 +433,7 @@ client.on('message', async message => {
 
     const swearWords = ["nigga", "faggot", "ngentot", "kontol", "kntl", "kntI", "ngentod", "bangsad", "bangsat", "bgst", "bgsd", "pantek", "itil", "jancok", "babi", "entot", "sange", "sangek", "bangsaad", "bangsa-t"]
     if (swearWords.some(word => message.content.includes(word)) ) {
-        message.delete(1000).then(msg => message.reply("LANGUAGE! :rage:"))
+        message.delete(1000).then(msg => message.reply("LANGUAGE! :rage:")).then(msg => message.delete(7500))
     }
 
     // MUTE
