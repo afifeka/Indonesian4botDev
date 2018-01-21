@@ -310,15 +310,18 @@ client.on('message', async message => {
     var time = process.uptime();
     var uptime = (time + "").toHHMMSS();
 
+    var memory_usage = process.memoryUsage().heapUsed
+
     if (msg === prefix + 'STATS') {
         const embed = new Discord.MessageEmbed()
         .setColor(0x474747)
         .setFooter("© Indonesia | BETA v2.06 | discord.js")
         .setTimestamp()
 
-        .addField("Server Joined:", `**${client.guilds.size}** guilds/servers.`)
-        .addField("Total User in the Server Joined:", `**${client.users.size}** users total.`)
-        .addField("Uptime:", uptime)
+        .addField("📂 Servers:", `**${client.guilds.size}** guilds/servers.`)
+        .addField("👤 Users:", `**${client.users.size}** users total.`)
+        .addField("🕘 Uptime:", uptime)
+        .addField("💾 Memory Usage:", `${memory_usage} MiB.`)
 
         message.channel.send({embed});
     }
