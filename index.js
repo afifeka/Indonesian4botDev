@@ -5,10 +5,6 @@ const fs = require("fs");
 const db = require("quick.db")
 const ms = require("ms");
 
-const startUsage = process.cpuUsage();
-const now = Date.now();
-while (Date.now() - now < 500);
-
 // Searcher
 const cheerio = require('cheerio');
 const snekfetch = require('snekfetch');
@@ -314,7 +310,7 @@ client.on('message', async message => {
     var time = process.uptime();
     var uptime = (time + "").toHHMMSS();
 
-    var memory_usage = process.cpuUsage()
+    var memory_usage = process.memoryUsage().heapUsed
 
     if (msg === prefix + 'STATS') {
         const embed = new Discord.MessageEmbed()
