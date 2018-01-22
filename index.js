@@ -314,7 +314,7 @@ client.on('message', async message => {
     var time = process.uptime();
     var uptime = (time + "").toHHMMSS();
 
-    var memory_usage = process.cpuUsage((startUsage))
+    var memory_usage = process.cpuUsage([startUsage])
 
     if (msg === prefix + 'STATS') {
         const embed = new Discord.MessageEmbed()
