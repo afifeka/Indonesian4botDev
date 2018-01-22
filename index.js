@@ -5,6 +5,10 @@ const fs = require("fs");
 const db = require("quick.db")
 const ms = require("ms");
 
+const startUsage = process.cpuUsage();
+const now = Date.now();
+while (Date.now() - now < 500);
+
 // Searcher
 const cheerio = require('cheerio');
 const snekfetch = require('snekfetch');
@@ -35,7 +39,7 @@ const clientdbl = new dbl({
     id: "383183866925678604"
 })
 
-clientdbl.postStats("55", (err, res) => {
+clientdbl.postStats("58", (err, res) => {
     if(err) {
         console.error(err)
     } else {
@@ -310,7 +314,7 @@ client.on('message', async message => {
     var time = process.uptime();
     var uptime = (time + "").toHHMMSS();
 
-    var memory_usage = process.memoryUsage().heapUsed
+    var memory_usage = process.cpuUsage((startUsage))
 
     if (msg === prefix + 'STATS') {
         const embed = new Discord.MessageEmbed()
@@ -321,7 +325,7 @@ client.on('message', async message => {
         .addField("📂 Servers:", `**${client.guilds.size}** guilds/servers.`)
         .addField("👤 Users:", `**${client.users.size}** users total.`)
         .addField("🕘 Uptime:", uptime)
-        .addField("💾 Memory Usage:", `${memory_usage} MiB.`)
+        .addField("💾 Memory Usage:", `${memory_usage} MiB`)
 
         message.channel.send({embed});
     }
