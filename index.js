@@ -10,6 +10,30 @@ const cheerio = require('cheerio');
 const snekfetch = require('snekfetch');
 const querystring = require('querystring');
 
+// Music
+const Music = require('discord.js-musicbot-addon');
+const stream = require('youtube-audio-stream');
+const search = require('youtube-search');
+const ypi = require('youtube-playlist-info');
+
+const musicbot = new Music(client, {
+    youtubeKey: 'AIzaSyCq3YvDS0L0qMLVUtsLEnzPfaNu8tq1i1k',
+    prefix: "]",
+    maxQueueSize: "100",
+    disableClear: true,
+    disableHelp: true,
+    playCmd: 'play',
+    skipCmd: 'skip',
+    queueCmd: 'queue',
+    pauseCmd: 'pause',
+    resumeCmd: 'resume',
+    volumeCmd: 'volume',
+    leaveCmd: 'leave',
+    loopCmd: 'repeat',
+    ownerOverMember: true,
+    botOwner: '331265944363991042',
+})
+
 // Cat Random
 var cat = "http://random.cat/meow"
 var request = require("request");
@@ -35,7 +59,7 @@ const clientdbl = new dbl({
     id: "383183866925678604"
 })
 
-clientdbl.postStats("58", (err, res) => {
+clientdbl.postStats("61", (err, res) => {
     if(err) {
         console.error(err)
     } else {
@@ -103,7 +127,7 @@ client.on('message', async message => {
     let sender = message.author;
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let command = args.shift().toLowerCase();
-        
+
     // Perintah
 
     // KUCING RANDOM 
@@ -120,7 +144,6 @@ client.on('message', async message => {
 
     if (msg === prefix + 'DOG') {
         message.react("✅")
-        
         message.channel.send(randomAnimal.dog().then(url => message.channel.send(url + "\n:dog: | Here is your random dog.")).catch(err => message.channel.send(err.message)));
     }
 
@@ -172,6 +195,16 @@ client.on('message', async message => {
         message.channel.send({embed})
     }
 
+    if (msg === prefix + 'LOADING') {
+        var load = ["https://zippy.gfycat.com/KindheartedEnchantedGelding.webm"]
+        const embed = new Discord.MessageEmbed()
+
+        .setImage(`${load}`)
+        .setColor(0x474747)
+
+        message.channel.send({embed})
+    }
+
     // USERINFO
     if (msg.startsWith(prefix + 'USERINFO')) {
 
@@ -211,7 +244,7 @@ client.on('message', async message => {
     }
 
     // SERVERINFO
-    if (msg === prefix + 'SERVERINFO') {
+    if (msg === prefix + 'SERVERINFO' || msg === prefix + 'SERVER' || msg === prefix + 'GUILD') {
         const embed = new Discord.MessageEmbed()
 
         .setColor(0x474747)
@@ -226,7 +259,7 @@ client.on('message', async message => {
         .addField("Roles:", `${message.guild.roles.size}`, true)
         .addField("Region:", `${message.guild.region}`, true)
         .addField("ID:", `${message.guild.id}`, true)
-        .addField("Created At:", message.guild.createdAt)
+        .addField("Created At:", `${message.guild.createdAt}`, true)
 
         message.channel.send({embed})
     }
@@ -241,14 +274,14 @@ client.on('message', async message => {
             return message.channel.send({embed})
         }
 
-        let embedarg = args.slice(0).join(' ');
+        let embedarg = args.slice(0).join(' ')
 
         message.delete()
 
         const embed = new Discord.MessageEmbed()
 
             .setDescription(`${embedarg}`)
-            .setColor(0xff2f2f)
+            .setColor(0x474747)
 
             message.channel.send({embed})
     }
@@ -270,7 +303,7 @@ client.on('message', async message => {
     }
 
     // INFO
-    if (msg === prefix + 'INFO') {
+    if (msg === prefix + 'INFO' || msg === prefix + 'INFORMATION' || msg === prefix + 'BOTINFO') {
         const embed = new Discord.MessageEmbed()
 
         .setColor(0x19fca1)
@@ -290,7 +323,7 @@ client.on('message', async message => {
 
     // UPDATE
     if (msg === prefix + 'CHANGELOG') {
-        message.channel.send(":information_source: Update **[21th January 2018]** \n\n:white_check_mark: | **Fitur baru:** \n\n• `cry` ditambahkan. \n• `serverinfo` ditambahkan. \n• tag userinfo & avatar available. \n\n:no_entry: | **Fixed:** \n\n• bug on air heroku. \n• uptime di `stats` command. \n• `versi bot` diganti menjadi v2.06")
+        message.channel.send(":information_source: Update **[25th January 2018]** \n\n:white_check_mark: | **Fitur baru:** \n\n• Fitur musik sekarang ditambahkan. cek **command** help. \n• Karena musiknya digunakan sedikit lelet, mohon kontak Owner. cek **info**. \n• serverinfo, userinfo, dan lainnya menggunakan aliases. cek **help**. \n• Help akan dikirimkan lewat DM. Unblock DM anda. \n• Command Support dihapus dan langsung dari command help skrg.` \n\n:no_entry: | **Fixed:** \n\n• bug on air heroku. \n• stats dilengkapi dengan uptime dan memory usage. \n• serverinfo undefined.")
     }
 
     // BOTINFO
@@ -329,8 +362,6 @@ client.on('message', async message => {
     // AVATAR
     if (msg === prefix + 'AVATAR') {
         message.react("✅");
-        let member = message.mentions.members.first();
-        if (!member) {
             const embed = new Discord.MessageEmbed()
             .setTitle("User Informations")
             .setDescription("Displaying your current avatar.")
@@ -341,17 +372,6 @@ client.on('message', async message => {
 
             return message.channel.send({embed});
         }
-
-        const embed = new Discord.MessageEmbed()
-            .setTitle("User Informations")
-            .setDescription("Displaying your current avatar.")
-            .setColor(0xc61145)
-            .setFooter("© Indonesia | BETA v2.06 | discord.js")
-            .setTimestamp()
-            .setImage(member.user.displayAvatarURL())
-
-            message.channel.send({embed});
-    }
 
     // TANYA JAWAB
     var tanyas = ['Ya.', 'Tidak.', 'Mungkin.']
@@ -403,12 +423,6 @@ client.on('message', async message => {
 
     }
 
-    // SUPPORT
-    if (msg.startsWith(prefix + 'SUPPORT')) {
-        message.react("✅")
-        message.reply('**AKTIFKAN SISTEM IZIN MEMBER DIRECT MESSAGES!**')
-        message.author.send('SUPPORT OUR VIA PATREON \n\n**Indonesia Discord Bot Guild**: http://patreon.com/indonesian https://discord.gg/TjnmrMx \n+62 822 5337 9091 VIA PULSA TELKOMSEL & KARTU AS');
-    }
 
     // HELP (SEDERHANA)
     if (msg.startsWith(prefix + 'HELP')) {
@@ -420,8 +434,8 @@ client.on('message', async message => {
         .setFooter("© Indonesia | BETA v2.06 | discord.js")
         .setTimestamp()
         
-        .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `changelog` `userinfo` `hook` `support` `stats` `serverinfo` `embed`")
-        .addField("FUN & MOODBOOSTER:", "`cat` `dog` `lewd` `hug` `cry` `meow` `say` `catfact`")
+        .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `changelog` `userinfo` `hook` `support` `stats`")
+        .addField("FUN & MOODBOOSTER:", "`cat` `dog` `lewd` `hug` `cry` `meow` `tanya` `catfact` `say` `embed`")
         .addField("MODERATOR:", "`kick` `ban` `mute`")
         .addField("MUSIC:", "Under Maintenance")
         .addBlankField(true)
@@ -436,13 +450,34 @@ client.on('message', async message => {
 
     const swearWords = ["nigga", "faggot", "ngentot", "kontol", "kntl", "kntI", "ngentod", "bangsad", "bangsat", "bgst", "bgsd", "pantek", "itil", "jancok", "babi", "entot", "sange", "sangek", "bangsaad", "bangsa-t"]
     if (swearWords.some(word => message.content.includes(word)) ) {
-        message.delete(1000).then(msg => message.reply("LANGUAGE! :rage:")).then(msg => message.delete(7500))
+        message.delete(1000)
+        .then(msg => {
+            message.reply(":x: **LANGUAGE!**")
+        })
     }
 
     // MUTE
     if (msg.startsWith(prefix + 'MUTE')) {
-        if (!message.member.roles.some(r=>["Bot Commander", "Chat Moderator", "Administrator", "Moderator", "Owner"].includes(r.name)) )
-            return message.reply("Kamu tidak punya izin untuk hal ini! \n\nIngredients: \nChat Moderator \nBot Commander \nAdministrator \nModerator \nOwner");
+        if (!message.member.hasPermission('ADMINISTRATOR'))
+        return message.channel.send({embed: {
+            color: 0xff2f2f,
+            author: {
+                icon_url: client.user.avatarURL()
+            },
+            title: "Mute clarification.",
+            description: "Gagal untuk mengidentifikasi author.",
+            fields: [{
+                name: "Anda tidak mempunyai akses untuk menggunakan perintah ini.",
+                value: "Membutuhkan permissions: **Administrator.**"
+            }
+        ],
+        timestamp: new Date(),
+        footer: {
+          icon_url: client.user.avatarURL,
+          text: "© Indonesia | BETA v2.06 | discord.js"
+        }
+    }
+});
 
         let member = message.mentions.members.first();
         if (!member)
@@ -662,8 +697,7 @@ client.on('message', async message => {
 
 client.on("ready", () => {
     console.log('Bot Dimulai.');
-    var statusPlaying = ["Yeah boi.", "ew.", "Cannot read a property '69' of undefined.", "hm....", "Kangen kamuh.", "discordbots.org boi", "Ewing Squad.", "SOMEBODY TOUCH MY SPAGHETT!!! | ]help", "WAAAAAAAAAAAAAAAAAAH", "J U S T  M O N I K A", "JOIN INDONESIA OFFICIAL SERVER | ]help", "DA BEST BOT EVAHHHHHHH | ]help", "]", "DO YOU KNOW DA WEY?!", "Eta Terangkanlah", "OM TELOLET OMMM!!!", "KIDS JAMAN NOW GENERASI MICHIN", "1 + 1 = 6", "MODUS (MODAL KARDUS)", "BOT DENGAN RESOURCE TERPENDYDYCK", `${client.users.size} users / ${client.guilds.size} servers`, "ALAN SURYAAAAAAAJANA"]
-
+    var statusPlaying = ["Butuh bantuan? Contact Bot Owner ]info.", "DO YOU KNOW DA WEY?", "TELL ME DA WEY BROTHA!", "Qorygore.", "Alan Suryaaajana.", "SOMEBODY TOUCHA MY SPAGHET!", "V I R A L."]
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: statusPlaying[Math.floor(Math.random() * statusPlaying.length)], type: 0 }})
     }, 1 * 25000);
