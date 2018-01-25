@@ -478,7 +478,7 @@ client.on('message', async message => {
         }
     }
 });
-
+	// lmao
         let member = message.mentions.members.first();
         if (!member)
         return message.reply("Mohon mention member yang ingin anda mute! \n**Usage:** ]mute <member> <waktu> \n\n**Rumus**: 1d = 1hari, 1h = 1jam, 1m = 1mnt, 1d = 1dtk, 1ms = 1milidtk");
