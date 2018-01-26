@@ -10,30 +10,6 @@ const cheerio = require('cheerio');
 const snekfetch = require('snekfetch');
 const querystring = require('querystring');
 
-// Music
-const Music = require('discord.js-musicbot-addon');
-const stream = require('youtube-audio-stream');
-const search = require('youtube-search');
-const ypi = require('youtube-playlist-info');
-
-const musicbot = new Music(client, {
-    youtubeKey: 'AIzaSyCq3YvDS0L0qMLVUtsLEnzPfaNu8tq1i1k',
-    prefix: "]",
-    maxQueueSize: "100",
-    disableClear: true,
-    disableHelp: true,
-    playCmd: 'play',
-    skipCmd: 'skip',
-    queueCmd: 'queue',
-    pauseCmd: 'pause',
-    resumeCmd: 'resume',
-    volumeCmd: 'volume',
-    leaveCmd: 'leave',
-    loopCmd: 'repeat',
-    ownerOverMember: true,
-    botOwner: '331265944363991042',
-})
-
 // Cat Random
 var cat = "http://random.cat/meow"
 var request = require("request");
@@ -59,7 +35,7 @@ const clientdbl = new dbl({
     id: "383183866925678604"
 })
 
-clientdbl.postStats("61", (err, res) => {
+clientdbl.postStats("55", (err, res) => {
     if(err) {
         console.error(err)
     } else {
@@ -423,26 +399,41 @@ client.on('message', async message => {
 
     }
 
+	// RANDOM COLOR
+    if (msg === prefix + 'RANDOMCOLOR') {
+        const embed = new Discord.MessageEmbed()
+
+        .setDescription("**Random Color:** " + randomHexColor())
+        
+        message.channel.send({embed})
+    }
 
     // HELP (SEDERHANA)
     if (msg.startsWith(prefix + 'HELP')) {
-        message.react("✅")
+        message.react('✅')
 
-        const embed = new Discord.MessageEmbed()
+        try {
+            message.reply("Check DM! Dan, mohon aktifkan **allow direct messages** kamu.")
 
-        .setColor(0x19fca1)
-        .setFooter("© Indonesia | BETA v2.06 | discord.js")
-        .setTimestamp()
-        
-        .addField("GENERAL & UTILITAS:", "`help` `avatar` `info` `ping` `changelog` `userinfo` `hook` `support` `stats`")
-        .addField("FUN & MOODBOOSTER:", "`cat` `dog` `lewd` `hug` `cry` `meow` `tanya` `catfact` `say` `embed`")
-        .addField("MODERATOR:", "`kick` `ban` `mute`")
-        .addField("MUSIC:", "Under Maintenance")
-        .addBlankField(true)
-        .addField("Invite & UPVOTES:", "[Click here to invite the bot into your server](https://discordbots.org/bot/383183866925678604)")
-        .addField("Support:", "[Click here to the Official Discord Server](https://discord.gg/754HKBP)")    
-    
-        message.channel.send({embed});
+            const embed = new Discord.MessageEmbed()
+
+            .setColor(0x4d4af1)
+            .setDescription("**INVITE/SUPPORT:** [klik disini](https://discordbots.org/bot/383183866925678604) untuk pergi ke Website Discord Bot.")
+            .setFooter("© Indonesia | BETA v2.06 | discord.js")
+            .setTimestamp()
+
+            .addField("GENERAL:", "`hook` `say` `catfact` `tanya` `avatar`` `ping`", true)
+            .addField("INFORMATION:", "`userinfo` `serverinfo` `stats` `help` `info`", true)
+            .addField("TOOLS:", "`randomcolor` `embed` `changelog` ")
+            .addField("IMAGE/GIF:", "`cat` `dog` `meow` `loading`")
+            .addField("REACTION:", "`hug` `lewd` `cry`", true)
+            .addField("MANAGEMENT:", "`kick` `ban` `mute`", true)
+
+            message.author.send({embed})
+        } catch (error) {
+            message.reply("Aku tidak bisa kirim pesan ini ke Direct Messages kamu. \nMohon akitfkan **allow direct messages** kamu.")
+            return;
+        }
     }   
                  
     // ------------------------- //
@@ -697,7 +688,7 @@ client.on('message', async message => {
 
 client.on("ready", () => {
     console.log('Bot Dimulai.');
-    var statusPlaying = ["Butuh bantuan? Contact Bot Owner ]info.", "DO YOU KNOW DA WEY?", "TELL ME DA WEY BROTHA!", "Qorygore.", "Alan Suryaaajana.", "SOMEBODY TOUCHA MY SPAGHET!", "V I R A L."]
+    var statusPlaying = ["with my friend, Morfixx", "with Ray#2221", "Discord Hypesquad.", "OK BYE MOM", "Butuh bantuan? Contact Bot Owner ]info.", "DO YOU KNOW DA WEY?", "TELL ME DA WEY BROTHA!", "Qorygore.", "Alan Suryaaajana.", "SOMEBODY TOUCHA MY SPAGHET!", "V I R A L."]
     var interval = setInterval (function () {
         client.user.setPresence({ activity: { name: statusPlaying[Math.floor(Math.random() * statusPlaying.length)], type: 0 }})
     }, 1 * 25000);
