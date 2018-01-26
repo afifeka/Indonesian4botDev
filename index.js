@@ -422,7 +422,7 @@ client.on('message', async message => {
             .setFooter("© Indonesia | BETA v2.06 | discord.js")
             .setTimestamp()
 
-            .addField("GENERAL:", "`hook` `say` `catfact` `tanya` `avatar`` `ping`", true)
+            .addField("GENERAL:", "`hook` `say` `catfact` `tanya` `avatar` `ping`", true)
             .addField("INFORMATION:", "`userinfo` `serverinfo` `stats` `help` `info`", true)
             .addField("TOOLS:", "`randomcolor` `embed` `changelog` ")
             .addField("IMAGE/GIF:", "`cat` `dog` `meow` `loading`")
