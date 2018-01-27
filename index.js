@@ -324,8 +324,8 @@ client.on('message', async message => {
         .addField("👤 Users:", `**${client.users.size}** users total.`, true)
         .addField("🕘 Uptime:", duration, true)
         .addField("💾 Memory Usage:", `${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB.`, true)
-        .addBlankField(true, true)
         .addField("💻 OS:", "Windows 7.", true)
+	.addBlankField(true, true)
 
         message.channel.send({embed});
     }
