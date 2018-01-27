@@ -420,19 +420,7 @@ client.on('message', async message => {
             message.reply("Aku tidak bisa kirim pesan ini ke Direct Messages kamu. \nMohon akitfkan **allow direct messages** kamu.")
             return;
         }
-    }   
-                 
-    // ------------------------- //
-    // KATA KATA KOTOR (BANNED) //
-
-    const swearWords = ["nigga", "faggot", "ngentot", "kontol", "kntl", "kntI", "ngentod", "bangsad", "bangsat", "bgst", "bgsd", "pantek", "itil", "jancok", "babi", "entot", "sange", "sangek", "bangsaad", "bangsa-t"]
-    if (swearWords.some(word => message.content.includes(word)) ) {
-        message.delete(1000)
-        .then(msg => {
-            message.reply(":x: **LANGUAGE!**").then(m => m.delete(7000))
-        })
-        .catch(err => console.log(err.stack));
-    }
+    } 
 
     // MUTE
     if (msg.startsWith(prefix + 'MUTE')) {
