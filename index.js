@@ -2,10 +2,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require("fs");
-const db = require("quick.db")
 const ms = require("ms");
-const talkedRecently = new Set();
-const mysql = require("mysql")
 const prefix = ']';
 
 // Searcher
