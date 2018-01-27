@@ -280,7 +280,7 @@ client.on('message', async message => {
         .setFooter("© Indonesia | BETA v2.06 | discord.js")
         .setTimestamp()
 
-        .addField(":ping_pong: | Pong! It took " + Math.round(client.ping) +` ms.`)
+        .addField(":ping_pong: | Pong!", `${Math.round(client.ping)} ms.`)
 
         message.channel.send({embed});
     }
