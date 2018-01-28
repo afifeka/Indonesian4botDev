@@ -2,7 +2,10 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require("fs");
+const db = require("quick.db")
 const ms = require("ms");
+const talkedRecently = new Set();
+const mysql = require("mysql")
 const prefix = ']';
 
 // Searcher
@@ -29,7 +32,7 @@ var cry = ["https://images-ext-2.discordapp.net/external/zH4GTVkeWu7SR_K3uKaLeVZ
 const dbl = require(`discord-bot-list`)
  
 const clientdbl = new dbl({
-    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4MzE4Mzg2NjkyNTY3ODYwNCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTE3MDYwNjgxfQ.3btGrLTuqkpY-8WJpTDBPf96dXs1-nhgVj32ZdNNYhQ",
+    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4MzE4Mzg2NjkyNTY3ODYwNCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTE2MzQ0ODg1fQ.5gZpxOtNFuDBrLR3SZJRoxfgeeAC-YWVPUMzpZ4LFSw",
     id: "383183866925678604"
 })
 
@@ -101,39 +104,6 @@ client.on('message', async message => {
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let command = args.shift().toLowerCase();
     if (message.channel.type === 'dm') return;
-	
-	if (msg.startsWith(prefix + 'EVAL')) {
-        if (message.author.id !== "331265944363991042") return;
-
-        function clean(text) {
-            if (typeof(text) === "string")
-                return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
-            else return text;
-        }
-
-        try {
-            const code = args.join(" ");
-            let evaled = eval(code);
-
-            if (typeof evaled !== "string")
-                evaled = require("util").inspect(evaled);
-
-                const embed = new Discord.MessageEmbed()
-                .setColor(0x047ec5)
-                .addField("Input:", code)
-                .addField("Output:", clean(evaled), {code:"xl"});
-
-                message.channel.send({embed})
-        } catch (error) {
-            const embed = new Discord.MessageEmbed()
-            .setColor(0xd82525)
-            .addField("Input:", code)
-            .addField("Output:", `\`\`\`xl\n${clean(error)}\n\`\`\``)
-
-            message.channel.send({embed})
-        }
-    }
-
 
     // RANDOM COLOR
     if (msg === prefix + 'RANDOMCOLOR') {
@@ -307,13 +277,16 @@ client.on('message', async message => {
     // PING
     if (msg === prefix + 'PING') {
         message.react("✅")
+        var lat_ms = `${Date.now() - message.createdTimestamp}`
+        var api_ms = (client.ping).toFixed(2)
 
         const embed = new Discord.MessageEmbed()
         .setColor(0xefce28)
         .setFooter("© Indonesia | BETA v2.06 | discord.js")
         .setTimestamp()
-
-        .addField(":ping_pong: | Pong!", `${Math.round(client.ping)} ms.`)
+        .setDescription("You Beep, I Boop.")
+        .addField("📁 | Latency:", lat_ms + "ms.", true)
+        .addField("💻 | API:", api_ms + "ms.", true)
 
         message.channel.send({embed});
     }
@@ -357,8 +330,8 @@ client.on('message', async message => {
         .addField("👤 Users:", `**${client.users.size}** users total.`, true)
         .addField("🕘 Uptime:", duration, true)
         .addField("💾 Memory Usage:", `${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB.`, true)
-        .addField("💻 OS:", "Windows 7.", true)
-	.addBlankField(true, true)
+        .addBlankField(true, true)
+        .addField("💻 OS:", "Windows 7 / 64-bit", true)
 
         message.channel.send({embed});
     }
@@ -453,7 +426,10 @@ client.on('message', async message => {
             message.reply("Aku tidak bisa kirim pesan ini ke Direct Messages kamu. \nMohon akitfkan **allow direct messages** kamu.")
             return;
         }
-    } 
+    }   
+                 
+    // ------------------------- //
+    // KATA KATA KOTOR (BANNED) //
 
     // MUTE
     if (msg.startsWith(prefix + 'MUTE')) {
@@ -697,11 +673,11 @@ client.on('message', async message => {
 client.on("ready", () => {
     console.log('Bot Dimulai.');
     function randomStatus() {
-        let status = ["Discord", "24/7", "Security Management", "Moodbooster System.", "High-quality Maintenance", "DO YOU KNOW DA WEY?", "SOMEBODY TOUCHA MY SPAGHETT?!", "I'M SO FABULOUS", "Spoonfeed", "Indo Army", "Extronus", "HaveFun Squad", "Plexi Development", "Qorygore", "The Dream Craft", "Erpan1140", "Zenmatho", "BeaconCream", "Ewing HD", "Ray#2221", "I want a Discord Nitro", "Partner"];
+        let status = ["Visual Studio Code", "Discord", "24/7", "Security Management", "Moodbooster System.", "High-quality Maintenance", "DO YOU KNOW DA WEY?", "SOMEBODY TOUCHA MY SPAGHETT?!", "I'M SO FABULOUS", "Spoonfeed", "Indo Army", "Extronus", "HaveFun Squad", "Plexi Development", "Qorygore", "The Dream Craft", "Erpan1140", "Zenmatho", "BeaconCream", "Ewing HD", "Ray#2221", "I want a Discord Nitro", "Partner"];
         let rstatus = Math.floor(Math.random() * status.length);
         client.user.setActivity(status[rstatus], {type: 'STREAMING' , url: 'https://www.twitch.tv/raygd'});
 
     }; setInterval(randomStatus, 30000)
 })
 
-client.login(process.env.BOT_TOKEN);
+client.login(process.env.BOT_TOKEN); // Private Token, DA' REAAAAL TOKEN.
