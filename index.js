@@ -101,6 +101,39 @@ client.on('message', async message => {
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let command = args.shift().toLowerCase();
     if (message.channel.type === 'dm') return;
+	
+	if (msg.startsWith(prefix + 'EVAL')) {
+        if (message.author.id !== "331265944363991042") return;
+
+        function clean(text) {
+            if (typeof(text) === "string")
+                return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+            else return text;
+        }
+
+        try {
+            const code = args.join(" ");
+            let evaled = eval(code);
+
+            if (typeof evaled !== "string")
+                evaled = require("util").inspect(evaled);
+
+                const embed = new Discord.MessageEmbed()
+                .setColor(0x047ec5)
+                .addField("Input:", code)
+                .addField("Output:", clean(evaled), {code:"xl"});
+
+                message.channel.send({embed})
+        } catch (error) {
+            const embed = new Discord.MessageEmbed()
+            .setColor(0xd82525)
+            .addField("Input:", code)
+            .addField("Output:", `\`\`\`xl\n${clean(error)}\n\`\`\``)
+
+            message.channel.send({embed})
+        }
+    }
+
 
     // RANDOM COLOR
     if (msg === prefix + 'RANDOMCOLOR') {
