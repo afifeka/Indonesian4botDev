@@ -11,6 +11,7 @@
   "dependencies": {
     "bufferutil": "^3.0.3",
     "cat": "^0.2.0",
+    "dblposter": "^1.0.3",
     "deepl-translator": "^1.2.0",
     "discord-bot-list": "^1.0.1",
     "discord.js": "github:hydrabolt/discord.js",

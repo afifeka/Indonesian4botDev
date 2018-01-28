@@ -1,0 +1,55 @@
+{
+  "_from": "dblposter",
+  "_id": "dblposter@1.0.3",
+  "_inBundle": false,
+  "_integrity": "sha512-Q+5KhdIcBl+gF/20zfs2iqPzUdIotmynQSKzKhiNaZkE1pIROEACDoi2QoRM2lIJYGNwP6+0C7fJSnd5lwmA+A==",
+  "_location": "/dblposter",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "dblposter",
+    "name": "dblposter",
+    "escapedName": "dblposter",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/dblposter/-/dblposter-1.0.3.tgz",
+  "_shasum": "838dd5c4d70e8a4e0657b96e414fff5412452b79",
+  "_spec": "dblposter",
+  "_where": "G:\\bot berantakan\\BOT\\Indonesia",
+  "author": {
+    "name": "Frangu Vlad",
+    "email": "kingdgrizzle@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/KingDGrizzle/dblposter/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "snekfetch": "^3.6.1"
+  },
+  "deprecated": false,
+  "description": "A simple to use poster for DiscordBotList",
+  "homepage": "https://github.com/KingDGrizzle/dblposter#readme",
+  "keywords": [
+    "dbl",
+    "discordbotlist",
+    "discordjs",
+    "discordbot",
+    "automatic"
+  ],
+  "license": "GNU-3",
+  "main": "src/index.js",
+  "name": "dblposter",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KingDGrizzle/dblposter.git"
+  },
+  "version": "1.0.3"
+}
