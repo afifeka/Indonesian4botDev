@@ -30,8 +30,8 @@ var cry = ["https://images-ext-2.discordapp.net/external/zH4GTVkeWu7SR_K3uKaLeVZ
 
 // DBL
 const dbl = require("dblposter");
-dblPoster.bind(client);
 const dblPoster = new dbl(`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4MzE4Mzg2NjkyNTY3ODYwNCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTE3MDYwNjgxfQ.3btGrLTuqkpY-8WJpTDBPf96dXs1-nhgVj32ZdNNYhQ`);
+dblPoster.bind(client);
 
 // Fungsi Webhook
 function hook(channel, title, message, color, avatar) {
