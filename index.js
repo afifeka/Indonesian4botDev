@@ -370,7 +370,7 @@ client.on('message', async message => {
             .setTimestamp()
 
             .addField("GENERAL:", "`hook` `say` `catfact` `tanya` `avatar` `ping`")
-            .addField("INFORMATION:", "`userinfo` `serverinfo` `stats` `help` `info` `update/changelog``")
+            .addField("INFORMATION:", "`userinfo` `serverinfo` `stats` `help` `info` `update/changelog`")
             .addField("TOOLS:", "`randomcolor` `embed` `botspeak`")
             .addField("IMAGE/GIF:", "`cat` `dog` `meow` `loading`")
             .addField("REACTION:", "`hug` `lewd` `cry`")
