@@ -5,87 +5,24 @@ const fs = require("fs");
 const db = require("quick.db")
 const ms = require("ms");
 const talkedRecently = new Set();
-const mysql = require("mysql")
 const prefix = ']';
-
-// Searcher
 const cheerio = require('cheerio');
 const snekfetch = require('snekfetch');
 const querystring = require('querystring');
-
-// Cat Random
 var cat = "http://random.cat/meow"
 var request = require("request");
 const {get} = require("snekfetch");
 const randomHexColor = require('random-hex-color')
-
-// Dog Random
 const randomAnimal = require("random-animal");
-
-// Other Funny Random
 var lewd = ["http://gph.is/1Q0g8Z9", "https://cdn.discordapp.com/attachments/382436905926524928/403143965898964992/lewd-S1EHap_w-..gif", "https://media.giphy.com/media/pHH0RsynZHGlG/giphy.gif", "https://media.giphy.com/media/DHT6OLrSGU8z6/giphy.gif", "https://media.giphy.com/media/SFMEPM1LHxdYY/giphy.gif", "https://media.giphy.com/media/MRWsOo2LEQYDu/giphy.gif", "https://media.giphy.com/media/YgthKEUJE7HYA/giphy.gif", "https://media.giphy.com/media/3HD1rvrRk0QhO/giphy.gif", "https://media.giphy.com/media/dIXp5H9gaiZy0/giphy.gif", "https://media.giphy.com/media/fzFoOkVjpJ7ws/giphy.gif", "https://media.giphy.com/media/CeBkcIgzcZBks/giphy.gif"]
 var hug = ["https://media.giphy.com/media/mx2EIGDZX5XH2/giphy.gif", "https://media.giphy.com/media/13YrHUvPzUUmkM/giphy.gif", "https://media.giphy.com/media/SZBS27PkBCKmk/giphy.gif", "https://media.giphy.com/media/f6y4qvdxwEDx6/giphy.gif", "https://media.giphy.com/media/5yp8MlXQLLna0/giphy.gif", "https://media.giphy.com/media/wbrgtEbP1GPNS/giphy.gif", "https://media.giphy.com/media/DtJw1cqMCHSvu/giphy.gif", "https://media.giphy.com/media/trJ68zLtt85QA/giphy.gif", "https://media.giphy.com/media/HaC1WdpkL3W00/giphy.gif", "https://media.giphy.com/media/yziFo5qYAOgY8/giphy.gif", "https://media.giphy.com/media/du8yT5dStTeMg/giphy.gif", "https://media.giphy.com/media/NimEavznszKtW/giphy.gif"]
 var meow = ["https://media.giphy.com/media/FRg1FUARsn96/giphy.gif", "https://media.giphy.com/media/D0qSdg3fckqDC/giphy.gif", "https://media.giphy.com/media/WVhM2B5Kqqaxa/giphy.gif", "https://media.giphy.com/media/TjPotDPmEKiK4/giphy.gif", "https://media.giphy.com/media/3Ev8JMnsNqUM/giphy.gif", "https://media.giphy.com/media/guGXANpTSTJjG/giphy.gif", "https://media.giphy.com/media/xTiN0m4Q3VbqSJsTcc/giphy.gif", "https://media.giphy.com/media/109TWWxRddcIEg/giphy.gif", "https://media.giphy.com/media/FrEnONcaBGJ0c/giphy.gif", "https://media.giphy.com/media/3ohhwgj45R4n4CL0fS/giphy.gif", "https://media.giphy.com/media/Mc3yOYQDoXCj6/giphy.gif", "https://media.giphy.com/media/uNi7TY86W2kVi/giphy.gif", "https://media.giphy.com/media/13lWraa7dfb7G0/giphy.gif", "https://media.giphy.com/media/kBuMyaqdTIofe/giphy.gif", "https://media.giphy.com/media/nNp3ZSywRFyNi/giphy.gif","https://media.giphy.com/media/13lWraa7dfb7G0/giphy.gif","https://media.giphy.com/media/Fc7LvGqKt3C8/giphy.gif","https://media.giphy.com/media/Mn8aGoNewJl2o/giphy.gif","https://media.giphy.com/media/yFQ0ywscgobJK/giphy.gif","https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif","https://media.giphy.com/media/nNxT5qXR02FOM/giphy.gif","https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif","https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif","https://media.giphy.com/media/W3QKEujo8vztC/giphy.gif", "https://media.giphy.com/media/3oEduSbSGpGaRX2Vri/giphy.gif","https://media.giphy.com/media/v6aOjy0Qo1fIA/giphy.gif"]
 var cry = ["https://images-ext-2.discordapp.net/external/zH4GTVkeWu7SR_K3uKaLeVZ5QN286zvuYGf0Tz8rJnU/https/cdn.weeb.sh/images/SJRW7U7DZ.gif", "https://images-ext-2.discordapp.net/external/AiYvQZ2ZLMm2rAdkidD0Tm3hIDYo1I6mllbdeVga5Us/https/cdn.weeb.sh/images/Sy1EUa-Zz.gif?format=png&width=400&height=224", "https://images-ext-1.discordapp.net/external/pjwDmf4CIM4FxyfV8XULrc4nyqVGyYuv--3WTr8Upbo/https/cdn.weeb.sh/images/rJUujgJ5Z.gif?width=400&height=225", "https://media.giphy.com/media/4NuAILyDbmD16/giphy.gif", "https://media.giphy.com/media/eHekyNso61EqY/giphy.gif", "https://media.giphy.com/media/eHekyNso61EqY/giphy.gif", "https://media.giphy.com/media/XmPrx6vcB0X6g/giphy.gif","https://media.giphy.com/media/CpoZsKS27cK40/giphy.gif","https://media.giphy.com/media/ROF8OQvDmxytW/giphy.gif", "https://media.giphy.com/media/3fmRTfVIKMRiM/giphy.gif", "https://media.giphy.com/media/Y4z9olnoVl5QI/giphy.gif", "https://media.giphy.com/media/3wy72XTPLo1kk/giphy.gif", "https://media.giphy.com/media/kUYWowJqB78jK/giphy.gif", "https://media.giphy.com/media/l2Sq6JtUsY650LqKc/giphy.gif", "https://media.giphy.com/media/z18p1Aw2R4qnm/giphy.gif","https://media.giphy.com/media/PSBKGtaSBV98A/giphy.gif","https://media.giphy.com/media/D46ikuEng1x1C/giphy.gif","https://media.giphy.com/media/Pok6284jGzyGA/giphy.gif","https://media.giphy.com/media/yGesXBuMnMSdi/giphy.gif"]
 
-// DBL
 const dbl = require("dblposter");
 const dblPoster = new dbl(`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4MzE4Mzg2NjkyNTY3ODYwNCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTE3MDYwNjgxfQ.3btGrLTuqkpY-8WJpTDBPf96dXs1-nhgVj32ZdNNYhQ`);
 dblPoster.bind(client);
 
-// Fungsi Webhook
-function hook(channel, title, message, color, avatar) {
-    
-        if (!channel) return console.log('Channel not specified.');
-        if (!title) return console.log('Title not specified.');
-        if (!message) return console.log('Message not specified.');
-        if (!color) color = 'ff2f2f';
-        if (!avatar) avatar = 'https://cdn4.iconfinder.com/data/icons/technology-devices-1/500/speech-bubble-128.png'
-
-        color = color.replace(/\s/g, '');
-        avatar = avatar.replace(/\s/g, '');
-    
-        channel.fetchWebhooks()
-            .then(webhook => {
-    
-                let foundHook = webhook.find('name', 'Webhook');
-    
-                if (!foundHook) {
-                    channel.createWebhook('Webhook', 'https://cdn4.iconfinder.com/data/icons/technology-devices-1/500/speech-bubble-128.png')
-                        .then(webhook => {
-                            webhook.send('', {
-                                "username": title,
-                                "avatarURL": avatar,
-                                "embeds": [{
-                                    "color": parseInt(`0x${color}`),
-                                    "description":message
-                                }]
-                            })
-                                .catch(error => {
-                                    console.log(error);
-                                    return channel.send('**Terjadi masalah saat meluncurkan webhook. Silahkan cek konsol.**');
-                                })
-                        })
-                } else {
-                    foundHook.send('', {
-                        "username": title,
-                        "avatarURL": avatar,
-                        "embeds": [{
-                            "color": parseInt(`0x${color}`),
-                            "description":message
-                        }]
-                    })
-                        .catch(error => {
-                            console.log(error);
-                            return channel.send('**Terjadi masalah saat meluncurkan webhook. Silahkan cek konsol.**');
-                        })
-                    }
-    
-            })
-    
-    }
-
-// Listener Event
 client.on('message', async message => {
 
     let msg = message.content.toUpperCase();
@@ -101,6 +38,41 @@ client.on('message', async message => {
         .setDescription("**Random Color:** " + randomHexColor())
         
         message.channel.send({embed})
+    }
+
+    // PURGE
+    if (msg.startsWith(prefix + 'PURGE') || msg.startsWith(prefix + 'PRUNE')) { 
+        async function purge() {
+            message.delete();
+
+            if (!message.member.hasPermission("MANAGE_MESSAGES")) {
+                const embed = new Discord.MessageEmbed()
+
+                .setDescription("No **Manage Messages** permissions. Sorry, we can't do that.")
+                .setColor(0xd82525)
+
+                return message.channel.send({embed})
+            }
+
+            if (isNaN(args[0])) {
+                const embed = new Discord.MessageEmbed()
+
+                .setDescription("Failed to detect the Argument. \n" + prefix + "**purge | prune** <0/100>")
+                .setColor(0xd82525)
+
+                return message.channel.send({embed})
+            }
+
+            const fetched = await message.channel.messages.fetch({limit: args[0]});
+            console.log(fetched.size + ' deleted!');
+
+            // Deleting the messages
+            message.channel.bulkDelete(fetched)
+                .catch(error => message.channel.send(`Error: ${error}`));
+
+        }
+        purge();
+
     }
 
     // KUCING RANDOM 
@@ -193,7 +165,7 @@ client.on('message', async message => {
             .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
             .setDescription(`Displaying your current **information**`)
             .setColor(0xc61145)
-            .setFooter("© Indonesia | BETA v2.06 | discord.js")
+            .setFooter("© Indonesia | BETA v2.12 | discord.js")
             .setTimestamp()
             .setThumbnail(message.author.displayAvatarURL())
 
@@ -209,7 +181,7 @@ client.on('message', async message => {
         .setAuthor(`${member.user.username}`, member.user.displayAvatarURL())
         .setDescription(`Displaying your current **information**`)
         .setColor(0xc61145)
-        .setFooter("© Indonesia | BETA v2.06 | discord.js")
+        .setFooter("© Indonesia | BETA v2.12 | discord.js")
         .setTimestamp()
         .setThumbnail(member.user.displayAvatarURL())
 
@@ -227,7 +199,7 @@ client.on('message', async message => {
         .setColor(0x474747)
         .setTitle(`Owner by ${message.guild.owner.user.tag} / ${message.guild.ownerID}`)
         .setDescription(`Server info untuk: ${message.guild}`)
-        .setFooter("© Indonesia | BETA v2.06 | discord.js")
+        .setFooter("© Indonesia | BETA v2.12 | discord.js")
         .setThumbnail(message.guild.iconURL())
         .setTimestamp()
 
@@ -271,7 +243,7 @@ client.on('message', async message => {
 
         const embed = new Discord.MessageEmbed()
         .setColor(0xefce28)
-        .setFooter("© Indonesia | BETA v2.06 | discord.js")
+        .setFooter("© Indonesia | BETA v2.12 | discord.js")
         .setTimestamp()
         .setDescription("You Beep, I Boop.")
         .addField("📁 | Latency:", lat_ms + "ms.", true)
@@ -285,7 +257,7 @@ client.on('message', async message => {
         const embed = new Discord.MessageEmbed()
 
         .setColor(0x19fca1)
-        .setFooter("© Indonesia | BETA v2.06 | discord.js")
+        .setFooter("© Indonesia | BETA v2.12 | discord.js")
         .setTimestamp()
         
         .addField("Bot Owner:", "Ray#2221")
@@ -294,33 +266,45 @@ client.on('message', async message => {
         .addField("Tester By:", "The Clu Craft#1063 / Hazim_Tito#9307")
         .addField("Software:", "Visual Studio / Node.js / Heroku (recently for online it)")
         .addField("Library:", "Discord.js")
-        .addField("Version:", "BETA v2.06")
+        .addField("Version:", "BETA v2.12")
 
         message.channel.send({embed});
     }
 
     // UPDATE
-    if (msg === prefix + 'CHANGELOG') {
-        message.channel.send(":information_source: Update **[25th January 2018]** \n\n:white_check_mark: | **Fitur baru:** \n\n• Fitur musik sekarang ditambahkan. cek **command** help. \n• Karena musiknya digunakan sedikit lelet, mohon kontak Owner. cek **info**. \n• serverinfo, userinfo, dan lainnya menggunakan aliases. cek **help**. \n• Help akan dikirimkan lewat DM. Unblock DM anda. \n• Command Support dihapus dan langsung dari command help skrg.` \n\n:no_entry: | **Fixed:** \n\n• bug on air heroku. \n• stats dilengkapi dengan uptime dan memory usage. \n• serverinfo undefined.")
+    if (msg === prefix + 'UPDATE' || msg === prefix + 'CHANGELOG') {
+        const embed = new Discord.MessageEmbed()
+
+        .setColor(0xff2f2f)
+        .setFooter("© Indonesia | BETA v2.12 | discord.js")
+        .setTimestamp()
+
+        .addField("📅 | Updated on 29th January 2018", "Title: **Do your best, and i'll do my best.**")
+        .addField("✅ | Added:", "- Purge command added. \n- RandomColor command added. \n- Hug, Meow, Loading, Lewd command added.")
+        .addBlankField(true)
+        .addField("⛔ | Fixed/Removed:", "- Ping command added a API and LATENCY milisecond. \n- Stats command added a Uptime, Operating system and Memory Usage. \n- Removed hook command: Useless. \n- Removed catfact command: No one use/Useless. \n- New Help design + Send help command to your DM. \n- Added a botspeak command, but currently is under maintenance. \n- New Version bot: v2.12 BETA. \n- New Playing status. \n- Bot can't used on DM. Sorry aha. \n- Added a aliases command.")
+
+        message.channel.send({embed})
+        return;
     }
 
     // BOTINFO
     const moment = require('moment');
     require('moment-duration-format');
-    const duration = moment.duration(client.uptime).format(" D [days], H [hrs], m [mins], s [secs.]");
+    const duration = moment.duration(client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
 
     if (msg === prefix + 'STATS') {
         const embed = new Discord.MessageEmbed()
         .setColor(0x474747)
-        .setFooter("© Indonesia | BETA v2.06 | discord.js")
+        .setFooter("© Indonesia | BETA v2.12 | discord.js")
         .setTimestamp()
 
         .addField("📂 Servers:", `**${client.guilds.size}** guilds/servers.`, true)
         .addField("👤 Users:", `**${client.users.size}** users total.`, true)
         .addField("🕘 Uptime:", duration, true)
         .addField("💾 Memory Usage:", `${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB.`, true)
-        .addBlankField(true, true)
         .addField("💻 OS:", "Windows 7 / 64-bit", true)
+        .addField("© Owner:", "Ray#2221", true)
 
         message.channel.send({embed});
     }
@@ -332,7 +316,7 @@ client.on('message', async message => {
             .setTitle("User Informations")
             .setDescription("Displaying your current avatar.")
             .setColor(0xc61145)
-            .setFooter("© Indonesia | BETA v2.06 | discord.js")
+            .setFooter("© Indonesia | BETA v2.12 | discord.js")
             .setTimestamp()
             .setImage(message.author.displayAvatarURL())
 
@@ -340,11 +324,15 @@ client.on('message', async message => {
         }
 
     // TANYA JAWAB
-    var tanyas = ['Ya.', 'Tidak.', 'Mungkin.']
+    var tanyas = ['Ya.', 'Tidak.', 'Mungkin.', 'Yes.', 'No.', 'Maybe.']
 
-    if (msg.startsWith(prefix + 'TANYA')) {
+    if (msg.startsWith(prefix + 'TANYA') || msg.startsWith(prefix + '8BALL')) {
         if (msg === prefix + 'TANYA') {
             return message.reply(prefix + 'tanya <pertanyaan kamu>')
+        }
+
+        if (msg === prefix + '8BALL') {
+            return message.reply(prefix + '8ball <your question>')
         }
 
         const embed = new Discord.MessageEmbed()
@@ -367,28 +355,6 @@ client.on('message', async message => {
         await message.channel.send(`${katakan}`);
     }
 
-    // FAKTA KUCING
-    var kucing = ['Tahukah kamu? Bahwa Kucing disebut juga kucing domestik atau kucing rumah adalah sejenis mamalia karnivora dari keluarga Felidae.', 'Kucing disebut dalam bentuk ilmiah:  Felis Catus.', 'Kucing hanya bisa bertahun hidup selama 4 - 5 tahun di alam Bebas.', 'Kalian tahu gak? Kalau kucing mempunyai proses tidur dengan jangka waktu yang sangat lama. Yaitu 12 jam hingga 16 jam daripada jam tidur **Manusia**.', 'Tahukah kamu? Suhu tubuh kucing itu normalnya 38.8 derajat Celsius atau 102 derajat Fahrenheit.', 'Kucing dapat menarik nafasnya selama 20 - 40 kali per menit.', 'Tahukah kamu? Rata-rata kucing mempunyai umur minimal 15 hingga 16 tahun.', 'Tahukah kamu? Kucing pun memakan rumput untuk memperbaiki/membersihkan pencernaannya dan membantu mengeluarkan bulu-bulu yang tertelan dan menumpuk di Lambung.', 'Tahukah kamu? Kucing benci sekali mencium bau aroma Jeruk dan Lemon, sekaligus dia benci parfum lho.', 'Tahukah kamu? Cakupan pandangan kucing 185 derajat lho.', 'Tahukah kamu? Orang yang alergi terhadap kucing pada umumnya alergi terhadap air liur kucing.', "Kucing kampung dapat lari dengan kecepatan 31 mil per jam.", 'Kucing memiliki 230 tulang, yaitu 24 kali lebih banyak dari manusia.', 'Seekor kucing mengetahui perubahan dalam suasana hati kamu, dan kadang-kadang itu akan mempengaruhi kucing kamu lho.', 'Kucing dapat melompat ke ketinggian 5 kali tinggi badannya.', 'Tahukah kamu? Ada sekitar 9600 helai rambut tiap cm2 kulit bagian atas dan sekitar 19200 helai rambut tiap cm2 kulit bagian bawah.']
-
-    if (msg.startsWith(prefix + 'CATFACT')) {
-        message.reply(kucing[Math.floor(Math.random() * kucing.length)]);
-    }
- 
-    // WEBHOOK
-    if (msg.startsWith(prefix + 'HOOK')) {
-
-        message.delete();
-
-        if (msg === prefix + 'HOOK') {
-            return hook(message.channel, 'Instant Webhook Usage', `${prefix}hook <title>, <message>, [WARNAHEX], [AVATARURL]\n\n**<> rekomendasikan\n[] sesuaikan**\n\n[WARNAHEX] Ambil warna tersebut dari HEX: ff2f2f dan hapus **#** \n[AVATARURL] Dapat diambil dengan command **]avatar** dan copy link avatar tsb.`,'ff2f2f','https://cdn4.iconfinder.com/data/icons/technology-devices-1/500/speech-bubble-128.png');
-        }
-
-        let hookArgs = message.content.slice(prefix.length + 4).split(",");
-
-        hook (message.channel, hookArgs[0], hookArgs[1], hookArgs[2], hookArgs[3]);
-
-    }
-
     // HELP (SEDERHANA)
     if (msg.startsWith(prefix + 'HELP')) {
         message.react('✅')
@@ -400,7 +366,7 @@ client.on('message', async message => {
 
             .setColor(0x4d4af1)
             .setDescription("**INVITE/SUPPORT:** [klik disini](https://discordbots.org/bot/383183866925678604) untuk pergi ke Website Discord Bot.")
-            .setFooter("© Indonesia | BETA v2.06 | discord.js")
+            .setFooter("© Indonesia | BETA v2.12 | discord.js")
             .setTimestamp()
 
             .addField("GENERAL:", "`hook` `say` `catfact` `tanya` `avatar` `ping`")
@@ -438,7 +404,7 @@ client.on('message', async message => {
         timestamp: new Date(),
         footer: {
           icon_url: client.user.avatarURL,
-          text: "© Indonesia | BETA v2.06 | discord.js"
+          text: "© Indonesia | BETA v2.12 | discord.js"
         }
     }
 });
@@ -484,7 +450,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
               icon_url: client.user.avatarURL,
-              text: "© Indonesia | BETA v2.06 | discord.js"
+              text: "© Indonesia | BETA v2.12 | discord.js"
             }
         }
     });
@@ -506,7 +472,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
             icon_url: client.user.avatarURL(),
-            text: "© Indonesia | BETA v2.06 | discord.js"
+            text: "© Indonesia | BETA v2.12 | discord.js"
             }
         }
     });
@@ -527,7 +493,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
               icon_url: client.user.avatarURL(),
-              text: "© Indonesia | BETA v2.06 | discord.js"
+              text: "© Indonesia | BETA v2.12 | discord.js"
             }
         }
     });
@@ -550,7 +516,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
             icon_url: client.user.avatarURL(),
-            text: "© Indonesia | BETA v2.06 | discord.js"
+            text: "© Indonesia | BETA v2.12 | discord.js"
             }
         }
     });
@@ -580,7 +546,7 @@ client.on('message', async message => {
                 timestamp: new Date(),
                 footer: {
                   icon_url: client.user.avatarURL,
-                  text: "© Indonesia | BETA v2.06 | discord.js"
+                  text: "© Indonesia | BETA v2.12 | discord.js"
                 }
             }
         });
@@ -603,7 +569,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
               icon_url: client.user.avatarURL(),
-              text: "© Indonesia | BETA v2.06 | discord.js"
+              text: "© Indonesia | BETA v2.12 | discord.js"
             }
         }
     });
@@ -625,7 +591,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
               icon_url: client.user.avatarURL(),
-              text: "© Indonesia | BETA v2.06 | discord.js"
+              text: "© Indonesia | BETA v2.12 | discord.js"
             }
         }
     });
@@ -647,7 +613,7 @@ client.on('message', async message => {
             timestamp: new Date(),
             footer: {
               icon_url: client.user.avatarURL(),
-              text: "© Indonesia | BETA v2.06 | discord.js"
+              text: "© Indonesia | BETA v2.12 | discord.js"
             }
         }
     });
@@ -662,11 +628,11 @@ client.on('message', async message => {
 client.on("ready", () => {
     console.log('Bot Dimulai.');
     function randomStatus() {
-        let status = ["Visual Studio Code", "Discord", "24/7", "Security Management", "Moodbooster System.", "High-quality Maintenance", "DO YOU KNOW DA WEY?", "SOMEBODY TOUCHA MY SPAGHETT?!", "I'M SO FABULOUS", "Spoonfeed", "Indo Army", "Extronus", "HaveFun Squad", "Plexi Development", "Qorygore", "The Dream Craft", "Erpan1140", "Zenmatho", "BeaconCream", "Ewing HD", "Ray#2221", "I want a Discord Nitro", "Partner"];
+        let status = ["70+ Servers.", "LuckyNetwork", "Discord", "24/7", "Security Management", "Moodbooster System.", "High-quality Maintenance", "DO YOU KNOW DA WEY?", "SOMEBODY TOUCHA MY SPAGHETT?!", "I'M SO FABULOUS", "Spoonfeed", "Indo Army", "Extronus", "HaveFun Squad", "Plexi Development", "Qorygore", "The Dream Craft", "Erpan1140", "Zenmatho", "BeaconCream", "Ewing HD", "Ray#2221", "I want a Discord Nitro", "Partner"];
         let rstatus = Math.floor(Math.random() * status.length);
         client.user.setActivity(status[rstatus], {type: 'STREAMING' , url: 'https://www.twitch.tv/raygd'});
 
     }; setInterval(randomStatus, 30000)
 })
 
-client.login(process.env.BOT_TOKEN); // Private Token, DA' REAAAAL TOKEN.
+client.login(process.env.BOT_TOKEN);
