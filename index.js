@@ -370,21 +370,18 @@ client.on('message', async message => {
             .setTimestamp()
 
             .addField("GENERAL:", "`hook` `say` `catfact` `tanya` `avatar` `ping`")
-            .addField("INFORMATION:", "`userinfo` `serverinfo` `stats` `help` `info`")
-            .addField("TOOLS:", "`randomcolor` `embed` `changelog` ")
+            .addField("INFORMATION:", "`userinfo` `serverinfo` `stats` `help` `info` `update/changelog``")
+            .addField("TOOLS:", "`randomcolor` `embed` `botspeak`")
             .addField("IMAGE/GIF:", "`cat` `dog` `meow` `loading`")
             .addField("REACTION:", "`hug` `lewd` `cry`")
-            .addField("MANAGEMENT:", "`kick` `ban` `mute`")
+            .addField("MANAGEMENT:", "`kick` `ban` `mute` `purge/prune`")
 
             message.author.send({embed})
         } catch (error) {
             message.reply("Aku tidak bisa kirim pesan ini ke Direct Messages kamu. \nMohon akitfkan **allow direct messages** kamu.")
             return;
         }
-    }   
-                 
-    // ------------------------- //
-    // KATA KATA KOTOR (BANNED) //
+    } 
 
     // MUTE
     if (msg.startsWith(prefix + 'MUTE')) {
