@@ -251,6 +251,10 @@ client.on('message', async message => {
 
         message.channel.send({embed});
     }
+	
+	if (msg === prefix + 'INVITE') {
+		message.channel.send("Support us and invite the bot with this link. \nhttps://discordbots.org/bot/383183866925678604")
+	}
 
     // INFO
     if (msg === prefix + 'INFO' || msg === prefix + 'INFORMATION' || msg === prefix + 'BOTINFO') {
