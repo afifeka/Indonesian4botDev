@@ -40,6 +40,16 @@ client.on('message', async message => {
         message.channel.send({embed})
     }
 
+    // COMMAND COOLDOWN
+    if (talkedRecently.has(message.author.id)) {
+        return;
+    }
+
+    talkedRecently.add(message.author.id);
+    setTimeout(() => {
+        talkedRecently.delete(message.author.id);
+    }, 2500);
+
     // PURGE
     if (msg.startsWith(prefix + 'PURGE') || msg.startsWith(prefix + 'PRUNE')) { 
         async function purge() {
@@ -145,7 +155,7 @@ client.on('message', async message => {
         const embed = new Discord.MessageEmbed()
 
         .setImage(`${load}`)
-        .setColor(0x474747)
+        .setColor(randomHexColor())
 
         message.channel.send({embed})
     }
@@ -164,7 +174,7 @@ client.on('message', async message => {
 
             .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
             .setDescription(`Displaying your current **information**`)
-            .setColor(0xc61145)
+            .setColor(randomHexColor())
             .setFooter("© Indonesia | BETA v2.12 | discord.js")
             .setTimestamp()
             .setThumbnail(message.author.displayAvatarURL())
@@ -180,7 +190,7 @@ client.on('message', async message => {
 
         .setAuthor(`${member.user.username}`, member.user.displayAvatarURL())
         .setDescription(`Displaying your current **information**`)
-        .setColor(0xc61145)
+        .setColor(randomHexColor())
         .setFooter("© Indonesia | BETA v2.12 | discord.js")
         .setTimestamp()
         .setThumbnail(member.user.displayAvatarURL())
@@ -196,7 +206,7 @@ client.on('message', async message => {
     if (msg === prefix + 'SERVERINFO' || msg === prefix + 'SERVER' || msg === prefix + 'GUILD') {
         const embed = new Discord.MessageEmbed()
 
-        .setColor(0x474747)
+        .setColor(randomHexColor())
         .setTitle(`Owner by ${message.guild.owner.user.tag} / ${message.guild.ownerID}`)
         .setDescription(`Server info untuk: ${message.guild}`)
         .setFooter("© Indonesia | BETA v2.12 | discord.js")
@@ -230,7 +240,7 @@ client.on('message', async message => {
         const embed = new Discord.MessageEmbed()
 
             .setDescription(`${embedarg}`)
-            .setColor(0x474747)
+            .setColor(randomHexColor())
 
             message.channel.send({embed})
     }
@@ -242,7 +252,7 @@ client.on('message', async message => {
         var api_ms = (client.ping).toFixed(2)
 
         const embed = new Discord.MessageEmbed()
-        .setColor(0xefce28)
+        .setColor(randomHexColor())
         .setFooter("© Indonesia | BETA v2.12 | discord.js")
         .setTimestamp()
         .setDescription("You Beep, I Boop.")
@@ -251,16 +261,12 @@ client.on('message', async message => {
 
         message.channel.send({embed});
     }
-	
-	if (msg === prefix + 'INVITE') {
-		message.channel.send("Support us and invite the bot with this link. \nhttps://discordbots.org/bot/383183866925678604")
-	}
 
     // INFO
     if (msg === prefix + 'INFO' || msg === prefix + 'INFORMATION' || msg === prefix + 'BOTINFO') {
         const embed = new Discord.MessageEmbed()
 
-        .setColor(0x19fca1)
+        .setColor(randomHexColor())
         .setFooter("© Indonesia | BETA v2.12 | discord.js")
         .setTimestamp()
         
@@ -279,7 +285,7 @@ client.on('message', async message => {
     if (msg === prefix + 'UPDATE' || msg === prefix + 'CHANGELOG') {
         const embed = new Discord.MessageEmbed()
 
-        .setColor(0xff2f2f)
+        .setColor(randomHexColor())
         .setFooter("© Indonesia | BETA v2.12 | discord.js")
         .setTimestamp()
 
@@ -297,9 +303,9 @@ client.on('message', async message => {
     require('moment-duration-format');
     const duration = moment.duration(client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
 
-    if (msg === prefix + 'STATS') {
+    if (msg === prefix + 'STATS' || msg === prefix + 'RUNTIME' || msg === prefix + 'UPTIME') {
         const embed = new Discord.MessageEmbed()
-        .setColor(0x474747)
+        .setColor(randomHexColor())
         .setFooter("© Indonesia | BETA v2.12 | discord.js")
         .setTimestamp()
 
@@ -313,18 +319,33 @@ client.on('message', async message => {
         message.channel.send({embed});
     }
 
+    // INVITE / SUPPORT
+    if (msg === prefix + 'INVITE' || msg === prefix + 'SUPPORT') {
+        const embed = new Discord.MessageEmbed()
+
+        .setColor(0xff2f2f)
+        .setFooter("© Indonesia | BETA v2.12 | discord.js")
+        .setTimestamp()
+        
+        .addField("📨 INVITE:", "[- Discordbots.org source.](https://discordbots.org/bot/383183866925678604) \n[- Quick Invite](https://discordapp.com/oauth2/authorize?client_id=383183866925678604&scope=bot&permissions=2105015551)")
+        .addField("📡 SUPPORT ON DONATE:", "Read this hastebin before ask. \n[Read Hastebin.](https://hastebin.com/orobiyesod.erl)")
+
+        message.channel.send({embed})
+    }
+
     // AVATAR
-    if (msg === prefix + 'AVATAR') {
+    if (msg.startsWith(prefix + 'AVATAR')) {
         message.react("✅");
-            const embed = new Discord.MessageEmbed()
-            .setTitle("User Informations")
-            .setDescription("Displaying your current avatar.")
-            .setColor(0xc61145)
+        
+        let user = message.mentions.users.first() || client.users.get(args[0]) || message.author;
+        
+        const embed = new Discord.MessageEmbed()
+            .setDescription(`**${user.username}#${user.discriminator}** avatar.`)
+            .setColor(randomHexColor())
             .setFooter("© Indonesia | BETA v2.12 | discord.js")
             .setTimestamp()
-            .setImage(message.author.displayAvatarURL())
-
-            return message.channel.send({embed});
+            .setImage(user.displayAvatarURL())
+            message.channel.send(embed);
         }
 
     // TANYA JAWAB
@@ -341,7 +362,7 @@ client.on('message', async message => {
 
         const embed = new Discord.MessageEmbed()
         .setDescription(tanyas[Math.floor(Math.random() * tanyas.length)])
-        .setColor(0x4286f4)
+        .setColor(randomHexColor())
 
         message.channel.send({embed});
     }
@@ -369,23 +390,26 @@ client.on('message', async message => {
             const embed = new Discord.MessageEmbed()
 
             .setColor(0x4d4af1)
-            .setDescription("**INVITE/SUPPORT:** [klik disini](https://discordbots.org/bot/383183866925678604) untuk pergi ke Website Discord Bot.")
+            .setDescription("**INVITE/SUPPORT:** [Click Here to Invite and Join our Support Server](https://discordbots.org/bot/383183866925678604)")
             .setFooter("© Indonesia | BETA v2.12 | discord.js")
             .setTimestamp()
 
             .addField("GENERAL:", "`hook` `say` `catfact` `tanya` `avatar` `ping`")
-            .addField("INFORMATION:", "`userinfo` `serverinfo` `stats` `help` `info` `update/changelog`")
-            .addField("TOOLS:", "`randomcolor` `embed` `botspeak`")
+            .addField("INFORMATION:", "`userinfo` `serverinfo` `stats` `help` `info`")
+            .addField("TOOLS:", "`randomcolor` `embed` `changelog` ")
             .addField("IMAGE/GIF:", "`cat` `dog` `meow` `loading`")
             .addField("REACTION:", "`hug` `lewd` `cry`")
-            .addField("MANAGEMENT:", "`kick` `ban` `mute` `purge/prune`")
+            .addField("MANAGEMENT:", "`kick` `ban` `mute`")
 
             message.author.send({embed})
         } catch (error) {
             message.reply("Aku tidak bisa kirim pesan ini ke Direct Messages kamu. \nMohon akitfkan **allow direct messages** kamu.")
             return;
         }
-    } 
+    }   
+                 
+    // ------------------------- //
+    // KATA KATA KOTOR (BANNED) //
 
     // MUTE
     if (msg.startsWith(prefix + 'MUTE')) {
@@ -629,7 +653,7 @@ client.on('message', async message => {
 client.on("ready", () => {
     console.log('Bot Dimulai.');
     function randomStatus() {
-        let status = ["70+ Servers.", "LuckyNetwork", "Discord", "24/7", "Security Management", "Moodbooster System.", "High-quality Maintenance", "DO YOU KNOW DA WEY?", "SOMEBODY TOUCHA MY SPAGHETT?!", "I'M SO FABULOUS", "Spoonfeed", "Indo Army", "Extronus", "HaveFun Squad", "Plexi Development", "Qorygore", "The Dream Craft", "Erpan1140", "Zenmatho", "BeaconCream", "Ewing HD", "Ray#2221", "I want a Discord Nitro", "Partner"];
+        let status = ["Discord", "24/7", "Security Management", "Moodbooster System.", "High-quality Maintenance", "DO YOU KNOW DA WEY?", "SOMEBODY TOUCHA MY SPAGHETT?!", "I'M SO FABULOUS", "Spoonfeed", "Indo Army", "Extronus", "HaveFun Squad", "Plexi Development", "Qorygore", "The Dream Craft", "Erpan1140", "Zenmatho", "BeaconCream", "Ewing HD", "Ray#2221", "I want a Discord Nitro", "Partner"];
         let rstatus = Math.floor(Math.random() * status.length);
         client.user.setActivity(status[rstatus], {type: 'STREAMING' , url: 'https://www.twitch.tv/raygd'});
 
