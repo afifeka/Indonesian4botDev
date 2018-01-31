@@ -84,6 +84,35 @@ client.on('message', async message => {
         purge();
 
     }
+	
+    // EVAL 
+    function clean(text) {
+        if (typeof(text) === 'string')
+            return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));
+        else
+            return text;
+        }
+
+    if (message.author.id !== "331265944363991042") return;
+    var code = args.join(" ");
+        var evaled = eval(code);
+    
+        if (typeof evaled !== "string")
+        evaled = require("util").inspect(evaled);
+
+    try {
+        const embed = new Discord.MessageEmbed()
+        .addField("Input:", `${code}`)
+        .addField("Output:", "x1" + clean(evaled))
+        .setColor(randomHexColor())
+        message.channel.send({embed})
+    } catch (error) {
+        const embed = new Discord.MessageEmbed()
+        .addField("Input:", `${code}`)
+        .addField("Output:", "x1" + {clean(err)})
+        .setColor(randomHexColor())
+        message.channel.send({embed})
+    }
 
     // KUCING RANDOM 
     if (msg === prefix + 'CAT') {
