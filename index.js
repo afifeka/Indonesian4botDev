@@ -26,10 +26,25 @@ dblPoster.bind(client);
 client.on('message', async message => {
 
     let msg = message.content.toUpperCase();
-    let sender = message.author;
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let command = args.shift().toLowerCase();
     if (message.channel.type === 'dm') return;
+    if (message.author.bot) return;
+
+    // COMMAND COOLDOWN
+    if (talkedRecently.has(message.author.id)) {
+        return;
+    }   
+       talkedRecently.add(message.author.id);
+        setTimeout(() => {
+            talkedRecently.delete(message.author.id);
+        }, 5000);
+    
+
+    const ClientMention = new RegExp(`^<@!?${client.user.id}>`);
+    if (message.content.match(ClientMention)) {
+        return message.reply(`**Indonesia#1193** prefix: **]**`);
+    }
 
     // RANDOM COLOR
     if (msg === prefix + 'RANDOMCOLOR') {
@@ -39,16 +54,6 @@ client.on('message', async message => {
         
         message.channel.send({embed})
     }
-
-    // COMMAND COOLDOWN
-    if (talkedRecently.has(message.author.id)) {
-        return;
-    }
-
-    talkedRecently.add(message.author.id);
-    setTimeout(() => {
-        talkedRecently.delete(message.author.id);
-    }, 2500);
 
     // PURGE
     if (msg.startsWith(prefix + 'PURGE') || msg.startsWith(prefix + 'PRUNE')) { 
@@ -84,8 +89,7 @@ client.on('message', async message => {
         purge();
 
     }
-	
-  
+
     // KUCING RANDOM 
     if (msg === prefix + 'CAT') {
         message.react("✅")
@@ -176,7 +180,7 @@ client.on('message', async message => {
             .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
             .setDescription(`Displaying your current **information**`)
             .setColor(randomHexColor())
-            .setFooter("© Indonesia | BETA v2.12 | discord.js")
+            .setFooter("© Indonesia | BETA v2.19 | discord.js")
             .setTimestamp()
             .setThumbnail(message.author.displayAvatarURL())
 
@@ -192,7 +196,7 @@ client.on('message', async message => {
         .setAuthor(`${member.user.username}`, member.user.displayAvatarURL())
         .setDescription(`Displaying your current **information**`)
         .setColor(randomHexColor())
-        .setFooter("© Indonesia | BETA v2.12 | discord.js")
+        .setFooter("© Indonesia | BETA v2.19 | discord.js")
         .setTimestamp()
         .setThumbnail(member.user.displayAvatarURL())
 
@@ -210,7 +214,7 @@ client.on('message', async message => {
         .setColor(randomHexColor())
         .setTitle(`Owner by ${message.guild.owner.user.tag} / ${message.guild.ownerID}`)
         .setDescription(`Server info untuk: ${message.guild}`)
-        .setFooter("© Indonesia | BETA v2.12 | discord.js")
+        .setFooter("© Indonesia | BETA v2.19 | discord.js")
         .setThumbnail(message.guild.iconURL())
         .setTimestamp()
 
@@ -254,7 +258,7 @@ client.on('message', async message => {
 
         const embed = new Discord.MessageEmbed()
         .setColor(randomHexColor())
-        .setFooter("© Indonesia | BETA v2.12 | discord.js")
+        .setFooter("© Indonesia | BETA v2.19 | discord.js")
         .setTimestamp()
         .setDescription("You Beep, I Boop.")
         .addField("📁 | Latency:", lat_ms + "ms.", true)
@@ -268,16 +272,14 @@ client.on('message', async message => {
         const embed = new Discord.MessageEmbed()
 
         .setColor(randomHexColor())
-        .setFooter("© Indonesia | BETA v2.12 | discord.js")
+        .setFooter("© Indonesia | BETA v2.19 | discord.js")
         .setTimestamp()
-        
-        .addField("Bot Owner:", "Ray#2221")
-        .addField("Launched At:", "Samarinda, East Kalimantan / 12 December 2017")
-        .addField("Community Manager/Maintenance Technician:", "ItzMeDwii#9748")
-        .addField("Tester By:", "The Clu Craft#1063 / Hazim_Tito#9307")
-        .addField("Software:", "Visual Studio / Node.js / Heroku (recently for online it)")
-        .addField("Library:", "Discord.js")
-        .addField("Version:", "BETA v2.12")
+
+        .addField("Developer:", "Ray#2221")
+        .addField("Created At/Version:", "12 December 2017 / BETA v2.19")
+        .addField("Maintenance Technician:", "ItzMeDwii#9748")
+        .addField("Tested by:", "The Clu Craft#1063 & 18 tester")
+        .addField("Library/Software:", "[Discord.js](https://discord.js.org/) / [Node.js 8.9.4](https://nodejs.org/en/) / [VCS](https://code.visualstudio.com/)")
 
         message.channel.send({embed});
     }
@@ -287,13 +289,12 @@ client.on('message', async message => {
         const embed = new Discord.MessageEmbed()
 
         .setColor(randomHexColor())
-        .setFooter("© Indonesia | BETA v2.12 | discord.js")
+        .setFooter("© Indonesia | BETA v2.19 | discord.js")
         .setTimestamp()
-
-        .addField("📅 | Updated on 29th January 2018", "Title: **Do your best, and i'll do my best.**")
-        .addField("✅ | Added:", "- Purge command added. \n- RandomColor command added. \n- Hug, Meow, Loading, Lewd command added.")
+        .setDescription("📅 | Updated on 1st February 2018")
+        .addField("✅ | Added:", "- Purge command added. \n- Unmute command added. \n- Ratewaifu command added. \n- Botspeak command added [WIP]")
         .addBlankField(true)
-        .addField("⛔ | Fixed/Removed:", "- Ping command added a API and LATENCY milisecond. \n- Stats command added a Uptime, Operating system and Memory Usage. \n- Removed hook command: Useless. \n- Removed catfact command: No one use/Useless. \n- New Help design + Send help command to your DM. \n- Added a botspeak command, but currently is under maintenance. \n- New Version bot: v2.12 BETA. \n- New Playing status. \n- Bot can't used on DM. Sorry aha. \n- Added a aliases command.")
+        .addField("⛔ | Fixed/Removed:", "- Fixed help command. \n- BETA v2.19 \n- Updated info command. \n- Updated ping command. \n- Updated invite command. \n- Updated avatar command (mentioned available)")
 
         message.channel.send({embed})
         return;
@@ -307,7 +308,7 @@ client.on('message', async message => {
     if (msg === prefix + 'STATS' || msg === prefix + 'RUNTIME' || msg === prefix + 'UPTIME') {
         const embed = new Discord.MessageEmbed()
         .setColor(randomHexColor())
-        .setFooter("© Indonesia | BETA v2.12 | discord.js")
+        .setFooter("© Indonesia | BETA v2.19 | discord.js")
         .setTimestamp()
 
         .addField("📂 Servers:", `**${client.guilds.size}** guilds/servers.`, true)
@@ -320,16 +321,29 @@ client.on('message', async message => {
         message.channel.send({embed});
     }
 
+    if (msg.startsWith(prefix + 'RATEWAIFU')) {
+        let waifu = args.slice(0).join(' ')
+        if (!waifu) {
+            return message.reply("Masukkan karakter waifu kesukaanmu!")
+        }
+
+        var ratewaifu = ["0/10", "1/10", "2/10", "3/10", "4/10", "5/10", "6/10", "7/10", "8/10", "9/10", "10/10"]
+        var tryrate = Math.floor(Math.random() * ratewaifu.length);
+
+        message.channel.send(`:thinking: | **${message.author.username}**, Saya berikan ${tryrate} kepada ${waifu}`)
+    }
+
     // INVITE / SUPPORT
     if (msg === prefix + 'INVITE' || msg === prefix + 'SUPPORT') {
         const embed = new Discord.MessageEmbed()
 
-        .setColor(0xff2f2f)
-        .setFooter("© Indonesia | BETA v2.12 | discord.js")
+        .setColor(randomHexColor())
+        .setFooter("© Indonesia | BETA v2.19 | discord.js")
         .setTimestamp()
         
-        .addField("📨 INVITE:", "[- Discordbots.org source.](https://discordbots.org/bot/383183866925678604) \n[- Quick Invite](https://discordapp.com/oauth2/authorize?client_id=383183866925678604&scope=bot&permissions=2105015551)")
-        .addField("📡 SUPPORT ON DONATE:", "Read this hastebin before ask. \n[Read Hastebin.](https://hastebin.com/orobiyesod.erl)")
+        .addField("📨 INVITE:", "[- from Discord Bots.](https://discordbots.org/bot/383183866925678604) \n[- Quick Invite.](https://discordapp.com/oauth2/authorize?client_id=383183866925678604&scope=bot&permissions=2105015551)")
+        .addField("📡 SUPPORT ON DONATE:", "[Read Hastebin for donate requirement.](https://hastebin.com/orobiyesod.erl)")
+        .addField("⛔ SUPPORT ON SERVER:", "[Discord API](https://discord.gg/discord-api) \n[The Coding Den](https://discord.gg/code) \n[Discord Guide](https://discord.gg/guide) \n[Plexi Development](https://discord.io/plexidev)")
 
         message.channel.send({embed})
     }
@@ -343,11 +357,11 @@ client.on('message', async message => {
         const embed = new Discord.MessageEmbed()
             .setDescription(`**${user.username}#${user.discriminator}** avatar.`)
             .setColor(randomHexColor())
-            .setFooter("© Indonesia | BETA v2.12 | discord.js")
+            .setFooter("© Indonesia | BETA v2.19 | discord.js")
             .setTimestamp()
             .setImage(user.displayAvatarURL())
             message.channel.send(embed);
-        }
+    }
 
     // TANYA JAWAB
     var tanyas = ['Ya.', 'Tidak.', 'Mungkin.', 'Yes.', 'No.', 'Maybe.']
@@ -390,58 +404,40 @@ client.on('message', async message => {
 
             const embed = new Discord.MessageEmbed()
 
-            .setColor(0x4d4af1)
+            .setColor(randomHexColor())
             .setDescription("**INVITE/SUPPORT:** [Click Here to Invite and Join our Support Server](https://discordbots.org/bot/383183866925678604)")
-            .setFooter("© Indonesia | BETA v2.12 | discord.js")
+            .setFooter("© Indonesia | BETA v2.19 | discord.js")
             .setTimestamp()
 
-            .addField("GENERAL:", "`hook` `say` `catfact` `tanya` `avatar` `ping`")
-            .addField("INFORMATION:", "`userinfo` `serverinfo` `stats` `help` `info`")
-            .addField("TOOLS:", "`randomcolor` `embed` `changelog` ")
-            .addField("IMAGE/GIF:", "`cat` `dog` `meow` `loading`")
-            .addField("REACTION:", "`hug` `lewd` `cry`")
-            .addField("MANAGEMENT:", "`kick` `ban` `mute`")
+            .addField("GENERAL:", "`randomcolor` `say` `embed` `ping` `tanya/8ball` `randomcolor`")
+            .addField("MOODBOOSTER: ", "`cat` `dog` `lewd` `hug` `cry` `meow` `loading` `botspeak [WIP]` `ratewaifu`")
+            .addField("ADMINISTRATOR:", "`mute` `unmute` `purge/prune` `ban` `kick`")
+            .addField("INFORMATION:", "`serverinfo` `userinfo` `avatar` `uptime` `update` `invite` `info`")
 
             message.author.send({embed})
         } catch (error) {
             message.reply("Aku tidak bisa kirim pesan ini ke Direct Messages kamu. \nMohon akitfkan **allow direct messages** kamu.")
             return;
         }
-    }   
+    }
                  
     // ------------------------- //
     // KATA KATA KOTOR (BANNED) //
 
     // MUTE
     if (msg.startsWith(prefix + 'MUTE')) {
-        if (!message.member.hasPermission('ADMINISTRATOR'))
-        return message.channel.send({embed: {
-            color: 0xff2f2f,
-            author: {
-                icon_url: client.user.avatarURL()
-            },
-            title: "Mute clarification.",
-            description: "Gagal untuk mengidentifikasi author.",
-            fields: [{
-                name: "Anda tidak mempunyai akses untuk menggunakan perintah ini.",
-                value: "Membutuhkan permissions: **Administrator.**"
-            }
-        ],
-        timestamp: new Date(),
-        footer: {
-          icon_url: client.user.avatarURL,
-          text: "© Indonesia | BETA v2.12 | discord.js"
+        if (!message.member.hasPermission("MUTE_MEMBERS")) {
+            return message.reply("No **Mute Members** permissions. We can't do that.")
         }
-    }
-});
-
+        
         let member = message.mentions.members.first();
         if (!member)
         return message.reply("Mohon mention member yang ingin anda mute! \n**Usage:** ]mute <member> <waktu> \n\n**Rumus**: 1d = 1hari, 1h = 1jam, 1m = 1mnt, 1d = 1dtk, 1ms = 1milidtk");
 
         let muteRole = message.guild.roles.find("name", "Muted");
-        if (!muteRole)
-        return message.reply("Mohon tambahkan role **Muted** secara manual! \n**Usage:** ]mute <member> <waktu> \n\n**Rumus**: 1d = 1hari, 1h = 1jam, 1m = 1mnt, 1d = 1dtk, 1ms = 1milidtk")
+        if (!muteRole) {
+            return message.reply("No role Muted.")
+        }
 
         let time = args[1];
         if (!time)
@@ -453,101 +449,52 @@ client.on('message', async message => {
 
         setTimeout(function() {
             member.removeRole(muteRole.id)
-            message.channel.send(`${user.tag} Unmuted. Chat dengan bijak dan ikuti peraturan. \n**WAKTU TERAKHIR MUTED**: ${ms(ms(time), {long: true})}`)
+            message.channel.send(`${member.user.tag} Unmuted. Chat dengan bijak dan ikuti peraturan. \n**WAKTU TERAKHIR MUTED**: ${ms(ms(time), {long: true})}`)
         }, ms(time));
+    } else {
+        if (msg.startsWith(prefix + 'UNMUTE')) {
+            let muteRole = message.guild.roles.find("name", "Muted");
+            let member = message.mentions.members.first();
+            if (!message.member.hasPermission('ADMINISTRATOR')) {
+                return message.reply("No **Administrator** permissions. We can't do that.")
+            }
+
+            if (!member) {
+                return message.reply("Mohon mention member yang ingin anda **un**mute!")
+            }
+
+            if (message.member.roles.has(muteRole)) {
+                await member.removeRole(muteRole.id)
+                message.channel.send(`${member.user.tag} Unmuted. Chat dengan bijak dan ikuti peraturan.`)
+            } else {
+                message.channel.send(`${member.user.tag} tidak di**mute**.`)
+            }
+        }
     }
 
     // KICK
     if (msg.startsWith(prefix + 'KICK')) {
 
-        if (!message.member.hasPermission('KICK_MEMBERS'))
-            return message.channel.send({embed: {
-                color: 0xff2f2f,
-                author: {
-                    icon_url: client.user.avatarURL()
-                },
-                title: "Kick clarification.",
-                description: "Gagal untuk mengidentifikasi author.",
-                fields: [{
-                    name: "Anda tidak mempunyai akses untuk menggunakan perintah ini.",
-                    value: "Membutuhkan permissions: **Kick Members**"
-                }
-            ],
-            timestamp: new Date(),
-            footer: {
-              icon_url: client.user.avatarURL,
-              text: "© Indonesia | BETA v2.12 | discord.js"
-            }
+        if (!message.member.hasPermission('KICK_MEMBERS')) {
+            return message.reply("No **Kick Members** permissions. We can't do that.")
         }
-    });
         
         let member = message.mentions.members.first();
-        if (!member)
-            return message.channel.send({embed: {
-                color: 0xff2f2f,
-                author: {
-                    icon_url: client.user.avatarURL()
-                },
-                title: "Kick clarification.",
-                description: "Gagal untuk mengidentifikasi member.",
-                fields: [{
-                    name: "Mohon mention Member yang ingin anda Kick dari server ini.",
-                    value: `**Usage:** ${prefix}kick <member> <alasan/reason>`
-                }
-            ],
-            timestamp: new Date(),
-            footer: {
-            icon_url: client.user.avatarURL(),
-            text: "© Indonesia | BETA v2.12 | discord.js"
-            }
-        }
-    });
-        if (!member.kickable) 
-            return message.channel.send({embed: {
-                color: 0xff2f2f,
-                author: {
-                    icon_url: client.user.avatarURL()
-                },
-                title: "Kick clarification.",
-                url: "https://support.discordapp.com/hc/en-us/articles/214836687-Role-Management-101",
-                description: "Role hierachi 101.",
-                fields: [{
-                    name: "Tidak bisa Kick member ini.",
-                    value: "Role hierachi? Member ini lebih tinggi dari bot ini?"
-                }
-            ],
-            timestamp: new Date(),
-            footer: {
-              icon_url: client.user.avatarURL(),
-              text: "© Indonesia | BETA v2.12 | discord.js"
-            }
-        }
-    });
-        
-        // slice(1) removes the first part, which here should be the user mention!
         let reason = args.slice(1).join(' ');
-        if (!reason)
-            return message.channel.send({embed: {
-                color: 0xff2f2f,
-                author: {
-                    icon_url: client.user.avatarURL()
-                },
-                title: "Kick clarification.",
-                description: "Aduh, tamatlah saya!",
-                fields: [{
-                    name: "Masukkan reason/alasan mengapa Member ini Dikick dari server ini?",
-                    value: `**Usage:** ${prefix}kick <member> <alasan/reason>`
-                }
-            ],
-            timestamp: new Date(),
-            footer: {
-            icon_url: client.user.avatarURL(),
-            text: "© Indonesia | BETA v2.12 | discord.js"
-            }
+
+        if (!member) {
+            return message.reply("Tag member yang ingin di kick dari server ini!")
         }
-    });
+
+        if (!member.bannable) {
+            return message.reply("Maaf. Kami tidak bisa. Karena member ini lebih tinggi perannya dari bot ini.")
+        }
+
+        if (!reason)
+            return message.reply("Masukkan alasan mengapa anda ingin kick member ini!")
         
-        // Now, time for a swift kick in the nuts!
+        await member.user.send(`Kick: ${reason}`)
+        
         await member.kick(reason)
             .catch(error => message.reply(`Maaf ${message.author} Saya tidak bisa kick member ini: ${error}`));
             return message.channel.send(`${member.user.tag} telah dikick!`)
@@ -556,94 +503,25 @@ client.on('message', async message => {
 
     // BAN
     if (msg.startsWith(prefix + 'BAN')) {
-        if (!message.member.hasPermission('BAN_MEMBERS'))
-            return message.channel.send({embed: {
-                    color: 0xff2f2f,
-                    author: {
-                        icon_url: client.user.avatarURL()
-                    },
-                    title: "Ban clarification.",
-                    description: "Gagal untuk mengidentifikasi author.",
-                    fields: [{
-                        name: "Anda tidak mempunyai akses untuk menggunakan perintah ini.",
-                        value: "Membutuhkan permissions: **Ban Members**"
-                    }
-                ],
-                timestamp: new Date(),
-                footer: {
-                  icon_url: client.user.avatarURL,
-                  text: "© Indonesia | BETA v2.12 | discord.js"
-                }
-            }
-        });
-        
+        if (!message.member.hasPermission('BAN_MEMBERS')) {
+            return message.reply("No **Ban Members** permissions. We can't do that.")
+        }
         
         let member = message.mentions.members.first();
-        if (!member)
-            return message.channel.send({embed: {
-                color: 0xff2f2f,
-                author: {
-                    icon_url: client.user.avatarURL()
-                },
-                title: "Ban clarification.",
-                description: "Gagal untuk mengidentifikasi member.",
-                fields: [{
-                    name: "Mohon mention Member yang ingin anda Ban dari server ini.",
-                    value: `**Usage:** ${prefix}ban <member> <alasan/reason>`
-                }
-            ],
-            timestamp: new Date(),
-            footer: {
-              icon_url: client.user.avatarURL(),
-              text: "© Indonesia | BETA v2.12 | discord.js"
-            }
-        }
-    });
-
-        if (!member.bannable) 
-            return message.channel.send({embed: {
-                color: 0xff2f2f,
-                author: {
-                    icon_url: client.user.avatarURL()
-                },
-                title: "Ban clarification.",
-                url: "https://support.discordapp.com/hc/en-us/articles/214836687-Role-Management-101",
-                description: "Role hierachi 101.",
-                fields: [{
-                    name: "Tidak bisa Ban member ini.",
-                    value: "Role hierachi? Member ini lebih tinggi dari bot ini?"
-                }
-            ],
-            timestamp: new Date(),
-            footer: {
-              icon_url: client.user.avatarURL(),
-              text: "© Indonesia | BETA v2.12 | discord.js"
-            }
-        }
-    });
-    
         let reason = args.slice(1).join(' ');
-        if (!reason)
-            return message.channel.send({embed: {
-                color: 0xff2f2f,
-                author: {
-                    icon_url: client.user.avatarURL()
-                },
-                title: "Ban clarification.",
-                description: "Mengapa? Bagaimana?",
-                fields: [{
-                    name: "Masukkan reason/alasan mengapa Member ini Dibanned dari server ini?",
-                    value: `**Usage:** ${prefix}ban <member> <alasan/reason>`
-                }
-            ],
-            timestamp: new Date(),
-            footer: {
-              icon_url: client.user.avatarURL(),
-              text: "© Indonesia | BETA v2.12 | discord.js"
-            }
+
+        if (!member) {
+            return message.reply("Tag member yang ingin di banned dari server ini!")
         }
-    });
+
+        if (!member.bannable) {
+            return message.reply("Maaf. Kami tidak bisa. Karena member ini lebih tinggi perannya dari bot ini.")
+        }
+
+        if (!reason)
+            return message.reply("Masukkan alasan mengapa anda ingin ban member ini!")
         
+        await member.user.send(`Banned: ${reason}`)
         await member.ban(reason)
             .catch(error => message.reply(`Maaf ${message.author} Saya tidak bisa Ban member ini: ${error}`));
             return message.channel.send(`${member.user.tag} telah dibanned!`)
@@ -652,9 +530,9 @@ client.on('message', async message => {
 });
 
 client.on("ready", () => {
-    console.log('Bot Dimulai.');
+    console.log('Bot dinyalakan oleh Ray#2221');
     function randomStatus() {
-        let status = ["Discord", "24/7", "Security Management", "Moodbooster System.", "High-quality Maintenance", "DO YOU KNOW DA WEY?", "SOMEBODY TOUCHA MY SPAGHETT?!", "I'M SO FABULOUS", "Spoonfeed", "Indo Army", "Extronus", "HaveFun Squad", "Plexi Development", "Qorygore", "The Dream Craft", "Erpan1140", "Zenmatho", "BeaconCream", "Ewing HD", "Ray#2221", "I want a Discord Nitro", "Partner"];
+        let status = ["AYP", "FAL#4534", "4Brother", "XQII", "Gembel Squad", "Discord", "24/7", "Security Management", "Moodbooster System.", "High-quality Maintenance", "DO YOU KNOW DA WEY?", "SOMEBODY TOUCHA MY SPAGHETT?!", "I'M SO FABULOUS", "Spoonfeed", "Indo Army", "Extronus", "HaveFun Squad", "Plexi Development", "Qorygore", "The Dream Craft", "Erpan1140", "Zenmatho", "BeaconCream", "Ewing HD", "Ray#2221", "I want a Discord Nitro", "Partner"];
         let rstatus = Math.floor(Math.random() * status.length);
         client.user.setActivity(status[rstatus], {type: 'STREAMING' , url: 'https://www.twitch.tv/raygd'});
 
