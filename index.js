@@ -5,7 +5,6 @@ const fs = require("fs");
 const db = require("quick.db")
 const ms = require("ms");
 const talkedRecently = new Set();
-const prefix = ']';
 const cheerio = require('cheerio');
 const snekfetch = require('snekfetch');
 const querystring = require('querystring');
@@ -23,22 +22,24 @@ const dbl = require("dblposter");
 const dblPoster = new dbl(`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4MzE4Mzg2NjkyNTY3ODYwNCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTE3MDYwNjgxfQ.3btGrLTuqkpY-8WJpTDBPf96dXs1-nhgVj32ZdNNYhQ`);
 dblPoster.bind(client);
 
+const prefix = "]";
+
 client.on('message', async message => {
 
     let msg = message.content.toUpperCase();
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let command = args.shift().toLowerCase();
-    if (message.channel.type === 'dm') return;
-    if (message.author.bot) return;
+    if (message.channel.type === 'dm') return
+    if (message.author.bot) return
 
     // COMMAND COOLDOWN
     if (talkedRecently.has(message.author.id)) {
-        return;
+        return
     }   
        talkedRecently.add(message.author.id);
         setTimeout(() => {
             talkedRecently.delete(message.author.id);
-        }, 2500);
+        }, 2000);
     
 
     const ClientMention = new RegExp(`^<@!?${client.user.id}>`);
@@ -291,13 +292,13 @@ client.on('message', async message => {
         .setColor(randomHexColor())
         .setFooter("© Indonesia | BETA v2.19 | discord.js")
         .setTimestamp()
-        .setDescription("📅 | Updated on 1st February 2018")
-        .addField("✅ | Added:", "- Purge command added. \n- Unmute command added. \n- Ratewaifu command added. \n- Botspeak command added [WIP]")
+        .setDescription("📅 | Updated on 2nd February 2018")
+        .addField("✅ | Added:", "- Warn command added.")
         .addBlankField(true)
-        .addField("⛔ | Fixed/Removed:", "- Fixed help command. \n- BETA v2.19 \n- Updated info command. \n- Updated ping command. \n- Updated invite command. \n- Updated avatar command (mentioned available)")
+        .addField("⛔ | Fixed/Removed:", "- Nothing else. Fixed help command.")
 
         message.channel.send({embed})
-        return;
+        return
     }
 
     // BOTINFO
@@ -327,7 +328,7 @@ client.on('message', async message => {
             return message.reply("Masukkan karakter waifu kesukaanmu!")
         }
 
-        var ratewaifu = ["0/10", "1/10", "2/10", "3/10", "4/10", "5/10", "6/10", "7/10", "8/10", "9/10", "10/10"]
+        var ratewaifu = ["010", "1/10", "2/10", "3/10", "4/10", "5/10", "6/10", "7/10", "8/10", "9/10", "10/10"]
         var tryrate = Math.floor(Math.random() * ratewaifu.length);
 
         message.channel.send(`:thinking: | **${message.author.username}**, Saya berikan ${tryrate} kepada ${waifu}`)
@@ -411,23 +412,48 @@ client.on('message', async message => {
 
             .addField("GENERAL:", "`randomcolor` `say` `embed` `ping` `tanya/8ball` `randomcolor`")
             .addField("MOODBOOSTER: ", "`cat` `dog` `lewd` `hug` `cry` `meow` `loading` `botspeak [WIP]` `ratewaifu`")
-            .addField("ADMINISTRATOR:", "`mute` `unmute` `purge/prune` `ban` `kick`")
+            .addField("ADMINISTRATOR:", "`mute` `unmute` `purge/prune` `ban` `kick` `warn`")
             .addField("INFORMATION:", "`serverinfo` `userinfo` `avatar` `uptime` `update` `invite` `info`")
 
             message.author.send({embed})
         } catch (error) {
-            message.reply("Aku tidak bisa kirim pesan ini ke Direct Messages kamu. \nMohon akitfkan **allow direct messages** kamu.")
-            return;
+            return message.reply("Aku tidak bisa kirim pesan ini ke Direct Messages kamu. \nMohon akitfkan **allow direct messages** kamu.")
         }
     }
-                 
-    // ------------------------- //
-    // KATA KATA KOTOR (BANNED) //
+
+    // WARN
+    if (msg.startsWith(prefix + 'WARN')) {
+        if (!message.member.hasPermission("ADMINISTRATOR")) {
+            return message.reply("No **Administrator** permissions. We can't do that.")
+        }
+
+        let reason = args.slice(1).join(' ');
+        let warned = message.mentions.users.first();
+
+        if (!warned) {
+            return message.reply("Mohon mention member yang ingin anda peringati/warn!")
+        }
+
+        if (!reason) {
+            return message.reply("Mohon berikan alasan mengapa anda memberi peringatan/warning pada member ini!")
+        }
+
+        const embed = new Discord.MessageEmbed()
+
+        .setFooter("© Indonesia | BETA v2.19 | discord.js")
+        .setTimestamp()
+        .setColor(0xff2f2f)
+        
+        .setDescription(`Warned on server: **${message.guild.name}** \n\n**Action:** Warning. \n**Target User:** ${warned} \n**Warned By:** ${message.author.tag} \n**Reason:** ${reason}`)
+
+        warned.send({embed})
+        return message.channel.send(`${warned} have been warned!`)
+    }
 
     // MUTE
     if (msg.startsWith(prefix + 'MUTE')) {
-        if (!message.member.hasPermission("MUTE_MEMBERS")) {
-            return message.reply("No **Mute Members** permissions. We can't do that.")
+        if (!message.member.hasPermission("ADMINISTRATOR")) {
+            return message.reply("No **Administrator** permissions. We can't do that.")
         }
         
         let member = message.mentions.members.first();
@@ -490,14 +516,13 @@ client.on('message', async message => {
             return message.reply("Maaf. Kami tidak bisa. Karena member ini lebih tinggi perannya dari bot ini.")
         }
 
-        if (!reason)
+        if (!reason) {
             return message.reply("Masukkan alasan mengapa anda ingin kick member ini!")
-        
-        await member.user.send(`Kick: ${reason}`)
+        }
         
         await member.kick(reason)
             .catch(error => message.reply(`Maaf ${message.author} Saya tidak bisa kick member ini: ${error}`));
-            return message.channel.send(`${member.user.tag} telah dikick!`)
+            return message.channel.send(`${member.user.tag} telah dikick! ${reason}`)
     }
 
 
@@ -518,13 +543,13 @@ client.on('message', async message => {
             return message.reply("Maaf. Kami tidak bisa. Karena member ini lebih tinggi perannya dari bot ini.")
         }
 
-        if (!reason)
+        if (!reason) {
             return message.reply("Masukkan alasan mengapa anda ingin ban member ini!")
+        }
         
-        await member.user.send(`Banned: ${reason}`)
         await member.ban(reason)
             .catch(error => message.reply(`Maaf ${message.author} Saya tidak bisa Ban member ini: ${error}`));
-            return message.channel.send(`${member.user.tag} telah dibanned!`)
+            return message.channel.send(`${member.user.tag} telah dibanned! ${reason}`)
     }
 
 });
@@ -532,11 +557,11 @@ client.on('message', async message => {
 client.on("ready", () => {
     console.log('Bot dinyalakan oleh Ray#2221');
     function randomStatus() {
-        let status = ["AYP", "80! SERVERS ON 4 DAYS!", "4Brother", "XQII", "Gembel Squad", "Discord", "24/7", "Security Management", "Moodbooster System.", "High-quality Maintenance", "DO YOU KNOW DA WEY?", "SOMEBODY TOUCHA MY SPAGHETT?!", "I'M SO FABULOUS", "Spoonfeed", "Indo Army", "Extronus", "HaveFun Squad", "Plexi Development", "Qorygore", "The Dream Craft", "Erpan1140", "Zenmatho", "BeaconCream", "Ewing HD", "Ray#2221", "Spotify", "Partner"];
+        let status = ["4Brother", "XQII", "Gembel Squad", "Discord", "24/7", "Security Management", "Moodbooster System.", "High-quality Maintenance", "DO YOU KNOW DA WEY?", "SOMEBODY TOUCHA MY SPAGHETT?!", "I'M SO FABULOUS", "Spoonfeed", "Indo Army", "Extronus", "HaveFun Squad", "Plexi Development", "Qorygore", "The Dream Craft", "Erpan1140", "Zenmatho", "BeaconCream", "Ewing HD", "Ray#2221", "I want a Discord Nitro", "Partner"];
         let rstatus = Math.floor(Math.random() * status.length);
         client.user.setActivity(status[rstatus], {type: 'STREAMING' , url: 'https://www.twitch.tv/raygd'});
 
-    }; setInterval(randomStatus, 40000)
+    }; setInterval(randomStatus, 35000)
 })
 
 client.login(process.env.BOT_TOKEN);
