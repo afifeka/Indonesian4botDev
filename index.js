@@ -38,7 +38,7 @@ client.on('message', async message => {
        talkedRecently.add(message.author.id);
         setTimeout(() => {
             talkedRecently.delete(message.author.id);
-        }, 5000);
+        }, 2500);
     
 
     const ClientMention = new RegExp(`^<@!?${client.user.id}>`);
@@ -532,11 +532,11 @@ client.on('message', async message => {
 client.on("ready", () => {
     console.log('Bot dinyalakan oleh Ray#2221');
     function randomStatus() {
-        let status = ["AYP", "FAL#4534", "4Brother", "XQII", "Gembel Squad", "Discord", "24/7", "Security Management", "Moodbooster System.", "High-quality Maintenance", "DO YOU KNOW DA WEY?", "SOMEBODY TOUCHA MY SPAGHETT?!", "I'M SO FABULOUS", "Spoonfeed", "Indo Army", "Extronus", "HaveFun Squad", "Plexi Development", "Qorygore", "The Dream Craft", "Erpan1140", "Zenmatho", "BeaconCream", "Ewing HD", "Ray#2221", "I want a Discord Nitro", "Partner"];
+        let status = ["AYP", "80! SERVERS ON 4 DAYS!", "4Brother", "XQII", "Gembel Squad", "Discord", "24/7", "Security Management", "Moodbooster System.", "High-quality Maintenance", "DO YOU KNOW DA WEY?", "SOMEBODY TOUCHA MY SPAGHETT?!", "I'M SO FABULOUS", "Spoonfeed", "Indo Army", "Extronus", "HaveFun Squad", "Plexi Development", "Qorygore", "The Dream Craft", "Erpan1140", "Zenmatho", "BeaconCream", "Ewing HD", "Ray#2221", "Spotify", "Partner"];
         let rstatus = Math.floor(Math.random() * status.length);
         client.user.setActivity(status[rstatus], {type: 'STREAMING' , url: 'https://www.twitch.tv/raygd'});
 
-    }; setInterval(randomStatus, 30000)
+    }; setInterval(randomStatus, 40000)
 })
 
 client.login(process.env.BOT_TOKEN);
