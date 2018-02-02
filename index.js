@@ -22,7 +22,7 @@ const dbl = require("dblposter");
 const dblPoster = new dbl(`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4MzE4Mzg2NjkyNTY3ODYwNCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTE3MDYwNjgxfQ.3btGrLTuqkpY-8WJpTDBPf96dXs1-nhgVj32ZdNNYhQ`);
 dblPoster.bind(client);
 
-const prefix = "]";
+const prefix = "+";
 
 client.on('message', async message => {
 
@@ -316,7 +316,7 @@ client.on('message', async message => {
         .addField("👤 Users:", `**${client.users.size}** users total.`, true)
         .addField("🕘 Uptime:", duration, true)
         .addField("💾 Memory Usage:", `${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB.`, true)
-        .addField("💻 OS:", "Windows 7 / 64-bit", true)
+        .addField("💻 OS:", "Windows 7 / 64 bit", true)
         .addField("© Owner:", "Ray#2221", true)
 
         message.channel.send({embed});
@@ -555,9 +555,9 @@ client.on('message', async message => {
 });
 
 client.on("ready", () => {
-    console.log('Bot dinyalakan oleh Ray#2221');
+    console.log('Bot dinyalakan oleh ItzMeDwii#9748');
     function randomStatus() {
-        let status = ["4Brother", "XQII", "Gembel Squad", "Discord", "24/7", "Security Management", "Moodbooster System.", "High-quality Maintenance", "DO YOU KNOW DA WEY?", "SOMEBODY TOUCHA MY SPAGHETT?!", "I'M SO FABULOUS", "Spoonfeed", "Indo Army", "Extronus", "HaveFun Squad", "Plexi Development", "Qorygore", "The Dream Craft", "Erpan1140", "Zenmatho", "BeaconCream", "Ewing HD", "Ray#2221", "I want a Discord Nitro", "Partner"];
+        let status = ["4Brother", "XQII", "Gembel Squad", "Discord", "24/7", "Security Management", "Moodbooster System.", "High-quality Maintenance", "DO YOU KNOW DA WEY?", "SOMEBODY TOUCHA MY SPAGHETT?!", "I'M SO FABULOUS", "Spoonfeed", "Indo Army", "Extronus", "HaveFun Squad", "Plexi Development", "Qorygore", "The Dream Craft", "Erpan1140", "Zenmatho", "BeaconCream", "Ewing HD", "Ray#2221", "I want a Discord Nitro", "Partner", "ItzMeDwii#9748"];
         let rstatus = Math.floor(Math.random() * status.length);
         client.user.setActivity(status[rstatus], {type: 'STREAMING' , url: 'https://www.twitch.tv/raygd'});
 
