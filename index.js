@@ -64,7 +64,7 @@ client.on('message', async message => {
             if (!message.member.hasPermission("MANAGE_MESSAGES")) {
                 const embed = new Discord.MessageEmbed()
 
-                .setDescription("No **Manage Messages** permissions. Sorry, we can't do that.")
+                .setDescription("No **Manage Messages** permissions. Sorry, we can't do that :).")
                 .setColor(0xd82525)
 
                 return message.channel.send({embed})
